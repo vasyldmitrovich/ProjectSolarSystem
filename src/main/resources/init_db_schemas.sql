@@ -12,6 +12,7 @@ create table planets
     info           varchar(65000) null
 );
 
+-- create if does not exist table
 create table satellite
 (
     id             int auto_increment

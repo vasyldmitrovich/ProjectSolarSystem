@@ -1,4 +1,4 @@
-package com.projectsolarsysystem.model;
+package org.solarsystem.entity;
 
 public class Satellite {
     /*Describe satellite*/
