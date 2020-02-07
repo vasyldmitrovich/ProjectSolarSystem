@@ -1,4 +1,4 @@
-package org.solarsystem.controller;
+package org.solarsystem.web.controller;
 
 public class PlanetController {
     /*Controller for planet*/

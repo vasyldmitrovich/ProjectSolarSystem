@@ -1,4 +1,4 @@
-package org.solarsystem.entity;
+package org.solarsystem.web.entity;
 
 public class Planet {
     /*Describe planets */

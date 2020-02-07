@@ -1,4 +1,4 @@
-package org.solarsystem.dao;
+package org.solarsystem.web.dao;
 
 public class SatelliteDaoImp {
     /*In this class will be get and set data from DB*/

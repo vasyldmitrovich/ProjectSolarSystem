@@ -1,4 +1,4 @@
-package org.solarsystem.service;
+package org.solarsystem.web.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
