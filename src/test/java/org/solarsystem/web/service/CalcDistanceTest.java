@@ -9,6 +9,7 @@ class CalcDistanceTest {
 
     @Test
     void getDistance() {
+        // check with https://keisan.casio.com/exec/system/1224748262
         double distance = CalcDistance.getDistance("Mars", "Earth", "2020-09-05");
         double accuracy = 100 * Math.abs(distance - 0.4803) / 0.4803;
         Assertions.assertTrue(accuracy <= 0.75);
