@@ -8,6 +8,7 @@ public class CalcDistance {
      * Time format is "yyyy-MM-dd"  , for example 2034-03-07
      * Valid for time interval 1800 AD - 2050 AD
      * calculations are taken : https://aa.quae.nl/en/reken/hemelpositie.html#1_3
+     * https://www.aa.quae.nl/en/reken/zonpositie.html
      * return value is (AU) distance https://en.wikipedia.org/wiki/Astronomical_unit
      * */
     public static double getDistance(String planetStart, String planetFinish, String time){

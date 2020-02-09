@@ -81,7 +81,7 @@ public class PlanetPosition {
         this.numberOfPlanet = numberOfPlanet(planetName);
     }
 
-    private int numberOfPlanet(String namePlanet) {
+    public int numberOfPlanet(String namePlanet) {
         int i;
         switch (namePlanet) {
             case "Mercury":
@@ -118,13 +118,13 @@ public class PlanetPosition {
     }
 
 
-    private double getJulianDateNumber(String time) {
+    public double getJulianDateNumber(String time) {
 
         return JDday.getTime(time);
     }
 
 
-    private double getMeanAnomaly() {
+    public double getMeanAnomaly() {
         double M_0 = TABLE_M_M0[numberOfPlanet][0];
 
         double M_1 = TABLE_M_M0[numberOfPlanet][1];
@@ -134,7 +134,7 @@ public class PlanetPosition {
         return (M_0 + M_1 * (deltaTime)) % 360;
     }
 
-    private double getEquationOfCenter() {
+    public double getEquationOfCenter() {
 
         double C = TABLE_Ec[numberOfPlanet][0] * Math.sin(getMeanAnomaly() * Math.PI / 180) +
                 TABLE_Ec[numberOfPlanet][1] * Math.sin(2 * getMeanAnomaly() * Math.PI / 180)
@@ -145,19 +145,19 @@ public class PlanetPosition {
         return C;
     }
 
-    private double getTrueAnomaly() {
+    public double getTrueAnomaly() {
         return getMeanAnomaly() + getEquationOfCenter();
 
 
     }
 
-    private double getEclipticalCoordinates() {
+    public double getEclipticalCoordinates() {
 
         double meanLongitude = getMeanAnomaly() + TABLE_P_e[numberOfPlanet][0];
         return (meanLongitude + getEquationOfCenter() + 180) % 360;
     }
 
-    private double getRightAscension() {
+    public double getRightAscension() {
 
         double longitude = getEclipticalCoordinates();
         return longitude + TABLE_Ea_Ed[numberOfPlanet][0] * Math.sin(2 * longitude * Math.PI / 180)
@@ -165,7 +165,7 @@ public class PlanetPosition {
                 + TABLE_Ea_Ed[numberOfPlanet][2] * Math.sin(6 * longitude * Math.PI / 180);
     }
 
-    private double getDeclination() {
+    public double getDeclination() {
 
         double longitude = getEclipticalCoordinates();
         return TABLE_Ea_Ed[numberOfPlanet][4] * Math.sin(longitude * Math.PI / 180)
@@ -175,7 +175,7 @@ public class PlanetPosition {
 //_________________________________________________________________________
 
 
-    private double getDistanceFromSun() {
+    public double getDistanceFromSun() {
 
         return TABLE_n_P[numberOfPlanet][1] / (1 + TABLE_REL_EARTH[numberOfPlanet][1] * Math.cos(getTrueAnomaly() * Math.PI / 180));
     }

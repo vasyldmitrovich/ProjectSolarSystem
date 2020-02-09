@@ -33,7 +33,12 @@
             <artifactId>telegrambots</artifactId>
             <version>4.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M4</version>
+            <type>maven-plugin</type>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -65,6 +70,7 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.2</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
     </build>
