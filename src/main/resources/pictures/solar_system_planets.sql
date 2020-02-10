@@ -1,0 +1,1 @@
+INSERT INTO solar_system.planets (id, name, start_date, orbital_period, diameter, gravity, is_satellites, short_description, full_description, language_id) VALUES (1, 'mercury', '2020-02-27', 88, 4879, 3.7, 0, 'This short desc', 'This is full description mercury', 'en');
