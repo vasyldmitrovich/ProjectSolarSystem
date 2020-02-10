@@ -1,6 +1,6 @@
 create schema if not exists solar_system;
 
-create table if not exists solar_system_temp.planets
+create table if not exists solar_system.planets
 (
     id                int auto_increment
         primary key,
@@ -16,7 +16,7 @@ create table if not exists solar_system_temp.planets
 );
 
 
-create table if not exists solar_system_temp.satellite
+create table if not exists solar_system.satellite
 (
     id                int auto_increment
         primary key,
@@ -34,7 +34,7 @@ create table if not exists solar_system_temp.satellite
             on delete cascade
 );
 
-create table if not exists solar_system_temp.images
+create table if not exists solar_system.images
 (
     id               int auto_increment
         primary key,
@@ -45,12 +45,10 @@ create table if not exists solar_system_temp.images
             on delete cascade
 );
 
-INSERT INTO solar_system_temp.images
-    (path_to_the_file, id_planet)
-    VALUES ('/resources/pictures/first_image_mercury.jpg', 1);
+INSERT INTO solar_system.images (id, path_to_the_file, id_planet) VALUES (1, '/resources/pictures/first_image_mercury.jpg', 1);
+INSERT INTO solar_system.images (id, path_to_the_file, id_planet) VALUES (2, '/resources/pictures/second_image_mercury.jpg', 1);
+INSERT INTO solar_system.images (id, path_to_the_file, id_planet) VALUES (3, '/resources/pictures/third_image_mercury.jpg', 1);
+INSERT INTO solar_system.images (id, path_to_the_file, id_planet) VALUES (4, '/resources/pictures/fourth_image__not__mercury.jpg', 2);
 
-INSERT INTO solar_system_temp.planets
-    (name, start_date, orbital_period, diameter, gravity,
-     is_satellites, short_description, full_description, language_id)
-     VALUES ('mercury', '2020-02-27', 88, 4879, 3.7, 0, 'This short desc',
-             'This is full description mercury', 'en');
+INSERT INTO solar_system.planets (id, name, start_date, orbital_period, diameter, gravity, is_satellites, short_description, full_description, language_id) VALUES (1, 'mercury', '2020-02-27', 88, 4879, 3.7, 0, 'This short desc mercuty', 'This is full description mercury', 'en');
+INSERT INTO solar_system.planets (id, name, start_date, orbital_period, diameter, gravity, is_satellites, short_description, full_description, language_id) VALUES (2, 'venus', '2020-02-27', 224.7, 12.104, 8.9, 0, 'This short desc venus', 'This is full description venus', 'en');
