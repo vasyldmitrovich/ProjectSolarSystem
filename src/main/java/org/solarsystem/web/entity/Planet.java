@@ -1,12 +1,12 @@
 package org.solarsystem.web.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 public class Planet {
     /*Describe planets */
-    private int id;
+    private long id;
     private String name;
     private Date startDate;
     private double orbitalPeriod;
@@ -16,13 +16,13 @@ public class Planet {
     private String shortDescription;
     private String fullDescription;
     private String languageId;
-    private List<String> image;
+    private ArrayList<String> image;
 
     public Planet(){}
 
-    public Planet(int id, String name, Date startDate, double orbitalPeriod, double diameter,
+    public Planet(long id, String name, Date startDate, double orbitalPeriod, double diameter,
                   double gravity, boolean isSatellites, String shortDescription,
-                  String fullDescription, String languageId, List<String> image) {
+                  String fullDescription, String languageId, ArrayList<String> image) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -36,11 +36,11 @@ public class Planet {
         this.image = image;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -116,11 +116,11 @@ public class Planet {
         this.languageId = languageId;
     }
 
-    public List<String> getImage() {
+    public ArrayList<String> getImage() {
         return image;
     }
 
-    public void setImage(List<String> image) {
+    public void setImage(ArrayList<String> image) {
         this.image = image;
     }
 
