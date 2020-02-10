@@ -2,10 +2,7 @@ package org.solarsystem.web.dao;
 
 import org.solarsystem.web.entity.Planet;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class PlanetDaoImp implements PlanetDao {
@@ -23,6 +20,17 @@ public class PlanetDaoImp implements PlanetDao {
 
     @Override
     public void removePlanet(int id) {
+        DBConnection dbConnection = new DBConnection();
+        String sql = "DELETE FROM solar_system.planets where id="+id;
+
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ){
+            statement.executeUpdate(sql);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -72,7 +80,6 @@ public class PlanetDaoImp implements PlanetDao {
                 while (resultSet.next()){
                     list.add(resultSet.getString("path_to_the_file"));
                 }
-
                 return list;
             }
         } catch (SQLException e){
