@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlanetDaoImp implements PlanetDao {
     /*In this class will be get and set data from DB*/
@@ -50,13 +49,11 @@ public class PlanetDaoImp implements PlanetDao {
                     resultSet.getString("language_id"),
                     getPlanetImages(0)
                 );
-                System.out.println(planet);
                 return planet;
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
-
         return null;
     }
 

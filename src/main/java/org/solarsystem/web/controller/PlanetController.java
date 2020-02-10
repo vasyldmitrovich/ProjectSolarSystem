@@ -2,6 +2,7 @@ package org.solarsystem.web.controller;
 
 import org.solarsystem.web.dao.PlanetDao;
 import org.solarsystem.web.dao.PlanetDaoImp;
+import org.solarsystem.web.entity.Planet;
 
 public class PlanetController {
     /*Controller for planet*/
@@ -9,8 +10,8 @@ public class PlanetController {
         /*Temp main method, only testing DB*/
         PlanetDao planetDao = new PlanetDaoImp();
         planetDao.getPlanetById(1);
-
-        System.out.println(planetDao.toString());
+        Planet planet = planetDao.getPlanetById(1);
+        System.out.println(planet.toString());
 
 
     }
