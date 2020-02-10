@@ -8,7 +8,6 @@ public class Planet {
     /*Describe planets */
     private long id;
     private String name;
-    private Date startDate;
     private double orbitalPeriod;
     private double diameter;
     private double gravity;
@@ -20,12 +19,25 @@ public class Planet {
 
     public Planet(){}
 
-    public Planet(long id, String name, Date startDate, double orbitalPeriod, double diameter,
+    public Planet(long id, String name, double orbitalPeriod, double diameter,
+                  double gravity, boolean isSatellites, String shortDescription,
+                  String fullDescription, String languageId) {
+        this.id = id;
+        this.name = name;
+        this.orbitalPeriod = orbitalPeriod;
+        this.diameter = diameter;
+        this.gravity = gravity;
+        this.isSatellites = isSatellites;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
+        this.languageId = languageId;
+    }
+
+    public Planet(long id, String name, double orbitalPeriod, double diameter,
                   double gravity, boolean isSatellites, String shortDescription,
                   String fullDescription, String languageId, ArrayList<String> image) {
         this.id = id;
         this.name = name;
-        this.startDate = startDate;
         this.orbitalPeriod = orbitalPeriod;
         this.diameter = diameter;
         this.gravity = gravity;
@@ -50,14 +62,6 @@ public class Planet {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
     }
 
     public double getOrbitalPeriod() {
@@ -135,7 +139,6 @@ public class Planet {
                 Double.compare(planet.gravity, gravity) == 0 &&
                 isSatellites == planet.isSatellites &&
                 Objects.equals(name, planet.name) &&
-                Objects.equals(startDate, planet.startDate) &&
                 Objects.equals(shortDescription, planet.shortDescription) &&
                 Objects.equals(fullDescription, planet.fullDescription) &&
                 Objects.equals(languageId, planet.languageId) &&
@@ -144,7 +147,7 @@ public class Planet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, startDate, orbitalPeriod, diameter, gravity, isSatellites, shortDescription, fullDescription, languageId, image);
+        return Objects.hash(id, name, orbitalPeriod, diameter, gravity, isSatellites, shortDescription, fullDescription, languageId, image);
     }
 
     @Override
@@ -152,7 +155,6 @@ public class Planet {
         return "Planet{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", startDate=" + startDate +
                 ", orbitalPeriod=" + orbitalPeriod +
                 ", diameter=" + diameter +
                 ", gravity=" + gravity +

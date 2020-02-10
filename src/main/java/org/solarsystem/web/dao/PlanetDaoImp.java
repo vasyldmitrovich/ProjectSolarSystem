@@ -6,16 +6,32 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class PlanetDaoImp implements PlanetDao {
-    /*In this class will be get and set data from DB*/
+    /*In this class we will be get and set data from DB*/
 
     @Override
     public void addPlanet(Planet planet) {
-
+    //TODO method add planet to DB
     }
 
     @Override
     public void updatePlanet(Planet planet) {
+        int isSatellites = planet.isSatellites() ? 1:0;
+        DBConnection dbConnection = new DBConnection();
+        String sql = "UPDATE solar_system.planets SET name='"
+                +planet.getName()+"', orbital_period='"+planet.getOrbitalPeriod()
+                +"', diameter='"+planet.getDiameter()
+                +"', gravity='"+planet.getGravity()
+                +"', is_satellites='"+isSatellites
+                +"', short_description='"+planet.getShortDescription()
+                +"', full_description='"+planet.getFullDescription()
+                +"', language_id='"+planet.getLanguageId()+"' where id='"+planet.getId()+"';";
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement()){
+            statement.executeUpdate(sql);
 
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -30,8 +46,6 @@ public class PlanetDaoImp implements PlanetDao {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -47,7 +61,6 @@ public class PlanetDaoImp implements PlanetDao {
                 Planet planet = new Planet(
                     resultSet.getLong("id"),
                     resultSet.getString("name"),
-                    resultSet.getDate("start_date"),
                     resultSet.getDouble("orbital_period"),
                     resultSet.getDouble("diameter"),
                     resultSet.getDouble("gravity"),
