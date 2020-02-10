@@ -33,7 +33,7 @@ public class PlanetDaoImp implements PlanetDao {
 
         try (Connection connection = dbConnection.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql);
+             ResultSet resultSet = statement.executeQuery(sql)
              ){
             if (resultSet.next()){
                 Planet planet = new Planet(
@@ -47,7 +47,7 @@ public class PlanetDaoImp implements PlanetDao {
                     resultSet.getString("short_description"),
                     resultSet.getString("full_description"),
                     resultSet.getString("language_id"),
-                    getPlanetImages(0)
+                    getPlanetImages(id)
                 );
                 return planet;
             }
@@ -60,10 +60,25 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public ArrayList<String> getPlanetImages(int id) {
         ArrayList<String> list = new ArrayList<>();
-        list.add("For now, that is temp arrayList");
-        list.add("I will finish that method in the near future");
+        DBConnection dbConnection = new DBConnection();
+        String sql = "SELECT * FROM solar_system.images where id_planet="+id;
 
-        return list;
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)
+        ){
+            if (resultSet.next()){
+                list.add(resultSet.getString("path_to_the_file"));
+                while (resultSet.next()){
+                    list.add(resultSet.getString("path_to_the_file"));
+                }
+
+                return list;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
