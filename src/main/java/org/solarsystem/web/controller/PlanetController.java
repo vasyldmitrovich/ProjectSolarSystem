@@ -14,7 +14,7 @@ public class PlanetController {
         //Add planet to DB
         Planet planetTemp = new Planet(5,"TempPlanet",33.8,10000.1,777.3,true,"Work work )))","Full work description","ua");
         planetDao.addPlanet(planetTemp);
-
+        planetDao.addImageByIdPlanet("/bla/bla/bla.jpg",2);
 
     }
 }

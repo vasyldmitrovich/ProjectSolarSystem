@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class PlanetDaoImp implements PlanetDao {
-    /*In this class we will be get and set data from DB*/
+    /*This class implement interface. Get and set data from DB*/
 
     @Override
     public void addPlanet(Planet planet) {
@@ -113,6 +113,20 @@ public class PlanetDaoImp implements PlanetDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void addImageByIdPlanet(String pathToTheFile, int idPlanet) {
+        DBConnection dbConnection = new DBConnection();
+        String sql = "INSERT INTO solar_system.images (path_to_the_file, id_planet)" +
+                "VALUES ('"+pathToTheFile+"',"+idPlanet+");";
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement()){
+            statement.executeUpdate(sql);
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 
