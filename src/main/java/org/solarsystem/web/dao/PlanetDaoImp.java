@@ -10,7 +10,21 @@ public class PlanetDaoImp implements PlanetDao {
 
     @Override
     public void addPlanet(Planet planet) {
-    //TODO method add planet to DB
+        int isSatellites = planet.isSatellites() ? 1:0;
+        DBConnection dbConnection = new DBConnection();
+        String sql = "INSERT INTO solar_system.planets (name, orbital_period, diameter, " +
+                "gravity, is_satellites, short_description, full_description, language_id)" +
+                "VALUES ('"+planet.getName()+"',"+planet.getOrbitalPeriod()+","+
+                planet.getDiameter()+","+planet.getGravity()+","+isSatellites+",'"+
+                planet.getShortDescription()+"','"+planet.getFullDescription()+"','"+planet.getLanguageId()+"');";
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement()){
+            statement.executeUpdate(sql);
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
