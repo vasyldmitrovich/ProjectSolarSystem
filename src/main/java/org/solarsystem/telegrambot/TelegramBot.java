@@ -8,6 +8,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
+
 public class TelegramBot extends TelegramLongPollingBot {
 
     public static void main(String args[]) {
@@ -31,17 +33,24 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             switch (botsService.getCommand()) {
                 case "help":
-                case "/help":
-                case "?":
-                case "/?":
                     sendMsg(update.getMessage().getChatId().toString(), availableCommands);
                     break;
                 case "distance":
-                    double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
-                    sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
+                    if (botsService.getPlanetFirst() != null && botsService.isPlanet(botsService.getPlanetFirst()) && botsService.isPlanet(botsService.getPlanetSecond())) {
+                        double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
+
+                        sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
+                        break;
+                    } else {
+
+                        sendMsg(update.getMessage().getChatId().toString(), "incorrect planet, check planet name\n" +
+                                "available planet are: \"Mercury\",\"Venus\",\"Earth\"\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\",\"Pluto\":");
+                    }
+
                     break;
+
                 default:
-                    sendMsg(update.getMessage().getChatId().toString(), availableCommands);
+                    sendMsg(update.getMessage().getChatId().toString(), "incorrect command\n"+availableCommands);
             }
 
 

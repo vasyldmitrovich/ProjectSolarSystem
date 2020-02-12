@@ -14,6 +14,7 @@ public class BotsService {
     private String planetSecond;
     private String date;
 
+
     public String getCommand() {
         return command;
     }
@@ -46,6 +47,7 @@ public class BotsService {
         this.date = date;
     }
 
+
     public BotsService(String str) {
         Deque<String> list = new LinkedList<>();
         list = parseCommands(str);
@@ -54,6 +56,7 @@ public class BotsService {
             planetFirst = list.pollFirst();
             planetSecond = list.pollFirst();
             date = list.pollFirst();
+
             return;
         }
     }
@@ -62,7 +65,7 @@ public class BotsService {
     public static String getAvailableCommands() {
         // TODO get available commands
         List<String> commands = new ArrayList<>();
-        commands.add("\"/distance\" will calculate distance between planets");
+        commands.add("\"/distance\" \"planetName\" \"planetName\" \"yyyy-MM-dd\" will calculate distance between planets");
         commands.add("\"/time\" will calculate estimate the travel time for a journey ");
         commands.add("\"/info\" get info about planet");
         commands.add("\"/image\" get planet image");
@@ -71,7 +74,7 @@ public class BotsService {
 
     public Deque<String> parseCommands(String commands) {
         Deque<String> list = new LinkedList<>();
-        String[] s = commands.trim().toLowerCase().split("[ ./,_]");
+        String[] s = commands.trim().toLowerCase().split("[ ./,_?!;:]");
         for (String str : s) {
             if (!str.isEmpty()) {
                 list.add(str);
@@ -79,6 +82,42 @@ public class BotsService {
         }
 
         return list;
+    }
+
+    public boolean isPlanet(String str) {
+        switch (str) {
+            case "mercury":
+                return true;
+
+            case "venus":
+                return true;
+
+            case "earth":
+                return true;
+
+            case "mars":
+                return true;
+
+            case "jupiter":
+                return true;
+
+            case "saturn":
+                return true;
+
+            case "uranus":
+                return true;
+
+            case "neptune":
+                return true;
+
+            case "pluto":
+                return true;
+
+            default:
+                return false;
+        }
+
+
     }
 
     @Override
@@ -89,5 +128,7 @@ public class BotsService {
                 ", planetSecond='" + planetSecond + '\'' +
                 ", date='" + date + '\'' +
                 '}';
+
     }
+
 }
