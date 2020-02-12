@@ -1,5 +1,6 @@
 package org.solarsystem.telegrambot;
 
+import org.solarsystem.web.service.CalcDistance;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -7,9 +8,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public class TelegramBot extends TelegramLongPollingBot{
+public class TelegramBot extends TelegramLongPollingBot {
 
-    public static void main (String args[]) {
+    public static void main(String args[]) {
         ApiContextInitializer.init();
 
         TelegramBotsApi botsApi = new TelegramBotsApi();
@@ -22,21 +23,46 @@ public class TelegramBot extends TelegramLongPollingBot{
     }
 
     public void onUpdateReceived(Update update) {
+        String availableCommands = BotsService.getAvailableCommands();
         if (update.hasMessage() && update.getMessage().hasText()) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(update.getMessage().getText());
 
-            SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
-                    .setChatId(update.getMessage().getChatId())
-                    .setText(stringBuilder.reverse().toString());
-            try {
+            String message = update.getMessage().getText();
+            BotsService botsService = new BotsService(message);
 
-                execute(message); // Call method to send the message
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+            switch (botsService.getCommand()) {
+                case "help":
+                case "/help":
+                case "?":
+                case "/?":
+                    sendMsg(update.getMessage().getChatId().toString(), availableCommands);
+                    break;
+                case "distance":
+                    double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
+                    sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
+                    break;
+                default:
+                    sendMsg(update.getMessage().getChatId().toString(), availableCommands);
             }
+
+
         }
     }
+
+    public synchronized void sendMsg(String chatId, String message) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(message);
+
+
+        try {
+
+            execute(sendMessage); // Call method to send the message
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public String getBotUsername() {
 
