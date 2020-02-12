@@ -83,32 +83,33 @@ public class PlanetPosition {
 
     public int numberOfPlanet(String namePlanet) {
         int i;
-        switch (namePlanet) {
-            case "Mercury":
+        String planet = namePlanet.toLowerCase();
+        switch (planet) {
+            case "mercury":
                 i = 0;
                 break;
-            case "Venus":
+            case "venus":
                 i = 1;
                 break;
-            case "Earth":
+            case "earth":
                 i = 2;
                 break;
-            case "Mars":
+            case "mars":
                 i = 3;
                 break;
-            case "Jupiter":
+            case "jupiter":
                 i = 4;
                 break;
-            case "Saturn":
+            case "saturn":
                 i = 5;
                 break;
-            case "Uranus":
+            case "uranus":
                 i = 6;
                 break;
-            case "Neptune":
+            case "neptune":
                 i = 7;
                 break;
-            case "Pluto":
+            case "pluto":
                 i = 8;
                 break;
             default:
