@@ -1,7 +1,7 @@
-package org.solarsystem.web.entity;
+package org.solarsystem.web.dao.entity;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Planet {
@@ -15,7 +15,7 @@ public class Planet {
     private String shortDescription;
     private String fullDescription;
     private String languageId;
-    private ArrayList<String> image;
+    private List<String> image;
 
     public Planet(){}
 
@@ -120,11 +120,11 @@ public class Planet {
         this.languageId = languageId;
     }
 
-    public ArrayList<String> getImage() {
+    public List<String> getImage() {
         return image;
     }
 
-    public void setImage(ArrayList<String> image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 

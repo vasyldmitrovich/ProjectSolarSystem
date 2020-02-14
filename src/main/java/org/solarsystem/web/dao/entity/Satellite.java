@@ -1,4 +1,4 @@
-package org.solarsystem.web.entity;
+package org.solarsystem.web.dao.entity;
 
 public class Satellite {
     /*Describe satellite*/

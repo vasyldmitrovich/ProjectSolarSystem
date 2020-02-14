@@ -1,9 +1,12 @@
-package org.solarsystem.web.dao;
+package org.solarsystem.web.dao.repository;
 
-import org.solarsystem.web.entity.Planet;
+import org.solarsystem.web.dao.DBConnection;
+import org.solarsystem.web.dao.PlanetDao;
+import org.solarsystem.web.dao.entity.Planet;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlanetDaoImp implements PlanetDao {
     /*This class implement interface. Get and set data from DB*/
@@ -129,5 +132,50 @@ public class PlanetDaoImp implements PlanetDao {
         }
     }
 
+    @Override
+    public List<Planet> getAllPlanets() {
+        List<Planet> planets = new ArrayList<>();
+        DBConnection dbConnection = new DBConnection();
+        String sql = "SELECT * FROM solar_system.planets";
+
+        try (Connection connection = dbConnection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql)
+        ){
+             while (resultSet.next()){
+                planets.add(new Planet(resultSet.getLong("id"),resultSet.getString("name"),
+                        resultSet.getDouble("orbital_period"),resultSet.getDouble("diameter"),
+                        resultSet.getDouble("gravity"),resultSet.getBoolean("is_satellites"),
+                        resultSet.getString("short_description"),resultSet.getString("full_description"),
+                        resultSet.getString("language_id"),
+                        getAllPlanetImages()));
+            }
+            return planets;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public ArrayList<String> getAllPlanetImages() {
+        ArrayList<String> list = new ArrayList<>();
+        DBConnection dbConnection = new DBConnection();
+        String sql = "SELECT * FROM solar_system.images;";
+
+        try (Connection connection = dbConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)
+        ){
+                while (resultSet.next()){
+                    list.add(resultSet.getString("path_to_the_file"));
+
+                return list;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

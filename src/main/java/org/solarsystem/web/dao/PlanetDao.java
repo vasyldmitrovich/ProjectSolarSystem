@@ -1,8 +1,9 @@
 package org.solarsystem.web.dao;
 
-import org.solarsystem.web.entity.Planet;
+import org.solarsystem.web.dao.entity.Planet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface PlanetDao {
     /*Interface describe methods which should be in the class*/
@@ -10,6 +11,8 @@ public interface PlanetDao {
     void updatePlanet(Planet planet);
     void removePlanet(int id);
     Planet getPlanetById(int id);
-    ArrayList<String> getPlanetImages(int id);
+    List<String> getPlanetImages(int id);
     void addImageByIdPlanet(String pathToTheFile, int idPlanet);
+    List<Planet> getAllPlanets();
+    ArrayList<String> getAllPlanetImages();
 }
