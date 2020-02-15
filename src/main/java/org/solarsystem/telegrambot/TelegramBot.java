@@ -10,8 +10,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.List;
-
 public class TelegramBot extends TelegramLongPollingBot {
 
     public static void main(String args[]) {
@@ -27,13 +25,13 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public void onUpdateReceived(Update update) {
-        String availableCommands = BotsService.getAvailableCommands();
+        String availableCommands = BotsServiceImpl.getAvailableCommands();
         if (update.hasMessage()) {
             if (update.getMessage().hasText()) {
                 String message = update.getMessage().getText();
-                BotsService botsService = new BotsService(message);
+                BotsServiceImpl botsServiceImpl = new BotsServiceImpl(message);
 
-                switch (botsService.getCommand()) {
+                switch (botsServiceImpl.getCommand()) {
                     case "help":
                         sendMsg(update.getMessage().getChatId().toString(), availableCommands);
                         break;
@@ -46,8 +44,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                         }
                         break;
                     case "distance":
-                        if (botsService.getPlanetFirst() != null && botsService.isPlanet(botsService.getPlanetFirst()) && botsService.isPlanet(botsService.getPlanetSecond())) {
-                            double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
+                        if (botsServiceImpl.getPlanetFirst() != null && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetFirst()) && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetSecond())) {
+                            double distance = CalcDistance.getDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), botsServiceImpl.getDate());
 
                             sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
                             break;
@@ -124,7 +122,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
         sendMessage.setText(message);
-        BotsService.setButtons(sendMessage);
+        BotsServiceImpl.setButtons(sendMessage);
 
 
         try {

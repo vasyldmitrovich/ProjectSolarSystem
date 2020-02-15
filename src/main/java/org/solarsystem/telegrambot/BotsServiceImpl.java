@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class BotsService {
+public class BotsServiceImpl {
     private String command;
     private String planetFirst;
     private String planetSecond;
@@ -54,7 +54,7 @@ public class BotsService {
     }
 
 
-    public BotsService(String str) {
+    public BotsServiceImpl(String str) {
         Deque<String> list = new LinkedList<>();
         list = parseCommands(str);
         while (!list.isEmpty()) {
@@ -163,7 +163,7 @@ public class BotsService {
 
     @Override
     public String toString() {
-        return "BotsService{" +
+        return "BotsServiceImpl{" +
                 "command='" + command + '\'' +
                 ", planetFirst='" + planetFirst + '\'' +
                 ", planetSecond='" + planetSecond + '\'' +
