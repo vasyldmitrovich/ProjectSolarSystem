@@ -5,7 +5,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
@@ -26,34 +28,94 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(Update update) {
         String availableCommands = BotsService.getAvailableCommands();
-        if (update.hasMessage() && update.getMessage().hasText()) {
+        if (update.hasMessage()) {
+            if (update.getMessage().hasText()) {
+                String message = update.getMessage().getText();
+                BotsService botsService = new BotsService(message);
 
-            String message = update.getMessage().getText();
-            BotsService botsService = new BotsService(message);
-
-            switch (botsService.getCommand()) {
-                case "help":
-                    sendMsg(update.getMessage().getChatId().toString(), availableCommands);
-                    break;
-                case "distance":
-                    if (botsService.getPlanetFirst() != null && botsService.isPlanet(botsService.getPlanetFirst()) && botsService.isPlanet(botsService.getPlanetSecond())) {
-                        double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
-
-                        sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
+                switch (botsService.getCommand()) {
+                    case "help":
+                        sendMsg(update.getMessage().getChatId().toString(), availableCommands);
                         break;
-                    } else {
+                    case "calendar":
+                        try {
 
-                        sendMsg(update.getMessage().getChatId().toString(), "incorrect planet, check planet name\n" +
-                                "available planet are: \"Mercury\",\"Venus\",\"Earth\"\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\",\"Pluto\":");
-                    }
+                            execute(CalendarAddButtons.sendInlineKeyBoardMessage(update.getMessage().getChatId(), CalendarAddButtons.setInlineKeyboad(update.getMessage().getChatId()))); // Call method to send the message
+                        } catch (TelegramApiException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "distance":
+                        if (botsService.getPlanetFirst() != null && botsService.isPlanet(botsService.getPlanetFirst()) && botsService.isPlanet(botsService.getPlanetSecond())) {
+                            double distance = CalcDistance.getDistance(botsService.getPlanetFirst(), botsService.getPlanetSecond(), botsService.getDate());
 
-                    break;
+                            sendMsg(update.getMessage().getChatId().toString(), String.valueOf(distance));
+                            break;
+                        } else {
 
-                default:
-                    sendMsg(update.getMessage().getChatId().toString(), "incorrect command\n"+availableCommands);
+                            sendMsg(update.getMessage().getChatId().toString(), "incorrect planet, check planet name\n" +
+                                    "available planet are: \"Mercury\",\"Venus\",\"Earth\"\"Mars\",\"Jupiter\",\"Saturn\",\"Uranus\",\"Neptune\",\"Pluto\":");
+                        }
+
+                        break;
+
+                    default:
+                        sendMsg(update.getMessage().getChatId().toString(), "<" + message + ">" + " :command not found.\n Input \"/help\" to show available commands.");
+                }
+
+
             }
+        } else if (update.hasCallbackQuery()) {
+
+            String call_data = update.getCallbackQuery().getData();
+
+            long chat_id = update.getCallbackQuery().getMessage().getChatId();
+            int message_id = update.getCallbackQuery().getMessage().getMessageId();
+            String inline_message_id = update.getCallbackQuery().getInlineMessageId();
+            EditMessageReplyMarkup new_message = new EditMessageReplyMarkup()
+                    .setChatId(chat_id).setMessageId(message_id)
+                    .setInlineMessageId(inline_message_id);
+            if (call_data.startsWith("*button_number_calendar*")) {
+                SendMessage message = new SendMessage() // Create a message object object
+                        .setChatId(chat_id)
+                        .setText(call_data.substring("*button_number_calendar*".length()));
+
+                try {
+                    execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                switch (call_data) {
+                    case "*monthreduce*":
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.minusMonths(1);
+                        break;
+                    case "*monthadd*":
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.plusMonths(1);
+                        break;
+                    case "*yearreduce*":
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.minusYears(1);
+                        break;
+                    case "*yearadd*":
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.plusYears(1);
+                        break;
+                    case "*do not answer*":
+                        break;
+                }
+
+                try {
 
 
+                    new_message.setReplyMarkup(CalendarAddButtons.setInlineKeyboad(chat_id));
+                    InlineKeyboardMarkup replyMarkup = new_message.getReplyMarkup();
+
+                    execute(new_message);
+
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 
@@ -62,6 +124,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
         sendMessage.setText(message);
+        BotsService.setButtons(sendMessage);
 
 
         try {

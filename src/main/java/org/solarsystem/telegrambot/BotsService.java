@@ -1,6 +1,12 @@
 package org.solarsystem.telegrambot;
 
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -69,7 +75,7 @@ public class BotsService {
         commands.add("\"/time\" will calculate estimate the travel time for a journey ");
         commands.add("\"/info\" get info about planet");
         commands.add("\"/image\" get planet image");
-        return commands.stream().collect(Collectors.joining("\n"));
+        return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
     }
 
     public Deque<String> parseCommands(String commands) {
@@ -83,6 +89,39 @@ public class BotsService {
 
         return list;
     }
+
+
+
+    public static synchronized void setButtons(SendMessage sendMessage) {
+        // create keyboard
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        // create list of our row
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        //create row
+        KeyboardRow firstRow = new KeyboardRow();
+
+        // create button
+        KeyboardButton help = new KeyboardButton("Help");
+
+        KeyboardButton availableCommand = new KeyboardButton("Available Command");
+
+        //add buttons to keyboardrow
+        firstRow.add(help);
+        //firstRow.add(availableCommand);
+
+        // add ours row to keyboard
+        keyboard.add(firstRow);
+
+        // adding our keyboard
+        replyKeyboardMarkup.setKeyboard(keyboard);
+    }
+
 
     public boolean isPlanet(String str) {
         switch (str) {
