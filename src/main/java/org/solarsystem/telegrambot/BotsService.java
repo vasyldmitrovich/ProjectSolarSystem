@@ -71,12 +71,14 @@ public class BotsService {
     public static String getAvailableCommands() {
         // TODO get available commands
         List<String> commands = new ArrayList<>();
-        commands.add("\"/distance\" \"planetName\" \"planetName\" \"yyyy-MM-dd\" will calculate distance between planets");
-        commands.add("\"/time\" will calculate estimate the travel time for a journey ");
-        commands.add("\"/info\" get info about planet");
-        commands.add("\"/image\" get planet image");
+        commands.add("\"/allplanets\"");
+        commands.add("\"/distance\"");
+        commands.add("\"/time\" ");
+        commands.add("\"/info\" ");
+        commands.add("\"/image\"");
         return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
     }
+
 
     public Deque<String> parseCommands(String commands) {
         Deque<String> list = new LinkedList<>();
