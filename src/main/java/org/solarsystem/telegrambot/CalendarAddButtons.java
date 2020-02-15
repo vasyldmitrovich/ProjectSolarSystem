@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalendarAddButtons {
     public static LocalDate localDate = LocalDate.now();
@@ -101,8 +102,43 @@ public class CalendarAddButtons {
     public static SendMessage sendInlineKeyBoardMessage(long chatId, InlineKeyboardMarkup inlineKeyboardMarkup) {
 
 
-        SendMessage calendar = new SendMessage().setChatId(chatId).setText("Calendar").setReplyMarkup(inlineKeyboardMarkup);
+        SendMessage calendar = new SendMessage().setChatId(chatId).setText("Make a choice").setReplyMarkup(inlineKeyboardMarkup);
         return calendar;
+    }
+
+    public static InlineKeyboardMarkup setInlineKeyboardPlanet(long chatId) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        BotsServiceImpl botsService = new BotsServiceImpl();
+        List<String> allSpaceBodyNames = botsService.getAllSpaceBodyNames();
+        int countRow = allSpaceBodyNames.size() / 6 + 1;
+
+        int counter = 0;
+
+        List<List<InlineKeyboardButton>> listA = new ArrayList<>(countRow++);
+        List<List<InlineKeyboardButton>> listRow = new ArrayList<>();
+        for (int i = 0; i <= countRow; i++) {
+            listA.add(new ArrayList<>());
+
+            for (int k = 0; k < 5 && counter < allSpaceBodyNames.size(); k++, counter++) {
+
+
+                if (true) {
+                    InlineKeyboardButton button = new InlineKeyboardButton(allSpaceBodyNames.get(counter));
+                    button.setCallbackData("*Planet_name_is:*" + button.getText());
+                    listA.get(i).add(button);
+
+                }
+
+            }
+
+            listRow.add(listA.get(i));
+        }
+
+
+
+        inlineKeyboardMarkup.setKeyboard(listRow);
+        return inlineKeyboardMarkup;
     }
 
 

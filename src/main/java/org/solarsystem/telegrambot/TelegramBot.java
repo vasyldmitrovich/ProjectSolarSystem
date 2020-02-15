@@ -10,6 +10,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.stream.Collectors;
+
 public class TelegramBot extends TelegramLongPollingBot {
 
     public static void main(String args[]) {
@@ -30,15 +32,31 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (update.getMessage().hasText()) {
                 String message = update.getMessage().getText();
                 BotsServiceImpl botsServiceImpl = new BotsServiceImpl(message);
-
+                String planetList = botsServiceImpl.getAllSpaceBodyNames().stream().collect(Collectors.joining(", "));
                 switch (botsServiceImpl.getCommand()) {
                     case "help":
                         sendMsg(update.getMessage().getChatId().toString(), availableCommands);
                         break;
+                    case "info":
+                        //sendMsg(update.getMessage().getChatId().toString(), "Choose planet or satellite: ");
+                        try {
+
+                            execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
+                                            .getMessage().getChatId()
+                                    , CalendarAddButtons.setInlineKeyboardPlanet(update.getMessage().getChatId()))); // Call method to send the message
+                        } catch (TelegramApiException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "allplanets":
+                        sendMsg(update.getMessage().getChatId().toString(), planetList);
+                        break;
                     case "calendar":
                         try {
 
-                            execute(CalendarAddButtons.sendInlineKeyBoardMessage(update.getMessage().getChatId(), CalendarAddButtons.setInlineKeyboad(update.getMessage().getChatId()))); // Call method to send the message
+                            execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
+                                            .getMessage().getChatId()
+                                    , CalendarAddButtons.setInlineKeyboad(update.getMessage().getChatId()))); // Call method to send the message
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }

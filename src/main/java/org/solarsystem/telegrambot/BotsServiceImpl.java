@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class BotsServiceImpl {
+public class BotsServiceImpl implements BotService {
     private String command;
     private String planetFirst;
     private String planetSecond;
@@ -67,6 +67,8 @@ public class BotsServiceImpl {
         }
     }
 
+    public BotsServiceImpl() {
+    }
 
     public static String getAvailableCommands() {
         // TODO get available commands
@@ -91,7 +93,6 @@ public class BotsServiceImpl {
 
         return list;
     }
-
 
 
     public static synchronized void setButtons(SendMessage sendMessage) {
@@ -172,4 +173,64 @@ public class BotsServiceImpl {
 
     }
 
+    @Override
+    public List<String> getAllSpaceBodyNames() {
+
+
+        List<String> planetsName = new ArrayList<>();
+        planetsName.add("Mercury");
+        planetsName.add("Venus");
+        planetsName.add("Earth");
+        planetsName.add("Mars");
+        planetsName.add("Jupiter");
+        planetsName.add("Saturn");
+        planetsName.add("Uranus");
+        planetsName.add("Neptune");
+        planetsName.add("Pluto");
+        planetsName.add("Pluto1");
+        planetsName.add("Pluto2");
+        planetsName.add("Pluto3");
+        planetsName.add("Pluto4");
+        planetsName.add("Pluto5");
+        planetsName.add("Pluto6");
+        planetsName.add("Pluto7");
+        planetsName.add("Pluto8");
+        planetsName.add("Pluto9");
+        planetsName.add("Pluto10");
+        planetsName.add("Pluto11");
+        planetsName.add("Pluto12");
+        planetsName.add("Pluto13");
+        planetsName.add("Pluto14");
+        planetsName.add("Pluto15");
+        planetsName.add("Pluto16");
+        planetsName.add("Pluto17");
+        planetsName.add("Pluto18");
+        planetsName.add("Pluto19");
+        planetsName.add("Pluto20");
+        planetsName.add("Pluto21");
+        planetsName.add("Pluto22");
+
+
+        return planetsName;
+    }
+
+    @Override
+    public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
+        return 0;
+    }
+
+    @Override
+    public double getTime(String originPlanet, String destinationPlanetUuid, LocalDate date, double speed) {
+        return 0;
+    }
+
+    @Override
+    public String getInfo(String planetName) {
+        return null;
+    }
+
+    @Override
+    public String getImage(String planetName) {
+        return null;
+    }
 }
