@@ -7,17 +7,22 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TelegramBot extends TelegramLongPollingBot {
+
     public static List<String> listPlanet = new ArrayList<>();
+
 
     public static void main(String args[]) {
         ApiContextInitializer.init();
@@ -31,9 +36,12 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
+
     public void onUpdateReceived(Update update) {
+
         String availableCommands = BotsServiceImpl.getAvailableCommands();
         if (update.hasMessage()) {
+
             if (update.getMessage().hasText()) {
                 String message = update.getMessage().getText();
                 BotsServiceImpl botsServiceImpl = new BotsServiceImpl(message);
@@ -73,7 +81,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         }
                         break;
                     case "distance":
-                        listPlanet.clear();
+                        //listPlanet.clear();
                         if (botsServiceImpl.getPlanetFirst() != null
                                 && botsServiceImpl.getPlanetFirst() != null
                                 && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetFirst())
@@ -81,7 +89,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 && botsServiceImpl.corectDate(botsServiceImpl.getDate())) {
                             double distance = CalcDistance.getDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), botsServiceImpl.getDate());
 
-                            sendMsg( update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " +distance + " AU");
+                            sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " AU");
 
                         } else if (botsServiceImpl.getPlanetFirst() != null) {
 
@@ -125,27 +133,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     .setInlineMessageId(inline_message_id);
 
 
-            if (call_data.startsWith("*button_number_calendar*")) {
-
-
-                LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-                String planetDestination = listPlanet.get(listPlanet.size() - 1);
-                String planetStart = listPlanet.get(listPlanet.size() - 2);
-
-                double distance = new BotsServiceImpl().getDistance(planetStart, planetDestination, localDate);
-
-                SendMessage message = new SendMessage() // Create a message object object
-                        .setChatId(chat_id)
-                        .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " AU.");
-
-                try {
-                    execute(message); // Sending our message object to user
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            } else if (call_data.startsWith("*Planet_name_is:*")) {
+            if (call_data.startsWith("*Planet_name_is:*")) {
                 BotsServiceImpl botsService = new BotsServiceImpl("/info " + call_data.substring("*Planet_name_is:*".length()));
+
 
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chat_id)
@@ -157,17 +147,49 @@ public class TelegramBot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             } else if (call_data.startsWith("*Planet_firts_name_is:*")) {
+
                 BotsServiceImpl botsService = new BotsServiceImpl("/distance " + call_data.substring("*Planet_firts_name_is:*".length()));
                 //botsService.getPlanetToDistance().add(call_data.substring("*Planet_firts_name_is:*".length()));
+                User user = update.getCallbackQuery().getFrom();
 
-                listPlanet.add(call_data.substring("*Planet_firts_name_is:*".length()));
-                try {
-                    execute(CalendarAddButtons.sendKeyBoardMessageDistanceFirst(update
-                                    .getMessage().getChatId()
-                            , CalendarAddButtons.setKeyboardPlanetDistanceFirst(update.getMessage().getChatId()))); // Sending our message object to user
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
+                Integer userId = user.getId();
+                listPlanet.add(call_data.substring("*Planet_firts_name_is:*".length()) + "userId" + userId);
+            } else if (call_data.startsWith("*button_number_calendar*")) {
+                LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+                if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                        .getFrom().getId())).collect(Collectors.toList()).size()>1){
+
+                    List<String> collect = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                            .getFrom().getId())).collect(Collectors.toList());
+                    String planetDestination = collect.get(collect.size() - 1).substring(0,collect.get(collect.size() - 1).length()-15);
+
+                    String planetStart = collect.get(collect.size() - 2).substring(0,collect.get(collect.size() - 2).length()-15);
+                    double distance = new BotsServiceImpl().getDistance(planetStart, planetDestination, localDate);
+
+                    SendMessage message = new SendMessage() // Create a message object object
+                            .setChatId(chat_id)
+                            .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " AU.");
+                    try {
+                        execute(message); // Sending our message object to user
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    try {
+                        execute(new SendMessage() // Create a message object object
+                                .setChatId(chat_id)
+                                .setText("Choose one more planet \"/distance\"")); // Sending our message object to user
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+
+
+
+
+
             } else if (call_data.startsWith("*Choose_date_is:*")) {
 
                 try {
