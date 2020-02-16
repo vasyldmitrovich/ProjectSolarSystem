@@ -1,12 +1,15 @@
 package org.solarsystem.telegrambot;
 
 
+import org.solarsystem.web.service.CalcDistance;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -19,6 +22,7 @@ public class BotsServiceImpl implements BotService {
     private String planetFirst;
     private String planetSecond;
     private String date;
+    private List<String> planetToDistance;
 
 
     public String getCommand() {
@@ -55,6 +59,7 @@ public class BotsServiceImpl implements BotService {
 
 
     public BotsServiceImpl(String str) {
+        planetToDistance=new ArrayList<>();
         Deque<String> list = new LinkedList<>();
         list = parseCommands(str);
         while (!list.isEmpty()) {
@@ -68,6 +73,14 @@ public class BotsServiceImpl implements BotService {
     }
 
     public BotsServiceImpl() {
+    }
+
+    public List<String> getPlanetToDistance() {
+        return planetToDistance;
+    }
+
+    public void setPlanetToDistance(List<String> planetToDistance) {
+        this.planetToDistance = planetToDistance;
     }
 
     public static String getAvailableCommands() {
@@ -216,7 +229,10 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
-        return 0;
+        String dateStr = date.getYear()+"-"+((date.getMonthValue()<10)? "0"+date.getMonthValue():date.getMonthValue())+"-"
+                +((date.getDayOfMonth()<10)? "0"+date.getDayOfMonth():date.getDayOfMonth());
+       return CalcDistance.getDistance(originPlanet,destinationPlanetUuid,dateStr);
+
     }
 
     @Override
@@ -226,11 +242,28 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public String getInfo(String planetName) {
-        return null;
+
+        return "Short description about planet "+planetFirst+"\n"+"Tra ta ta";
     }
 
     @Override
     public String getImage(String planetName) {
         return null;
+    }
+
+    public   boolean corectDate(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try{
+            LocalDate parse = LocalDate.parse(date, formatter);
+
+            if (Integer.parseInt(date.substring(8))>parse.getDayOfMonth()){
+                return false;
+            }
+
+            return true;
+        }catch(DateTimeParseException excep){
+            return false;
+        }
+
     }
 }
