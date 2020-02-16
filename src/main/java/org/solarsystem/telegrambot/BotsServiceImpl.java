@@ -88,9 +88,9 @@ public class BotsServiceImpl implements BotService {
         List<String> commands = new ArrayList<>();
         commands.add("\"/allplanets\"");
         commands.add("\"/distance\"");
-        commands.add("\"/time\" ");
+        //commands.add("\"/time\" ");
         commands.add("\"/info\" ");
-        commands.add("\"/image\"");
+        //commands.add("\"/image\"");
         return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
     }
 

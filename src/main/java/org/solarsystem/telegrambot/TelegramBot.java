@@ -81,10 +81,15 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 && botsServiceImpl.corectDate(botsServiceImpl.getDate())) {
                             double distance = CalcDistance.getDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), botsServiceImpl.getDate());
 
-                            sendMsg(update.getMessage().getChatId().toString(), distance + " AU");
+                            sendMsg( update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " +distance + " AU");
 
+                        } else if (botsServiceImpl.getPlanetFirst() != null) {
+
+                            sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. \n");
+
+
+                            // sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. ");
                         } else {
-
                             try {
 
                                 execute(CalendarAddButtons.sendKeyBoardMessageDistanceFirst(update
@@ -93,7 +98,6 @@ public class TelegramBot extends TelegramLongPollingBot {
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }
-                            // sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. ");
                         }
 
                         break;
@@ -119,6 +123,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             EditMessageReplyMarkup new_message = new EditMessageReplyMarkup()
                     .setChatId(chat_id).setMessageId(message_id)
                     .setInlineMessageId(inline_message_id);
+
+
             if (call_data.startsWith("*button_number_calendar*")) {
 
 
@@ -150,8 +156,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (call_data.startsWith("*Planet_firts_name_is:*")) {
+            } else if (call_data.startsWith("*Planet_firts_name_is:*")) {
                 BotsServiceImpl botsService = new BotsServiceImpl("/distance " + call_data.substring("*Planet_firts_name_is:*".length()));
                 //botsService.getPlanetToDistance().add(call_data.substring("*Planet_firts_name_is:*".length()));
 
@@ -163,8 +168,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (call_data.startsWith("*Choose_date_is:*")) {
+            } else if (call_data.startsWith("*Choose_date_is:*")) {
 
                 try {
 
