@@ -14,9 +14,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TelegramBot extends TelegramLongPollingBot {
@@ -100,7 +98,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                         } else {
                             try {
 
-                                execute(CalendarAddButtons.sendKeyBoardMessageDistanceFirst(update
+                                execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
                                                 .getMessage().getChatId()
                                         , CalendarAddButtons.setKeyboardPlanetDistanceFirst(update.getMessage().getChatId()))); // Call method to send the message
                             } catch (TelegramApiException e) {

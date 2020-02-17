@@ -246,10 +246,7 @@ public class BotsServiceImpl implements BotService {
         return "Short description about planet "+planetFirst+"\n"+"Tra ta ta";
     }
 
-    @Override
-    public String getImage(String planetName) {
-        return null;
-    }
+
 
     public   boolean corectDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
