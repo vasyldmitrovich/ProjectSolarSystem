@@ -12,6 +12,6 @@ public interface BotService {
 
     String getInfo(String planetName);
 
-    String getImage(String planetName);
+
 
 }
