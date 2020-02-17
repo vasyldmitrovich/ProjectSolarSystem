@@ -125,7 +125,7 @@ public class BotsServiceImpl implements BotService {
         // create button
         KeyboardButton help = new KeyboardButton("Help");
 
-        KeyboardButton availableCommand = new KeyboardButton("Available Command");
+
 
         //add buttons to keyboardrow
         firstRow.add(help);
@@ -140,6 +140,8 @@ public class BotsServiceImpl implements BotService {
 
 
     public boolean isPlanet(String str) {
+        List<String> list = new ArrayList<>();
+        String[]hj = {"mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"};
         switch (str) {
             case "mercury":
                 return true;
@@ -188,8 +190,6 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public List<String> getAllSpaceBodyNames() {
-
-
         List<String> planetsName = new ArrayList<>();
         planetsName.add("Mercury");
         planetsName.add("Venus");
@@ -222,8 +222,6 @@ public class BotsServiceImpl implements BotService {
         planetsName.add("Pluto20");
         planetsName.add("Pluto21");
         planetsName.add("Pluto22");
-
-
         return planetsName;
     }
 
