@@ -83,8 +83,10 @@ public class BotsServiceImpl implements BotService {
         this.planetToDistance = planetToDistance;
     }
 
-    public static String getAvailableCommands() {
-        // TODO get available commands
+    // return all commands witch available in bot
+    @Override
+    public  String getAvailableCommands() {
+
         List<String> commands = new ArrayList<>();
         commands.add("\"/allplanets\"");
         commands.add("\"/distance\"");
@@ -94,7 +96,7 @@ public class BotsServiceImpl implements BotService {
         return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
     }
 
-
+    //split  string from chat to word
     public Deque<String> parseCommands(String commands) {
         Deque<String> list = new LinkedList<>();
         String[] s = commands.trim().toLowerCase().split("[ ./,_?!;:]");
@@ -107,7 +109,7 @@ public class BotsServiceImpl implements BotService {
         return list;
     }
 
-
+    //add button "Help" to bottom of the screen
     public static synchronized void setButtons(SendMessage sendMessage) {
         // create keyboard
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -245,7 +247,7 @@ public class BotsServiceImpl implements BotService {
     }
 
 
-
+    //validate date
     public   boolean corectDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try{

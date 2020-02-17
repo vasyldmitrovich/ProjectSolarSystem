@@ -14,7 +14,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TelegramBot extends TelegramLongPollingBot {
@@ -37,7 +39,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(Update update) {
 
-        String availableCommands = BotsServiceImpl.getAvailableCommands();
+        String availableCommands = new BotsServiceImpl().getAvailableCommands();
         if (update.hasMessage()) {
 
             if (update.getMessage().hasText()) {
@@ -152,6 +154,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 User user = update.getCallbackQuery().getFrom();
 
                 Integer userId = user.getId();
+
                 listPlanet.add(call_data.substring("*Planet_firts_name_is:*".length()) + "userId" + userId);
             } else if (call_data.startsWith("*button_number_calendar*")) {
                 LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -161,11 +164,18 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     List<String> collect = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
+
+
                     String planetDestination = collect.get(collect.size() - 1)
-                            .substring(0, collect.get(collect.size() - 1).length() - "userId".length() -String.valueOf(update.getCallbackQuery().getFrom().getId()).length() );
+                            .substring(0, collect.get(collect.size() - 1).length() - "userId".length() - String.valueOf(update.getCallbackQuery().getFrom().getId()).length());
 
                     String planetStart = collect.get(collect.size() - 2)
-                            .substring(0, collect.get(collect.size() - 2).length() -  "userId".length() -String.valueOf(update.getCallbackQuery().getFrom().getId()).length());
+                            .substring(0, collect.get(collect.size() - 2).length() - "userId".length() - String.valueOf(update.getCallbackQuery().getFrom().getId()).length());
+                    if (collect.size() > 5) {
+                        collect.clear();
+
+                    }
+
                     double distance = new BotsServiceImpl().getDistance(planetStart, planetDestination, localDate);
 
                     SendMessage message = new SendMessage() // Create a message object object

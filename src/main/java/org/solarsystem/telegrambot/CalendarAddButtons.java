@@ -99,7 +99,7 @@ public class CalendarAddButtons {
         return inlineKeyboardMarkup;
     }
 
-
+    //send keyboard to chat
     public static SendMessage sendInlineKeyBoardMessage(long chatId, InlineKeyboardMarkup inlineKeyboardMarkup) {
 
 

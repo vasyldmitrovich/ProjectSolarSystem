@@ -12,6 +12,8 @@ public interface BotService {
 
     String getInfo(String planetName);
 
+    String getAvailableCommands();
+
 
 
 }
