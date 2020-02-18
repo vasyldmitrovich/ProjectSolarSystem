@@ -11,8 +11,7 @@ public interface PlanetDao {
     void updatePlanet(Planet planet);
     void removePlanet(int id);
     Planet getPlanetById(int id);
-    List<String> getPlanetImages(int id);
     void addImageByIdPlanet(String pathToTheFile, int idPlanet);
     List<Planet> getAllPlanets();
-    ArrayList<String> getAllPlanetImages();
+
 }

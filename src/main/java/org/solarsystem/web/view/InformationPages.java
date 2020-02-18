@@ -6,9 +6,8 @@ import java.util.List;
 
 public class InformationPages {
 
-
-
     public String navigationTabs(List<Planet> planets){
+        /*form the navigation bar*/
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<div class=\"container-fluid bg-dark \">\n" +
                 "\n" +
@@ -25,14 +24,14 @@ public class InformationPages {
         stringBuilder.append("</ul>\n" +
                 "    </div>");
         return stringBuilder.toString();
-
     }
 
     public String tabContent(List<Planet> planets){
+        /*form the tab content bar*/
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("<div class=\"tab-content\">\n" +
-                "\n" +
-                "    <div id=\"solarSystemMenu\" class=\"container-fluid tab-pane active text-white bg-dark \"><br>\n" +
+        stringBuilder.append("<div class=\"tab-content\">");
+        /*This is add only solar system menu*/
+        stringBuilder.append("    <div id=\"solarSystemMenu\" class=\"container-fluid tab-pane active text-white bg-dark \"><br>\n" +
                 "\n" +
                 "        <h3>Solar system</h3>\n" +
                 "\n" +
@@ -70,8 +69,25 @@ public class InformationPages {
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>");
+        /*Form list images from DB*/
         for (Planet p: planets
              ) {
+            StringBuilder stringBuilderImages = new StringBuilder();
+            stringBuilderImages.append("<div class=\"carousel-inner mx-auto d-block\">");
+            List<String> list = p.getImage();
+            for (int i=0;i<list.size();i++){
+                if (i==0){
+                    stringBuilderImages.append("<div class=\"carousel-item active \">\n" +
+                            "                                <img src=\""+list.get(i)+"\" alt=\"Mercury1\" width=\"600\" height=auto>\n" +
+                            "                            </div>");
+                } else {
+                    stringBuilderImages.append("<div class=\"carousel-item \">\n" +
+                            "                                <img src=\""+list.get(i)+"\" alt=\"Mercury1\" width=\"600\" height=auto>\n" +
+                            "                            </div>");
+                }
+            }
+            stringBuilderImages.append("</div>");
+            /*Form full page*/
             stringBuilder.append("<div id=\""+p.getName()+"Menu\" class=\"container-fluid tab-pane fade text-white bg-dark\"><br>\n" +
                     "\n" +
                     "        <h3>"+p.getName()+"</h3>\n" +
@@ -79,30 +95,26 @@ public class InformationPages {
                     "        <div class=\"row\">\n" +
                     "            <div class=\"col-sm-6\">\n" +
                     "\n" +
-                    "                <div id=\"demo\" class=\"container-fluid carousel slide \" data-ride=\"carousel\">\n" +
+                    "                <div id=\"demo"+p.getId()+"\" class=\"container-fluid carousel slide \" data-ride=\"carousel\">\n" +
                     "\n" +
                     "                    <!-- Indicators -->\n" +
                     "                    <ul class=\"carousel-indicators\">\n" +
-                    "                        <li data-target=\"#demo\" data-slide-to=\"0\" class=\"active\"></li>\n" +
-                    "                        <li data-target=\"#demo\" data-slide-to=\"1\"></li>\n" +
+                    "                        <li data-target=\"#"+"demo"+p.getId()+"\" data-slide-to=\"0\" class=\"active\"></li>\n" +
+                    "                        <li data-target=\"#"+"demo"+p.getId()+"\" data-slide-to=\"1\"></li>\n" +
                     "                    </ul>\n" +
                     "\n" +
                     "                    <!-- The slideshow -->\n" +
                     "                    <div class=\"carousel-inner mx-auto d-block\">\n" +
-                    "                        <div class=\"carousel-item active \">\n" +
-                    "                            <img src=\"/images/resources/Mercury.jpg\" alt=\"Mercury1\" width=\"600\" height=auto>\n" +
-                    "                        </div>\n" +
-                    "                        <div class=\"carousel-item\">\n" +
-                    "                            <img src=\"/images/resources/Mercury2.jpg\" alt=\"Mercury2\" width=\"600\" height=auto>\n" +
-                    "                        </div>\n" +
+                    stringBuilderImages
+                    +
                     "\n" +
                     "                    </div>\n" +
                     "\n" +
                     "                    <!-- Left and right controls -->\n" +
-                    "                    <a class=\"carousel-control-prev\" href=\"#demo\" data-slide=\"prev\">\n" +
+                    "                    <a class=\"carousel-control-prev\" href=\"#"+"demo"+p.getId()+"\" data-slide=\"prev\">\n" +
                     "                        <span class=\"carousel-control-prev-icon\"></span>\n" +
                     "                    </a>\n" +
-                    "                    <a class=\"carousel-control-next\" href=\"#demo\" data-slide=\"next\">\n" +
+                    "                    <a class=\"carousel-control-next\" href=\"#"+"demo"+p.getId()+"\" data-slide=\"next\">\n" +
                     "                        <span class=\"carousel-control-next-icon\"></span>\n" +
                     "                    </a>\n" +
                     "                </div>\n" +

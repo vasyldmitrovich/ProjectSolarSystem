@@ -10,10 +10,10 @@ import java.util.List;
 public class PlanetController {
     /*Controller for planet*/
     public static void main(String[] args) {
+        PlanetDao planetDao = new PlanetDaoImp();
 
-        PlanetController planetController = new PlanetController();
-        String str = planetController.navBar();
-        System.out.println(str);
+        Planet planet = planetDao.getPlanetById(3);
+        System.out.println(planet);
 
     }
 
