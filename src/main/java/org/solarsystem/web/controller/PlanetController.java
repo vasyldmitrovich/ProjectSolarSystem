@@ -3,7 +3,7 @@ package org.solarsystem.web.controller;
 import org.solarsystem.web.dao.PlanetDao;
 import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.dao.entity.Planet;
-import org.solarsystem.web.view.InformationPages;
+import org.solarsystem.web.view.InformationView;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class PlanetController {
     public String navBar(){
         PlanetDao planetDao = new PlanetDaoImp();
         List<Planet> planets = planetDao.getAllPlanets();
-        InformationPages navTabs = new InformationPages();
+        InformationView navTabs = new InformationView();
         String string = navTabs.navigationTabs(planets);
         return string;
     }
@@ -28,8 +28,14 @@ public class PlanetController {
     public String tabContext(){
         PlanetDao planetDao = new PlanetDaoImp();
         List<Planet> planets = planetDao.getAllPlanets();
-        InformationPages tabCont = new InformationPages();
+        InformationView tabCont = new InformationView();
         String string = tabCont.tabContent(planets);
         return string;
+    }
+
+    public String fullPage(String addToBodyPage){
+        InformationView fullPage = new InformationView();
+        String fullBody = fullPage.returnFullPage(addToBodyPage);
+        return fullBody;
     }
 }
