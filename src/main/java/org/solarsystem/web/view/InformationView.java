@@ -43,7 +43,7 @@ public class InformationView {
                 "\n" +
                 "            <div class=\"col-sm-8\" >\n" +
                 "\n" +
-                "                <p>Solar System - this is you and I :-)</p>\n" +
+                "                <p>The solar system is you and me :-)</p>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>");
