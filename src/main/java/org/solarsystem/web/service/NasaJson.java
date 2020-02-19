@@ -1,8 +1,6 @@
 package org.solarsystem.web.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,23 +8,24 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-public class NasaJson {
+public class NasaJson implements DistanceCalculator{
 
 
     private static String calcId = null;
-    private static NasaJson GetAndPost;
+    private static double distance;
+
 
 
     public static void main(String[] args) throws IOException {
-        GetAndPost.MyPOSTRequest();
-        GetAndPost.MyGETRequest();
+
+        LocalDate date = LocalDate.parse("2020-02-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println("distance" + new NasaJson().calculateDistance("Earth", "Venus", date));
 
     }
-    public static void MyGETRequest() throws IOException {
+    public  void MyGETRequest() throws IOException {
         URL urlForGetRequest = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/"+calcId +"/results");
         String readLine = null;
         HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
@@ -40,47 +39,18 @@ public class NasaJson {
             while ((readLine = in .readLine()) != null) {
                 response.append(readLine);
             } in .close();
-            // print result
-            System.out.println("JSON String Result " + response.toString());
-            //GetAndPost.POSTRequest(response.toString());
-
             String json = response.toString();
-            //simple parsing
             ObjectMapper mapper = new ObjectMapper();
             ResultResponse resultResponse= mapper.readValue(json, ResultResponse.class);
-            List<Columns> columns = resultResponse.getColumns();
             String[][] rows2 = resultResponse.getRows();
-            System.out.println("__________________________");
-            for (int i =0; i<resultResponse.getColumns().size();i++){
-                System.out.println(columns.get(i).getName().substring(0,columns.get(i).getName().indexOf(" "))+" "+rows2[0][i]+" "+columns.get(i).getUnits());
-            }
-            System.out.println("______________________");
 
-            //
-
-
-
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            JsonNode rootNode = objectMapper.readTree(json);
-            JsonNode rows = rootNode.path("rows");
-            Iterator<JsonNode> elements = rows.elements();
-            List<String> responseData = new ArrayList<>();
-            while(elements.hasNext()){
-                JsonNode data = elements.next();
-                System.out.println("bunch of data: " +data.toString());
-                responseData.add(data.toString());
-
-
-            }
-            //System.out.println(responseData.get(1));
-
+            distance = Double.valueOf(rows2[0][1]);
 
         } else {
             System.out.println("GET NOT WORKED");
         }
     }
-    public static void MyPOSTRequest() throws IOException {
+    public  void MyPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
         final String POST_PARAMS = "{\n" +
                 "  \"kernels\": [\n" +
                 "    {\n" +
@@ -91,18 +61,18 @@ public class NasaJson {
                 "  \"timeSystem\": \"UTC\",\n" +
                 "  \"timeFormat\": \"CALENDAR\",\n" +
                 "  \"times\": [\n" +
-                "    \"2017-07-19T08:24:00.000\"\n" +
+                "    \""+date+"T08:24:00.000\"\n" +
                 "  ],\n" +
                 "  \"timeStep\": 1,\n" +
                 "  \"timeStepUnits\": \"SECONDS\",\n" +
                 "  \"calculationType\": \"STATE_VECTOR\",\n" +
-                "  \"target\": \"SUN\",\n" +
-                "  \"observer\": \"EARTH\",\n" +
+                "  \"target\": \""+destinationPlanet+"\",\n" +
+                "  \"observer\": \""+originPlanet+"\",\n" +
                 "  \"referenceFrame\": \"J2000\",\n" +
                 "  \"aberrationCorrection\": \"NONE\",\n" +
                 "  \"stateRepresentation\": \"RECTANGULAR\"\n" +
                 "}";
-        System.out.println(POST_PARAMS);
+       // System.out.println(POST_PARAMS);
         URL obj = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/new");
         HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
         postConnection.setRequestMethod("POST");
@@ -114,8 +84,8 @@ public class NasaJson {
         os.flush();
         os.close();
         int responseCode = postConnection.getResponseCode();
-        System.out.println("POST Response Code :  " + responseCode);
-        System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+        //System.out.println("POST Response Code :  " + responseCode);
+        //System.out.println("POST Response Message : " + postConnection.getResponseMessage());
         if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
             BufferedReader in = new BufferedReader(new InputStreamReader(postConnection.getInputStream()));
             String inputLine;
@@ -128,12 +98,12 @@ public class NasaJson {
 
         } else {
 
-            System.out.println("POST NOT WORKED");
+           // System.out.println("POST NOT WORKED");
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     postConnection.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
-            System.out.println(response.toString());
+            //System.out.println(response.toString());
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -141,10 +111,29 @@ public class NasaJson {
             // print result
             String jackson = response.toString();
             JsonResponseResultID jsonResponseResultID = new ObjectMapper().readerFor(JsonResponseResultID.class).readValue(jackson);
-            System.out.println(jsonResponseResultID.getCalculationId());
+            //System.out.println(jsonResponseResultID.getCalculationId());
             calcId = jsonResponseResultID.getCalculationId();
-            System.out.println(response.toString() + "END");
+
 
         }
+    }
+
+    @Override
+    public double calculateDistance(String originPlanet, String destinationPlanet, LocalDate date) {
+        String strDate = date.getYear()+"-"+((date.getMonthValue()<10)? "0"+date.getMonthValue():date.getMonthValue())+"-"
+                +((date.getDayOfMonth()<10)? "0"+date.getDayOfMonth():date.getDayOfMonth());;
+        NasaJson nasaJson = new NasaJson();
+        try {
+           nasaJson.MyPOSTRequest(originPlanet,destinationPlanet, strDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            nasaJson.MyGETRequest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return distance;
     }
 }
