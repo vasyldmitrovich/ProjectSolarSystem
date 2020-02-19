@@ -13,5 +13,6 @@ public interface PlanetDao {
     Planet getPlanetById(int id);
     void addImageByIdPlanet(String pathToTheFile, int idPlanet);
     List<Planet> getAllPlanets();
+    Planet getPlanetByName(String name);
 
 }
