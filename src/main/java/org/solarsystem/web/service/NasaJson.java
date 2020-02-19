@@ -2,6 +2,7 @@ package org.solarsystem.web.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,6 +45,21 @@ public class NasaJson {
             //GetAndPost.POSTRequest(response.toString());
 
             String json = response.toString();
+            //simple parsing
+            ObjectMapper mapper = new ObjectMapper();
+            ResultResponse resultResponse= mapper.readValue(json, ResultResponse.class);
+            List<Columns> columns = resultResponse.getColumns();
+            String[][] rows2 = resultResponse.getRows();
+            System.out.println("__________________________");
+            for (int i =0; i<resultResponse.getColumns().size();i++){
+                System.out.println(columns.get(i).getName().substring(0,columns.get(i).getName().indexOf(" "))+" "+rows2[0][i]+" "+columns.get(i).getUnits());
+            }
+            System.out.println("______________________");
+
+            //
+
+
+
             ObjectMapper objectMapper = new ObjectMapper();
 
             JsonNode rootNode = objectMapper.readTree(json);
@@ -69,20 +85,20 @@ public class NasaJson {
                 "  \"kernels\": [\n" +
                 "    {\n" +
                 "      \"type\": \"KERNEL_SET\",\n" +
-                "      \"id\": 5\n" +
+                "      \"id\": 1\n" +
                 "    }\n" +
                 "  ],\n" +
                 "  \"timeSystem\": \"UTC\",\n" +
                 "  \"timeFormat\": \"CALENDAR\",\n" +
                 "  \"times\": [\n" +
-                "    \"2015-10-19T08:24:00.000\"\n" +
+                "    \"2017-07-19T08:24:00.000\"\n" +
                 "  ],\n" +
                 "  \"timeStep\": 1,\n" +
                 "  \"timeStepUnits\": \"SECONDS\",\n" +
                 "  \"calculationType\": \"STATE_VECTOR\",\n" +
                 "  \"target\": \"SUN\",\n" +
                 "  \"observer\": \"EARTH\",\n" +
-                "  \"referenceFrame\": \"CASSINI_ISS_NAC\",\n" +
+                "  \"referenceFrame\": \"J2000\",\n" +
                 "  \"aberrationCorrection\": \"NONE\",\n" +
                 "  \"stateRepresentation\": \"RECTANGULAR\"\n" +
                 "}";
