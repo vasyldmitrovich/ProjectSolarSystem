@@ -1,8 +1,8 @@
 package org.solarsystem.web.controller;
 
-import org.solarsystem.web.view.IndexSingleton;
-import org.solarsystem.web.view.LandingView;
+import org.solarsystem.web.view.InfoSingleton;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,24 +13,26 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ServletIndex", urlPatterns = {"/"}, loadOnStartup = 1)
 public class ServletIndex extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        String patch = getServletContext().getRealPath("/html/");
+        InfoSingleton infoSingleton = InfoSingleton.getInstance();
+        infoSingleton.setPatch(patch);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        LandingView landingView = new LandingView();
-
-        out.println(landingView.getLandingPage());
+    response.setContentType("text/html;charset=UTF-8");
+        PlanetController planetController = new PlanetController();
+            String fullBody = planetController.fullPage(planetController.navBar()+planetController.tabContext());
+        PrintWriter printWriter = response.getWriter();
+        printWriter.println(fullBody);
     }
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        String path = getServletContext().getRealPath("/html/");
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        indexSingleton.setPath(path);
-    }
+
 }
