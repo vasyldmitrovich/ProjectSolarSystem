@@ -41,6 +41,6 @@ public class InfoSingleton {
 
     public void setPatch(String patch){
         this.patch = patch;
-        this.info = getPartialHtml("info");
+        this.info = getPartialHtml("index");
     }
 }
