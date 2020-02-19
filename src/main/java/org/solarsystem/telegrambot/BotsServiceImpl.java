@@ -83,8 +83,10 @@ public class BotsServiceImpl implements BotService {
         this.planetToDistance = planetToDistance;
     }
 
-    public static String getAvailableCommands() {
-        // TODO get available commands
+    // return all commands witch available in bot
+    @Override
+    public  String getAvailableCommands() {
+
         List<String> commands = new ArrayList<>();
         commands.add("\"/allplanets\"");
         commands.add("\"/distance\"");
@@ -94,7 +96,7 @@ public class BotsServiceImpl implements BotService {
         return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
     }
 
-
+    //split  string from chat to word
     public Deque<String> parseCommands(String commands) {
         Deque<String> list = new LinkedList<>();
         String[] s = commands.trim().toLowerCase().split("[ ./,_?!;:]");
@@ -107,7 +109,7 @@ public class BotsServiceImpl implements BotService {
         return list;
     }
 
-
+    //add button "Help" to bottom of the screen
     public static synchronized void setButtons(SendMessage sendMessage) {
         // create keyboard
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -125,7 +127,7 @@ public class BotsServiceImpl implements BotService {
         // create button
         KeyboardButton help = new KeyboardButton("Help");
 
-        KeyboardButton availableCommand = new KeyboardButton("Available Command");
+
 
         //add buttons to keyboardrow
         firstRow.add(help);
@@ -140,6 +142,8 @@ public class BotsServiceImpl implements BotService {
 
 
     public boolean isPlanet(String str) {
+        List<String> list = new ArrayList<>();
+        String[]hj = {"mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"};
         switch (str) {
             case "mercury":
                 return true;
@@ -188,8 +192,6 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public List<String> getAllSpaceBodyNames() {
-
-
         List<String> planetsName = new ArrayList<>();
         planetsName.add("Mercury");
         planetsName.add("Venus");
@@ -222,8 +224,6 @@ public class BotsServiceImpl implements BotService {
         planetsName.add("Pluto20");
         planetsName.add("Pluto21");
         planetsName.add("Pluto22");
-
-
         return planetsName;
     }
 
@@ -246,11 +246,8 @@ public class BotsServiceImpl implements BotService {
         return "Short description about planet "+planetFirst+"\n"+"Tra ta ta";
     }
 
-    @Override
-    public String getImage(String planetName) {
-        return null;
-    }
 
+    //validate date
     public   boolean corectDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try{

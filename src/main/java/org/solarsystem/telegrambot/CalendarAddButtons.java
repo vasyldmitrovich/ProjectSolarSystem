@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class CalendarAddButtons {
     public static LocalDate localDate = LocalDate.now();
 
-
+    //add keyboard with calendar
     public static InlineKeyboardMarkup setInlineKeyboad(long chatId) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
@@ -99,7 +99,7 @@ public class CalendarAddButtons {
         return inlineKeyboardMarkup;
     }
 
-
+    //send keyboard to chat
     public static SendMessage sendInlineKeyBoardMessage(long chatId, InlineKeyboardMarkup inlineKeyboardMarkup) {
 
 
@@ -107,7 +107,7 @@ public class CalendarAddButtons {
         return calendar;
     }
 
-
+    ////add keyboard with planet name to /info
     public static InlineKeyboardMarkup setInlineKeyboardPlanet(long chatId) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
@@ -180,54 +180,12 @@ public class CalendarAddButtons {
         return inlineKeyboardMarkup;
     }
 
-    public static SendMessage sendKeyBoardMessageDistanceFirst(long chatId, InlineKeyboardMarkup inlineKeyboardMarkup) {
 
 
-        SendMessage calendar = new SendMessage().setChatId(chatId).setText("Choose first planet name").setReplyMarkup(inlineKeyboardMarkup);
-        return calendar;
-    }
 
 
-    // grid for input second planet
-    public static InlineKeyboardMarkup setKeyboardPlanetDistanceSecond(long chatId) {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
-        BotsServiceImpl botsService = new BotsServiceImpl();
-        List<String> allSpaceBodyNames = botsService.getAllSpaceBodyNames();
-        int countRow = allSpaceBodyNames.size() / 6 + 1;
-
-        int counter = 0;
-
-        List<List<InlineKeyboardButton>> listA = new ArrayList<>(countRow++);
-        List<List<InlineKeyboardButton>> listRow = new ArrayList<>();
-        for (int i = 0; i <= countRow; i++) {
-            listA.add(new ArrayList<>());
-
-            for (int k = 0; k < 5 && counter < allSpaceBodyNames.size(); k++, counter++) {
 
 
-                if (true) {
-                    InlineKeyboardButton button = new InlineKeyboardButton(allSpaceBodyNames.get(counter));
-                    button.setCallbackData("*Planet_second_name_is:*" + button.getText());
-                    listA.get(i).add(button);
 
-                }
-
-            }
-
-            listRow.add(listA.get(i));
-        }
-
-
-        inlineKeyboardMarkup.setKeyboard(listRow);
-        return inlineKeyboardMarkup;
-    }
-
-    public static SendMessage sendKeyBoardMessageDistanceSecond(long chatId, InlineKeyboardMarkup inlineKeyboardMarkup) {
-
-
-        SendMessage calendar = new SendMessage().setChatId(chatId).setText("Choose second planet name").setReplyMarkup(inlineKeyboardMarkup);
-        return calendar;
-    }
 
 }

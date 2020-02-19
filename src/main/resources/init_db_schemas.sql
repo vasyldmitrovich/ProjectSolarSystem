@@ -14,6 +14,21 @@ create table if not exists solar_system.planets
     short_description text        null,
     full_description  text        null,
     language_id       varchar(2)  not null
+
+);
+
+create table if not exists solar_system.planets_ua
+(
+    id                int auto_increment
+        primary key,
+    name              varchar(30) not null,
+    orbital_period    double      not null,
+    diameter          double      not null,
+    gravity           double      not null,
+    is_satellites     tinyint(1)  not null,
+    short_description text        null,
+    full_description  text        null,
+    language_id       varchar(2)  not null
 );
 
 create table if not exists solar_system.satellite
@@ -55,7 +70,7 @@ As seen from the Sun, in a frame of reference that rotates with the orbital moti
 WHERE NOT EXISTS (
     SELECT name FROM solar_system.planets WHERE name='Mercury') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Меркурій', 88, 4879, 3.7, 0, 'Меркурій - найменша і найближча до Сонця планета. Вона так повільно обертається, що проходячи повне коло навколо сонця, обертається навколо своєї осі всього 1,5 раза, через що сонячна доба на планеті триває 175 земних діб.
 Тому на нічній половині Меркурія температура опускається до -180 °C, а на денній половині планети розжарюється до +430°С.',
@@ -75,7 +90,7 @@ It has the densest atmosphere of the four terrestrial planets, consisting of mor
 WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Venus') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Венера', 224.7, 12.104, 8.9, 0, 'Венера - Найближча до Землі планета. Її оточує шар дуже щільних хмар, внаслідок парникового ефекту. Температура поверхні планети розігріта до + 470°C, відсоток вмісту в атмосфері вуглекислого газу набагато більший, ніж в гірських породах, при цьому планета розташована зовсім недалеко від Сонця, що і призводить до такого ефекту підвищення температури.
 На Венері постійно відбуваються спалахи блискавок, які перевищують за інтенсивністю спалахи на Землі.',
@@ -93,7 +108,7 @@ Earth orbits around the Sun in 365.256 days, a period known as an Earth sidereal
 WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Earth') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Земля', 365.2, 12.756, 9.8, 1, 'Планета Земля має атмосферу, яку утримують сили гравітації, до складу атмосфери входять важливі елементи водню та вуглецю, які роблять можливим на Землі життя. Атмосфера Землі складається з декількох шарів: Нижній - тропосфера розташована на висоті 10-15 км від поверхні Землі. У цьому шарі формуються хмари та інші природні явища, температура тропосфери -40°C -50°C.',
                       'Вище розташований інший шар - стратосфера, який містить газ озон, він поглинає хвилі сонячної радіації, під впливом яких в стратосфері температура підвищується до + 15 °C. Ще вище - іоносфера, де температура знижується до -90 °C.
@@ -112,7 +127,7 @@ The days and seasons are likewise comparable to those of Earth, because the rota
 WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Mars') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Марс', 687.0, 6792, 3.7, 1, 'Марс — червона планета, четверта за віддаленістю від Сонця, яка ще з часів Галілео Галілея є обєктом пильної уваги вчених і дослідників з усього світу.',
                       'Відносна наближеність Марса до планети Земля і відсутність хмарного шару над планетою створюють ідеальні умови для астрономів і вчених, які намагаються дізнатися якомога більше про планету або навіть знайти життя на ній.', 'ua') AS tmp
@@ -129,7 +144,7 @@ Jupiter is primarily composed of hydrogen with a quarter of its mass being heliu
 WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Jupiter') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Юпітер', 4331, 142.984, 23.1, 1, 'Юпітер - найбільша планета Сонячної системи, що складається з газу, шари якого знаходяться в постійних вихреподібних рухах. Діаметр Юпітера величезний - 143 000 км (для порівняння: діаметр Землі 13 000 км). Не дивлячись на свої великі розміри, Юпітер дуже швидко обертається навколо своєї осі (за 9 год 50 хв) через що діаметри на полюсах планети стиснуті, а екватор розтягнутий...',
                       'Юпітер - пята від Сонця планета. Розташована вона на відстані 5,2 астрономічних років від Сонця, це приблизно 775 млн км. Планети Сонячної системи поділяються астрономами на дві умовні групи: планети земного типу і газові гіганти. Найбільшою планетою з групи газових гігантів є Юпітер.', 'ua') AS tmp
@@ -147,7 +162,7 @@ WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Saturn') LIMIT 1;
 
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Сатурн', 10.747, 120.536, 9.0, 1, 'Ця дивовижна і красива планета має чітко окресленні кільця, які легко розгледіти у звичайний телескоп. Сатурн є шостою за рахунком планетою від Сонця - середня відстань до світила становить 1430 млн км.',
                       'Період обертання планети по орбіті складає 29 років, а час обороту навколо своєї осі - майже 10 год 40 хв. Екваторіальний радіус Сатурна становить 60268 км, а його маса - понад 568 тисяч мільярдів мегатонн. Таким чином, Сатурн є другою за розміром і масою планетою Сонячної системи після Юпітера.', 'ua') AS tmp
@@ -164,7 +179,7 @@ WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Uranus') LIMIT 1;
 
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Уран', 30.589, 51.118, 8.7, 1, 'Ця незвичайна планета видніється в синіх і зелених кольорах внаслідок поглинання воднем і метаном інфрачервоного спектра. На поверхні Урана вирують вітри з величезною швидкістю до 600 км/год, рухаючись по ходу обертання планети.',
                       'Унікальність Урана ще в тому, що його вісь обертання сильно нахилена, майже паралельно до площини екліптики, тому з Землі полюси планети можна побачити тільки наполовину і то, тільки протягом 42 років. Поки єдина теорія цього феномена така - можливо, в історії планети було зіткнення з якимось великим небесним тілом.
@@ -181,7 +196,7 @@ It is named after the Roman god of the sea and has the astronomical symbol ♆, 
 WHERE NOT EXISTS (
         SELECT name FROM solar_system.planets WHERE name='Neptune') LIMIT 1;
 
-INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,
+INSERT INTO solar_system.planets_ua (name, orbital_period, diameter, gravity, is_satellites,
                                   short_description, full_description, language_id)
 SELECT * FROM (SELECT 'Нептун', 59.800, 49.528, 11.0, 1, 'Ця планета, подібно Урану, складається з газу до основного складу якого входять вода, метан і аміак. Саме, через велику концентрацію в атмосфері метану планета набула блакитного кольору. Над поверхнею Нептуна простягаються хмари з аміаку і води, а над ними щільний шар метанових хмар, крім того в атмосфері планети присутній водень і гелій.',
                       'Сама атмосфера володіє підвищеною активністю, де потужні вітри дмуть зі швидкістю понад 2000 км/год, утворюючи величезні плями розміром з нашу планету.
@@ -191,8 +206,113 @@ WHERE NOT EXISTS (
 
 #Pictures
 INSERT INTO solar_system.images (path_to_the_file, id_planet)
-SELECT * FROM (SELECT '/resources/pictures/first_image_mercury.jpg', 1) AS tmp
+SELECT * FROM (SELECT '/images/resources/Mercury.jpg', 1) AS tmp
 WHERE NOT EXISTS (
         SELECT path_to_the_file FROM solar_system.images WHERE
-                path_to_the_file='/resources/pictures/first_image_mercury.jpg'
+                path_to_the_file='/images/resources/Mercury.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Mercury2.jpg', 1) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Mercury2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Venus.jpg', 2) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Venus.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Venus2.jpg', 2) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Venus2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Earth.jpg', 3) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Earth.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Earth2.jpg', 3) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Earth2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Mars.jpg', 4) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Mars.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Mars2.jpg', 4) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Mars2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Jupiter.jpg', 5) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Jupiter.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Jupiter2.jpg', 5) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Jupiter2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Saturn.jpg', 6) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Saturn.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Saturn2.jpg', 6) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Saturn2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Uranus.jpg', 7) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Uranus.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Uranus2.jpg', 7) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Uranus2.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Neptune.jpg', 8) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Neptune.jpg'
+    ) LIMIT 1;
+
+INSERT INTO solar_system.images (path_to_the_file, id_planet)
+SELECT * FROM (SELECT '/images/resources/Neptune2.jpg', 8) AS tmp
+WHERE NOT EXISTS (
+        SELECT path_to_the_file FROM solar_system.images WHERE
+                path_to_the_file='/images/resources/Neptune2.jpg'
     ) LIMIT 1;

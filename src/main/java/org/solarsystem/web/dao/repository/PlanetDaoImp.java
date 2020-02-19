@@ -68,13 +68,23 @@ public class PlanetDaoImp implements PlanetDao {
     @Override
     public Planet getPlanetById(int id) {
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT * FROM solar_system.planets where id="+id;
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+                "    FROM `planets` a \n" +
+                "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
+                "    WHERE a.id="+id;
 
         try (Connection connection = dbConnection.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)
              ){
             if (resultSet.next()){
+                String string = resultSet.getString("array_images");
+                System.out.println(string);
+                ArrayList<String> listImages = new ArrayList<>();
+                String [] str_array = string.split(", ");
+                for (int i=0;i<str_array.length;i++){
+                    listImages.add(str_array[i]);
+                }
                 Planet planet = new Planet(
                     resultSet.getLong("id"),
                     resultSet.getString("name"),
@@ -85,32 +95,9 @@ public class PlanetDaoImp implements PlanetDao {
                     resultSet.getString("short_description"),
                     resultSet.getString("full_description"),
                     resultSet.getString("language_id"),
-                    getPlanetImages(id)
+                    listImages
                 );
                 return planet;
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public ArrayList<String> getPlanetImages(int id) {
-        ArrayList<String> list = new ArrayList<>();
-        DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT * FROM solar_system.images where id_planet="+id;
-
-        try (Connection connection = dbConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)
-        ){
-            if (resultSet.next()){
-                list.add(resultSet.getString("path_to_the_file"));
-                while (resultSet.next()){
-                    list.add(resultSet.getString("path_to_the_file"));
-                }
-                return list;
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -136,19 +123,29 @@ public class PlanetDaoImp implements PlanetDao {
     public List<Planet> getAllPlanets() {
         List<Planet> planets = new ArrayList<>();
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT * FROM solar_system.planets";
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+                "    FROM `planets` a\n" +
+                "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
+                "    GROUP BY a.id;";
 
         try (Connection connection = dbConnection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql)
         ){
              while (resultSet.next()){
+                 String string = resultSet.getString("array_images");
+                 System.out.println(string);
+                 ArrayList<String> listImages = new ArrayList<>();
+                 String [] str_array = string.split(", ");
+                 for (int i=0;i<str_array.length;i++){
+                     listImages.add(str_array[i]);
+                 }
+
                 planets.add(new Planet(resultSet.getLong("id"),resultSet.getString("name"),
                         resultSet.getDouble("orbital_period"),resultSet.getDouble("diameter"),
                         resultSet.getDouble("gravity"),resultSet.getBoolean("is_satellites"),
                         resultSet.getString("short_description"),resultSet.getString("full_description"),
-                        resultSet.getString("language_id"),
-                        getAllPlanetImages()));
+                        resultSet.getString("language_id"),listImages));
             }
             return planets;
         } catch (SQLException e){
@@ -158,24 +155,45 @@ public class PlanetDaoImp implements PlanetDao {
         return null;
     }
 
-    public ArrayList<String> getAllPlanetImages() {
-        ArrayList<String> list = new ArrayList<>();
+    @Override
+    public Planet getPlanetByName(String name) {
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT * FROM solar_system.images;";
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+                "    FROM `planets` a \n" +
+                "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
+                "    WHERE a.name="+name;
 
         try (Connection connection = dbConnection.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)
         ){
-                while (resultSet.next()){
-                    list.add(resultSet.getString("path_to_the_file"));
-
-                return list;
+            if (resultSet.next()){
+                String string = resultSet.getString("array_images");
+                System.out.println(string);
+                ArrayList<String> listImages = new ArrayList<>();
+                String [] str_array = string.split(", ");
+                for (int i=0;i<str_array.length;i++){
+                    listImages.add(str_array[i]);
+                }
+                Planet planet = new Planet(
+                        resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getDouble("orbital_period"),
+                        resultSet.getDouble("diameter"),
+                        resultSet.getDouble("gravity"),
+                        resultSet.getBoolean("is_satellites"),
+                        resultSet.getString("short_description"),
+                        resultSet.getString("full_description"),
+                        resultSet.getString("language_id"),
+                        listImages
+                );
+                return planet;
             }
         } catch (SQLException e){
             e.printStackTrace();
         }
         return null;
     }
+
 
 }
