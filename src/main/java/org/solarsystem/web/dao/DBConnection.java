@@ -6,14 +6,14 @@ import java.sql.SQLException;
 
 public class DBConnection implements AutoCloseable {
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL="jdbc:mysql://localhost:3306/";
+    static final String DB_URL="jdbc:mysql://localhost/";
     /*Change
     name data base,
     user and
     password for your DB.*/
     static final String nameDB = "solar_system";
     static final String user = "root";
-    static final String password = "rootStrong&serverTimezone=UTC";
+    static final String password = "rootStrong";
     private Connection connection = null;
 
     public DBConnection(){
