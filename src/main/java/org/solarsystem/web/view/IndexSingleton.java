@@ -13,6 +13,7 @@ public class IndexSingleton {
     private String index;
     private String calculator;
     private String feedback;
+    private String authorization;
 
     private static IndexSingleton ourInstance = new IndexSingleton();
 
@@ -34,11 +35,16 @@ public class IndexSingleton {
         return feedback;
     }
 
+    public String getAuthorization() {
+        return authorization;
+    }
+
     public void setPath(String path) {
         this.path = path;
         this.index = getPartialHtml("index");
         this.calculator = getPartialHtml("calculator");
         this.feedback = getPartialHtml("feedback");
+        this.authorization = getPartialHtml("authorization");
     }
 
     private String getPartialHtml(String filename){
