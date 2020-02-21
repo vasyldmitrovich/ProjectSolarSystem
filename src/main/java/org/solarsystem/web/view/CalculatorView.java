@@ -6,7 +6,7 @@ public class CalculatorView {
         return indexSingleton.getIndex()
                 .replace("<!--calculator-->",
                         indexSingleton.getCalculator());
-}
+    }
 }
 
 

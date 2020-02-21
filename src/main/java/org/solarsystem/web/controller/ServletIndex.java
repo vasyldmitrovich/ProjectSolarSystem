@@ -34,5 +34,4 @@ public class ServletIndex extends HttpServlet {
         printWriter.println(fullBody);
     }
 
-
 }

@@ -12,6 +12,7 @@ public class IndexSingleton {
     private String path;
     private String index;
     private String calculator;
+    private String feedback;
 
     private static IndexSingleton ourInstance = new IndexSingleton();
 
@@ -19,8 +20,7 @@ public class IndexSingleton {
         return ourInstance;
     }
 
-    private IndexSingleton() {
-    }
+    private IndexSingleton() { }
 
     public String getIndex() {
         return index;
@@ -30,10 +30,15 @@ public class IndexSingleton {
         return calculator;
     }
 
+    public String getFeedback(){
+        return feedback;
+    }
+
     public void setPath(String path) {
         this.path = path;
         this.index = getPartialHtml("index");
         this.calculator = getPartialHtml("calculator");
+        this.feedback = getPartialHtml("feedback");
     }
 
     private String getPartialHtml(String filename){
