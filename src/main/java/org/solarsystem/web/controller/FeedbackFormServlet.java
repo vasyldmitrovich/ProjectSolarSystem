@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "/FeedbackFormServlet", /*value = "FeedbackFormServlet",*/
 
-        urlPatterns = {"/feedback"})
+        urlPatterns = {"/FeedbackFormServlet"})
 public class FeedbackFormServlet extends HttpServlet {
 /*    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,8 +43,6 @@ public class FeedbackFormServlet extends HttpServlet {
         String Comments = request.getParameter("Comments");
         System.out.println(First_Name);
         FeedbackRepository.addFeedback(First_Name, Last_Name, Email, Subject, Comments);
-        PrintWriter out = response.getWriter();
-        out.println("bla bla bla");
         doGet(request,response);
 
         /*PrintWriter printWriter;
