@@ -10,7 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,7 @@ public class NasaJson implements DistanceCalculator{
             System.out.println("GET NOT WORKED");
         }
     }
+
 
     public  void myPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
         final String POST_PARAMS = "{\n" +
@@ -131,6 +134,7 @@ public class NasaJson implements DistanceCalculator{
         }
     }
 
+
     //return distance between planet in km
     @Override
     public double calculateDistance(String originPlanet, String destinationPlanet, LocalDate date) {
@@ -153,6 +157,7 @@ public class NasaJson implements DistanceCalculator{
 
         return distance;
     }
+
 
     //return available list planetName for calculating the distance
     @Override
