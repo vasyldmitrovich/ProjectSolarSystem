@@ -1,0 +1,42 @@
+
+<style>
+  #additional {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  #additional td, #additional th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  #additional tr:nth-child(even){background-color: #f2f2f2;}
+
+  #additional tr:hover {background-color: #ddd;}
+
+  #additional th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #5c2daf;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+  <form id="Additional" method="post" action="AdditionalServlet">
+<table id="additional" border="1" style="border-collapse:collapse">
+<tr><th>id</th><th>planet</th><th>distance from Sun</th><th>one way light time to the Sun</th><th>length of the year</th><th>planet type</th></tr>
+<tr><td>1</td><td>Mercury</td><td>28,725,467 km</td><td>2.570065 mins</td><td>88 Earth Days</td><td>Terrestrial</td></tr>
+<tr><td>2</td><td>Venus</td><td>66,983,231 km</td><td>5.992985 mins</td><td>225 Earth Days</td><td>Terrestrial</td></tr>
+<tr><td>3</td><td>Earth</td><td>91,785,392 km</td><td>8.212032 mins</td><td>365 Earth Days</td><td>Terrestrial</td></tr>
+<tr><td>4</td><td>Mars</td><td>142,782,686 km</td><td>12.774756 mins</td><td>687 Earth Days</td><td>Terrestrial</td></tr>
+<tr><td>5</td><td>Jupiter</td><td>484,423,675 km</td><td>43.341349 mins</td><td>4,333 Earth Days</td><td>Gas Giant</td></tr>
+<tr><td>6</td><td>Saturn</td><td>932,319,812 km</td><td>83.414582 mins</td><td>10,759 Earth Days</td><td>Gas Giant</td></tr>
+<tr><td>7</td><td>Uranus</td><td>1,874,152,070 km</td><td>164.780674 mins</td><td>30,687 Earth Days</td><td>Ice Giant</td></tr>
+<tr><td>8</td><td>Neptune</td><td>2,782,368,874 km</td><td>248.938330 mins</td><td>60,190 Earth Days</td><td>Ice Giant</td></tr></table>
+  </form>
+</body>
+</html>
