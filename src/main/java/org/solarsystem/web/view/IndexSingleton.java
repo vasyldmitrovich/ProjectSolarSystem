@@ -48,7 +48,7 @@ public class IndexSingleton {
         this.path = path;
         this.index = getPartialHtml("index");
         this.calculator = getPartialHtml("calculator");
-        this.additional = getPartialHtml("additional_eng");
+        this.additional = getPartialHtml("additional");
         this.feedback = getPartialHtml("feedback");
         this.authorization = getPartialHtml("authorization");
     }
