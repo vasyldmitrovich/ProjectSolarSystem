@@ -22,14 +22,14 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
     private static String calcId = null;
     private static Object GetAndPost;
 
-    private String DateMinInterval;
+    private String dateMinInterval;
 
     public String getDateMinInterval() {
-        return DateMinInterval;
+        return dateMinInterval;
     }
 
     public void setDateMinInterval(String dateMinInterval) {
-        this.DateMinInterval = dateMinInterval;
+        this.dateMinInterval = dateMinInterval;
     }
 
     private double distance;
@@ -83,7 +83,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
           //          + distanceInterval.indexOf(Collections.min(distanceInterval)));
          //   System.out.println(rows2[distanceInterval.indexOf(Collections.min(distanceInterval))][0]);
             distance = Collections.min(distanceInterval);
-            DateMinInterval = (rows2[distanceInterval.indexOf(Collections.min(distanceInterval))][0]);
+            dateMinInterval = (rows2[distanceInterval.indexOf(Collections.min(distanceInterval))][0]);
 
         } else {
             System.out.println("GET NOT WORKED");
@@ -218,7 +218,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
         }
 
 
-        return DateMinInterval;
+        return dateMinInterval;
     }
 
 
