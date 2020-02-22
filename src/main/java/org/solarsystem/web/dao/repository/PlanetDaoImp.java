@@ -79,7 +79,6 @@ public class PlanetDaoImp implements PlanetDao {
              ){
             if (resultSet.next()){
                 String string = resultSet.getString("array_images");
-                System.out.println(string);
                 ArrayList<String> listImages = new ArrayList<>();
                 String [] str_array = string.split(", ");
                 for (int i=0;i<str_array.length;i++){
@@ -134,7 +133,6 @@ public class PlanetDaoImp implements PlanetDao {
         ){
              while (resultSet.next()){
                  String string = resultSet.getString("array_images");
-                 System.out.println(string);
                  ArrayList<String> listImages = new ArrayList<>();
                  String [] str_array = string.split(", ");
                  for (int i=0;i<str_array.length;i++){
@@ -169,7 +167,6 @@ public class PlanetDaoImp implements PlanetDao {
         ){
             if (resultSet.next()){
                 String string = resultSet.getString("array_images");
-                System.out.println(string);
                 ArrayList<String> listImages = new ArrayList<>();
                 String [] str_array = string.split(", ");
                 for (int i=0;i<str_array.length;i++){
