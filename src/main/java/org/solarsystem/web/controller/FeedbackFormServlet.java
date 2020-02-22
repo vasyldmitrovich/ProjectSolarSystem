@@ -17,9 +17,14 @@ import java.io.PrintWriter;
 
         urlPatterns = {"/FeedbackFormServlet"})
 public class FeedbackFormServlet extends HttpServlet {
-/*    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }*/
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        String path = getServletContext().getRealPath("/html/");
+        IndexSingleton indexSingleton = IndexSingleton.getInstance();
+        indexSingleton.setPath(path);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,13 +59,7 @@ public class FeedbackFormServlet extends HttpServlet {
         }*/
     }
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        String path = getServletContext().getRealPath("/html/");
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        indexSingleton.setPath(path);
-    }
+
 }
 
 

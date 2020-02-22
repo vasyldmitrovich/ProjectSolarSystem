@@ -12,7 +12,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "ServletAuthorization", urlPatterns = {"/authorization"})
-public class ServletAuthorization extends HttpServlet {
+public class AuthorizationServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        String path = getServletContext().getRealPath("/html/");
+        IndexSingleton indexSingleton = IndexSingleton.getInstance();
+        indexSingleton.setPath(path);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -22,15 +31,6 @@ public class ServletAuthorization extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         AuthorizationView authorizationView = new AuthorizationView();
-
         out.println(authorizationView.getAuthorizationPage());
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        String path = getServletContext().getRealPath("/html/");
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        indexSingleton.setPath(path);
     }
 }

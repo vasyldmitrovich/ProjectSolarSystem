@@ -59,6 +59,15 @@ create table if not exists solar_system.images
             on delete cascade
 );
 
+create table if not exists solar_system.feedback
+(
+    First_Name varchar(30) null,
+    Last_Name  varchar(30) null,
+    Email      varchar(30) null,
+    Subject    varchar(30) null,
+    Comments   tinytext    null
+);
+
 
 #Planets
 INSERT INTO solar_system.planets (name, orbital_period, diameter, gravity, is_satellites,

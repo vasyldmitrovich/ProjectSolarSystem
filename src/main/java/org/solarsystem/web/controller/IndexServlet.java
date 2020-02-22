@@ -2,7 +2,6 @@ package org.solarsystem.web.controller;
 
 import org.solarsystem.web.view.InfoSingleton;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "ServletIndex", urlPatterns = {"/"}, loadOnStartup = 1)
-public class ServletIndex extends HttpServlet {
+public class IndexServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {

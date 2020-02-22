@@ -14,7 +14,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(name = "/calculator", urlPatterns = {"/calculator"})
-public class ServletCalculator extends HttpServlet {
+public class CalculatorServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        String path = getServletContext().getRealPath("/html/");
+        IndexSingleton indexSingleton = IndexSingleton.getInstance();
+        indexSingleton.setPath(path);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String fromPlanet = request.getParameter("FromPlanet");
@@ -46,11 +55,5 @@ public class ServletCalculator extends HttpServlet {
         out.println(calculatorView.getCalcPageForDoPost(planetNameArr,fromPlanet,toPlanet,date,distance));
     }
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        String path = getServletContext().getRealPath("/html/");
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        indexSingleton.setPath(path);
-    }
+
 }
