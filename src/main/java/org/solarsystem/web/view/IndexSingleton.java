@@ -12,6 +12,7 @@ public class IndexSingleton {
     private String path;
     private String index;
     private String calculator;
+    private String additional;
     private String feedback;
     private String authorization;
 
@@ -31,6 +32,10 @@ public class IndexSingleton {
         return calculator;
     }
 
+    public String getAdditional(){
+        return additional;
+    }
+
     public String getFeedback(){
         return feedback;
     }
@@ -43,6 +48,7 @@ public class IndexSingleton {
         this.path = path;
         this.index = getPartialHtml("index");
         this.calculator = getPartialHtml("calculator");
+        this.additional = getPartialHtml("additional_eng");
         this.feedback = getPartialHtml("feedback");
         this.authorization = getPartialHtml("authorization");
     }
