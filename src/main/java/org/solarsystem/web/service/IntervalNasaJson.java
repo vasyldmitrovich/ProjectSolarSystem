@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class IntervalNasaJson implements IntervalDistanceCalculator {
+public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMinDateCalulator {
 
 
     private static String calcId = null;
@@ -49,7 +49,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
         LocalDate dateStart = LocalDate.parse("1999-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate dateFinish = LocalDate.parse("2003-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
        // System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "earth", dateStart, dateFinish));
-       // System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "earth", dateStart, dateFinish));
+        //System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "earth", dateStart, dateFinish));
 
     }
 
@@ -120,7 +120,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
                 "  \"aberrationCorrection\": \"NONE\",\n" +
                 "  \"stateRepresentation\": \"RECTANGULAR\"\n" +
                 "}";
-        // System.out.println(POST_PARAMS);
+
         URL obj = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/new");
         HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
         postConnection.setRequestMethod("POST");
@@ -132,8 +132,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
         os.flush();
         os.close();
         int responseCode = postConnection.getResponseCode();
-        //System.out.println("POST Response Code :  " + responseCode);
-        //System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+
         if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
             BufferedReader in = new BufferedReader(new InputStreamReader(postConnection.getInputStream()));
             String inputLine;
@@ -151,7 +150,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
                     postConnection.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
-            //System.out.println(response.toString());
+
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -159,16 +158,11 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
             // print result
             String jackson = response.toString();
             JsonResponseResultID jsonResponseResultID = new ObjectMapper().readerFor(JsonResponseResultID.class).readValue(jackson);
-            //System.out.println(jsonResponseResultID.getCalculationId());
             calcId = jsonResponseResultID.getCalculationId();
-
-
         }
     }
 
     //return distance between planet in km
-
-
     @Override
     public double calculateIntervalDistance(String originPlanet, String destinationPlanet, LocalDate dateStart, LocalDate dateFinish) {
         if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))) {
