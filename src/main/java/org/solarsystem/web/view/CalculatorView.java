@@ -22,8 +22,8 @@ public class CalculatorView {
         }
         if (from != null && to != null){
 
-            message = "                <p>In this date: "+date+" Distance from this planet: "+from+
-                    " To this planet: "+to+" Will be: "+distance+" Kilometers"+"\n</p>" +
+            message = "In this date: "+date+" Distance from this planet: "+from+
+                    " To this planet: "+to+" Will be: "+distance+" Kilometers"+"\n" +
                     "\n" ;
 
             page = "<div class=\"container-fluid bg-dark\" id=\"calculator\">\n" +
@@ -57,7 +57,9 @@ public class CalculatorView {
                     "<input type=\"date\" id=\"start\" name=\"date\"\n" +
                     "       value=\"2020-02-27\"\n" +
                     "       min=\"2000-02-27\" max=\"5020-02-27\">"+
-                    "            <input type=\"submit\" value=\"Start\">\n" +message+
+                    "            <input type=\"submit\" value=\"Start\">\n" +
+                    "           <p><textarea name=\"textarea\" cols=\"40\" rows=\"5\">\n" + message+
+                    "    </textarea></p> \n"+
                     "    </div>\n" +
                     "    </form>\n" +
                     "</div>";
@@ -99,7 +101,11 @@ public class CalculatorView {
                     "            <input type=\"submit\" value=\"Start\">\n" +message+
                     "    </div>\n" +
                     "    </form>\n" +
+                    "    <textarea name=\"textarea\" cols=\"40\" rows=\"5\">\n" + message+
+                    "    </textarea> \n"+
                     "</div>";
+
+
 
         }
 
