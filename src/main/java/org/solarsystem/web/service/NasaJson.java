@@ -58,7 +58,7 @@ public class NasaJson implements DistanceCalculator{
             String[][] rows2 = resultResponse.getRows();
 
             distance = Double.valueOf(rows2[0][1]);
-            System.out.println(distance);
+
         } else {
             System.out.println("GET NOT WORKED");
         }

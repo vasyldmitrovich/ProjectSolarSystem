@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+
 public class BotsServiceImpl implements BotService {
     private String command;
     private String planetFirst;
@@ -90,12 +91,12 @@ public class BotsServiceImpl implements BotService {
     public String getAvailableCommands() {
 
         List<String> commands = new ArrayList<>();
-        commands.add("\"/allplanets\"");
-        commands.add("\"/distance\"");
+        commands.add("\"/allplanets\""+" -return all available planets for getting description");
+        commands.add("\"/allbodies\""+" -return all available space body for calculate distance between them");
+        commands.add("\"/distance\""+" - calculate distance between planet");
         //commands.add("\"/time\" ");
-        commands.add("\"/info\" ");
-        //commands.add("\"/image\"");
-        return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
+        commands.add("\"/info\" "+" -return description about chosen planet");
+        return String.join("\n", commands);
     }
 
     //split  string from chat to word
@@ -166,6 +167,11 @@ public class BotsServiceImpl implements BotService {
     }
 
     @Override
+    public List<String> getAllPlanetName() {
+        return null;
+    }
+
+    @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
 //        String dateStr = date.getYear() + "-" + ((date.getMonthValue() < 10) ? "0" + date.getMonthValue() : date.getMonthValue()) + "-"
 //                + ((date.getDayOfMonth() < 10) ? "0" + date.getDayOfMonth() : date.getDayOfMonth());
@@ -202,4 +208,6 @@ public class BotsServiceImpl implements BotService {
         }
 
     }
+
+
 }
