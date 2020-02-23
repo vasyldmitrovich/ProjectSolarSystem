@@ -20,10 +20,8 @@ import java.util.stream.Collectors;
 
 public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMinDateCalulator {
 
-
     private static String calcId = null;
     private static Object GetAndPost;
-
     private String dateMinInterval;
 
     public String getDateMinInterval() {

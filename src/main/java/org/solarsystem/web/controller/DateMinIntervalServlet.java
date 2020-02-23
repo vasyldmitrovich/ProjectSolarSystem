@@ -1,7 +1,8 @@
 package org.solarsystem.web.controller;
 
+import org.solarsystem.web.service.IntervalNasaJson;
 import org.solarsystem.web.service.NasaJson;
-import org.solarsystem.web.view.CalculatorView;
+import org.solarsystem.web.view.DateMinIntervalView;
 import org.solarsystem.web.view.IndexSingleton;
 
 import javax.servlet.ServletException;
@@ -15,8 +16,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@WebServlet(name = "/calculator", urlPatterns = {"/calculator"})
-public class CalculatorServlet extends HttpServlet {
+@WebServlet(name = "/DateMinInterval", urlPatterns = {"/DateMinInterval"})
+public class DateMinIntervalServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
@@ -30,32 +31,32 @@ public class CalculatorServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String fromPlanet = request.getParameter("FromPlanet");
         String toPlanet = request.getParameter("ToPlanet");
-        String dateFromPage = request.getParameter("date");
-        LocalDate date = LocalDate.parse(dateFromPage, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateStart = LocalDate.parse(request.getParameter("dateStart"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateFinish = LocalDate.parse(request.getParameter("dateFinish"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         NasaJson nasaJson = new NasaJson();
-        double distance = nasaJson.calculateDistance(fromPlanet,toPlanet,date);
         List<String> PlanetNameList = nasaJson.getAvailablePlanet();
 
-        CalculatorView calculatorView =new CalculatorView();
-        PrintWriter out = response.getWriter();
-        out.println(calculatorView.getCalcPageForDoPost(PlanetNameList,fromPlanet,toPlanet,date,distance));
+        IntervalNasaJson intervalNasaJson = new IntervalNasaJson();
+        double distance = intervalNasaJson.calculateIntervalDistance(fromPlanet,toPlanet,dateStart,dateFinish);
+        String dateMinInterval = intervalNasaJson.calculateDateMinInterval(fromPlanet,toPlanet,dateStart,dateFinish);
+
+        DateMinIntervalView dateMinIntervalView = new DateMinIntervalView();
+        PrintWriter printWriter = response.getWriter();
+        printWriter.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,dateMinInterval));
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String fromPlanet = null;
-        String toPlanet = null;
-        LocalDate date = LocalDate.parse("2020-02-27", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        double distance = 0.0;
+        String date = null;
 
         NasaJson nasaJson = new NasaJson();
         List<String> PlanetNameList = nasaJson.getAvailablePlanet();
 
-        CalculatorView calculatorView =new CalculatorView();
-        out.println(calculatorView.getCalcPageForDoPost(PlanetNameList,fromPlanet,toPlanet,date,distance));
+        DateMinIntervalView dateMinIntervalView = new DateMinIntervalView();
+        PrintWriter out = response.getWriter();
+        out.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,date));
+
     }
-
-
 }
