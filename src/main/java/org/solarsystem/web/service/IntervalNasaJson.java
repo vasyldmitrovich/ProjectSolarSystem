@@ -1,6 +1,7 @@
 package org.solarsystem.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.solarsystem.web.service.jsonparser.JsonResponseResultID;
 import org.solarsystem.web.service.jsonparser.ResultResponse;
 
 import java.io.BufferedReader;
@@ -45,11 +46,10 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
 
     public static void main(String[] args) throws IOException {
 
-        LocalDate dateStart = LocalDate.parse("2012-02-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate dateFinish = LocalDate.parse("2013-05-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-       // System.out.println("distance" + new NasaJson().calculateDistance("sun", "nix", date));
-        System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "earth", dateStart, dateFinish));
-        System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "earth", dateStart, dateFinish));
+        LocalDate dateStart = LocalDate.parse("1999-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateFinish = LocalDate.parse("2003-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+       // System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "earth", dateStart, dateFinish));
+       // System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "earth", dateStart, dateFinish));
 
     }
 
@@ -78,7 +78,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
             for (int i = 0; i < rows2.length; i++) {
                 distanceInterval.add(i, Double.valueOf(rows2[i][1]));
             }
-           // System.out.println(rows2.length);
+            //System.out.println(rows2.length);
           //  System.out.println("ArrayList Min Value: " + Collections.min(distanceInterval));
           //  System.out.println("ArrayList Min Value is at index: "
           //          + distanceInterval.indexOf(Collections.min(distanceInterval)));
@@ -178,7 +178,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
                 + ((dateStart.getDayOfMonth() < 10) ? "0" + dateStart.getDayOfMonth() : dateStart.getDayOfMonth());
         ;
 
-        String strDate2 = dateStart.getYear() + "-" + ((dateFinish.getMonthValue() < 10) ? "0" + dateFinish.getMonthValue() : dateFinish.getMonthValue()) + "-"
+        String strDate2 = dateFinish.getYear() + "-" + ((dateFinish.getMonthValue() < 10) ? "0" + dateFinish.getMonthValue() : dateFinish.getMonthValue()) + "-"
                 + ((dateFinish.getDayOfMonth() < 10) ? "0" + dateFinish.getDayOfMonth() : dateFinish.getDayOfMonth());
         ;
         try {
@@ -204,7 +204,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator {
                 + ((dateStart.getDayOfMonth() < 10) ? "0" + dateStart.getDayOfMonth() : dateStart.getDayOfMonth());
         ;
 
-        String strDate2 = dateStart.getYear() + "-" + ((dateFinish.getMonthValue() < 10) ? "0" + dateFinish.getMonthValue() : dateFinish.getMonthValue()) + "-"
+        String strDate2 = dateFinish.getYear() + "-" + ((dateFinish.getMonthValue() < 10) ? "0" + dateFinish.getMonthValue() : dateFinish.getMonthValue()) + "-"
                 + ((dateFinish.getDayOfMonth() < 10) ? "0" + dateFinish.getDayOfMonth() : dateFinish.getDayOfMonth());
         ;
         try {

@@ -1,6 +1,7 @@
 package org.solarsystem.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.solarsystem.web.service.jsonparser.JsonResponseResultID;
 import org.solarsystem.web.service.jsonparser.ResultResponse;
 
 import java.io.BufferedReader;
