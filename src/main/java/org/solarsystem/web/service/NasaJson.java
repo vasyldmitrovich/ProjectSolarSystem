@@ -1,6 +1,7 @@
 package org.solarsystem.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.solarsystem.web.service.jsonparser.ResultResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

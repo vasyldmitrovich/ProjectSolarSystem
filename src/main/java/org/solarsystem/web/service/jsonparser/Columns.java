@@ -1,4 +1,4 @@
-package org.solarsystem.web.service;
+package org.solarsystem.web.service.jsonparser;
 
 public class Columns {
     private String name;
