@@ -1,7 +1,6 @@
 package org.solarsystem.web.controller;
 
-import org.solarsystem.web.service.CalcDistance;
-import org.solarsystem.web.service.PlanetNameArray;
+import org.solarsystem.web.service.NasaJson;
 import org.solarsystem.web.view.CalculatorView;
 import org.solarsystem.web.view.IndexSingleton;
 
@@ -12,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet(name = "/calculator", urlPatterns = {"/calculator"})
 public class CalculatorServlet extends HttpServlet {
@@ -28,16 +30,16 @@ public class CalculatorServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String fromPlanet = request.getParameter("FromPlanet");
         String toPlanet = request.getParameter("ToPlanet");
-        String date = request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");
-        CalcDistance calcDistance = new CalcDistance();
-        double distance = calcDistance.getDistance(fromPlanet,toPlanet,date);
+        String dateFromPage = request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");
+        LocalDate date = LocalDate.parse(dateFromPage, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        PlanetNameArray planetNameArray = new PlanetNameArray();
-        String [] planetNameArr = planetNameArray.getPlanetName();
+        NasaJson nasaJson = new NasaJson();
+        double distance = nasaJson.calculateDistance(fromPlanet,toPlanet,date);
+        List<String> PlanetNameList = nasaJson.getAvailablePlanet();
 
         CalculatorView calculatorView =new CalculatorView();
         PrintWriter out = response.getWriter();
-        out.println(calculatorView.getCalcPageForDoPost(planetNameArr,fromPlanet,toPlanet,date,distance));
+        out.println(calculatorView.getCalcPageForDoPost(PlanetNameList,fromPlanet,toPlanet,date,distance));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,14 +47,14 @@ public class CalculatorServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String fromPlanet = null;
         String toPlanet = null;
-        String date = null;
+        LocalDate date = null;
         double distance = 0.0;
 
-        PlanetNameArray planetNameArray = new PlanetNameArray();
-        String [] planetNameArr = planetNameArray.getPlanetName();
+        NasaJson nasaJson = new NasaJson();
+        List<String> PlanetNameList = nasaJson.getAvailablePlanet();
 
         CalculatorView calculatorView =new CalculatorView();
-        out.println(calculatorView.getCalcPageForDoPost(planetNameArr,fromPlanet,toPlanet,date,distance));
+        out.println(calculatorView.getCalcPageForDoPost(PlanetNameList,fromPlanet,toPlanet,date,distance));
     }
 
 

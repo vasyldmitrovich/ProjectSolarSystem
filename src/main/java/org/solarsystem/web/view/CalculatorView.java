@@ -1,7 +1,7 @@
 package org.solarsystem.web.view;
 
-import org.solarsystem.web.service.PlanetName;
-import org.solarsystem.web.service.PlanetNameArray;
+import java.time.LocalDate;
+import java.util.List;
 
 public class CalculatorView {
     public String getCalculatorPage(String[] planetName) {
@@ -11,7 +11,7 @@ public class CalculatorView {
                         indexSingleton.getCalculator());
     }
 
-    public String getCalcPageForDoPost(String[] planetName, String from, String to,String date, double distance){
+    public String getCalcPageForDoPost(List<String> planetName, String from, String to, LocalDate date, double distance){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
         String page = "";
@@ -20,7 +20,7 @@ public class CalculatorView {
         ) {
             listPlanet.append("<option value=\""+s+"\">"+s+"</option>\n");
         }
-        if (from != null && to != null && date != null){
+        if (from != null && to != null){
 
             message = "                <p>In this date: "+date+" Distance from this planet: "+from+
                     " To this planet: "+to+" Will be: "+distance+" Astronomical unit"+"\n</p>" +
