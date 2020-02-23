@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TelegramBot extends TelegramLongPollingBot {
 
@@ -158,9 +159,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                 listPlanet.add(call_data.substring("*Planet_firts_name_is:*".length()) + "userId" + userId);
             } else if (call_data.startsWith("*button_number_calendar*")) {
                 LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+                if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                        .getFrom().getId())).collect(Collectors.toList()).size()>2){
+                    List<String> collectToDalete = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                            .getFrom().getId())).collect(Collectors.toList());
+                    collectToDalete.size();
+                    listPlanet.removeAll(collectToDalete.subList(0,collectToDalete.size()-2));
+                listPlanet.forEach(System.out::println);
                 if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                         .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
+
+
+
+                    }
 
                     List<String> collect = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
