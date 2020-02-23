@@ -1,6 +1,5 @@
 package org.solarsystem.telegrambot;
 
-import org.solarsystem.web.service.CalcDistance;
 import org.solarsystem.web.service.NasaJson;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -47,7 +46,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 String planetList = botsServiceImpl.getAllSpaceBodyNames().stream().collect(Collectors.joining(", "));
                 switch (botsServiceImpl.getCommand()) {
                     case "help":
-                        sendMsg(update.getMessage().getChatId().toString(), availableCommands);
+                        sendMsg(update.getMessage().getChatId().toString(), botsServiceImpl.getAvailableCommands());
 
                         break;
                     case "info":
@@ -66,6 +65,10 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                         break;
                     case "allplanets":
+                        sendMsg(update.getMessage().getChatId().toString(), planetList);
+
+                        break;
+                    case "allbodies":
                         sendMsg(update.getMessage().getChatId().toString(), planetList);
 
                         break;
@@ -89,15 +92,15 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetFirst())
                                 && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetSecond())
                                 && botsServiceImpl.isCorectDate(botsServiceImpl.getDate())) {
-                           LocalDate localDate =LocalDate.parse(botsServiceImpl.getDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                           double distance = new NasaJson().
-                                   calculateDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), localDate);
+                            LocalDate localDate = LocalDate.parse(botsServiceImpl.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            double distance = new NasaJson().
+                                    calculateDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), localDate);
                             sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " km");
 
                         } else if (botsServiceImpl.getPlanetFirst() != null) {
 
                             sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. \n");
-;
+                            ;
                         } else {
                             try {
 
@@ -158,9 +161,18 @@ public class TelegramBot extends TelegramLongPollingBot {
                 listPlanet.add(call_data.substring("*Planet_firts_name_is:*".length()) + "userId" + userId);
             } else if (call_data.startsWith("*button_number_calendar*")) {
                 LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
                 if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
-                        .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
+                        .getFrom().getId())).collect(Collectors.toList()).size() > 2) {
+                    List<String> collectToDalete = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                            .getFrom().getId())).collect(Collectors.toList());
+                    collectToDalete.size();
+                    listPlanet.removeAll(collectToDalete.subList(0, collectToDalete.size() - 2));
+
+                    if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                            .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
+
+
+                    }
 
                     List<String> collect = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
