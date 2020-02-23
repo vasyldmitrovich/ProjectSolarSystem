@@ -15,8 +15,8 @@ public class CalculatorView {
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
         if (from != null && to != null){
-            message = "In this date: "+date+" distance from this planet: "+from+
-                    "   to this planet: "+to+"  will be: "+distance+" kilometers or ten to the eighth degree"+"\n" +
+            message = "On this date: "+date+" distance from Solar system body: "+from+
+                    "   to solar system body: "+to+"  will be: "+distance+" kilometers or ten to the eighth degree"+"\n" +
                     "\n" ;
         }
 
@@ -33,7 +33,7 @@ public class CalculatorView {
                     "    <form id=\"calc\" method=\"post\" action=\"/calculator\">\n" +
                     "    <div class=\"row\">\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet1\"><h3>From this planet</h3></label>\n" +
+                    "            <label for=\"planet1\"><h3>From this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet1\" name=\"FromPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+"<br>"+
                     "            </select>\n" +
@@ -42,7 +42,7 @@ public class CalculatorView {
                     "            </div>\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet2\"><h3>To this planet</h3></label>\n" +
+                    "            <label for=\"planet2\"><h3>To this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet2\" name=\"ToPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+"<br>"+
                     "            </select>\n" +
