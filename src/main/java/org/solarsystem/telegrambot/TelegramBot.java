@@ -1,5 +1,6 @@
 package org.solarsystem.telegrambot;
 
+import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.service.NasaJson;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -43,7 +44,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (update.getMessage().hasText()) {
                 String message = update.getMessage().getText();
                 BotsServiceImpl botsServiceImpl = new BotsServiceImpl(message);
-                String planetList = botsServiceImpl.getAllSpaceBodyNames().stream().collect(Collectors.joining(", "));
+                String bodiestList = botsServiceImpl.getAllSpaceBodyNames().stream().collect(Collectors.joining(", "));
+
                 switch (botsServiceImpl.getCommand()) {
                     case "help":
                         sendMsg(update.getMessage().getChatId().toString(), botsServiceImpl.getAvailableCommands());
@@ -65,11 +67,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                         break;
                     case "allplanets":
-                        sendMsg(update.getMessage().getChatId().toString(), planetList);
+                        sendMsg(update.getMessage().getChatId().toString(), String.join(", ",botsServiceImpl.getAllPlanetName()));
 
                         break;
                     case "allbodies":
-                        sendMsg(update.getMessage().getChatId().toString(), planetList);
+                        sendMsg(update.getMessage().getChatId().toString(), bodiestList);
 
                         break;
                     case "calendar":
@@ -184,7 +186,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     SendMessage message = new SendMessage() // Create a message object object
                             .setChatId(chat_id)
-                            .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " AU.");
+                            .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " km.");
                     try {
                         execute(message); // Sending our message object to user
                     } catch (TelegramApiException e) {
