@@ -47,9 +47,9 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
     public static void main(String[] args) throws IOException {
 
         LocalDate dateStart = LocalDate.parse("1999-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate dateFinish = LocalDate.parse("2003-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-       // System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "earth", dateStart, dateFinish));
-        //System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "earth", dateStart, dateFinish));
+        LocalDate dateFinish = LocalDate.parse("2002-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      //  System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("earth", "jupiter", dateStart, dateFinish));
+       // System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("earth", "jupiter", dateStart, dateFinish));
 
     }
 
@@ -189,7 +189,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
         return distance;
 
     }
-
+    @Override
     public String calculateDateMinInterval(String originPlanet, String destinationPlanet, LocalDate dateStart, LocalDate dateFinish) {
         //if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))) {
          //   return -1.0;

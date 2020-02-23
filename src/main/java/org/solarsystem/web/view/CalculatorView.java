@@ -22,8 +22,8 @@ public class CalculatorView {
         }
         if (from != null && to != null){
 
-            message = "In this date: "+date+" Distance from this planet: "+from+
-                    " To this planet: "+to+" Will be: "+distance+" Kilometers"+"\n" +
+            message = "ON this date: "+date+" Distance from Solarsystem body: "+from+
+                    " to Solarsystem body: "+to+" will be: "+distance+" kilometers"+"\n" +
                     "\n" ;
 
             page = "<div class=\"container-fluid bg-dark\" id=\"calculator\">\n" +
@@ -34,7 +34,7 @@ public class CalculatorView {
                     "    <form id=\"calc\" method=\"post\" action=\"/calculator\">\n" +
                     "    <div class=\"row\">\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet1\"><h3>From this planet</h3></label>\n" +
+                    "            <label for=\"planet1\"><h3>From this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet1\" name=\"FromPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+
                     "            </select>\n" +
@@ -43,7 +43,7 @@ public class CalculatorView {
                     "            </div>\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet2\"><h3>To this planet</h3></label>\n" +
+                    "            <label for=\"planet2\"><h3>To this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet2\" name=\"ToPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+
                     "            </select>\n" +
@@ -75,7 +75,7 @@ public class CalculatorView {
                     "    <form id=\"calc\" method=\"post\" action=\"/calculator\">\n" +
                     "    <div class=\"row\">\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet1\"><h3>From this planet</h3></label>\n" +
+                    "            <label for=\"planet1\"><h3>From this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet1\" name=\"FromPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+
                     "            </select>\n" +
@@ -84,7 +84,7 @@ public class CalculatorView {
                     "            </div>\n" +
                     "        </div>\n" +
                     "        <div class=\"col-md-2 mb-3\">\n" +
-                    "            <label for=\"planet2\"><h3>To this planet</h3></label>\n" +
+                    "            <label for=\"planet2\"><h3>To this body</h3></label>\n" +
                     "            <select class=\"custom-select d-block w-100\" id=\"planet2\" name=\"ToPlanet\" required>\n" +
                     "                <option value=\"\">Choose...</option>\n" +listPlanet+
                     "            </select>\n" +
