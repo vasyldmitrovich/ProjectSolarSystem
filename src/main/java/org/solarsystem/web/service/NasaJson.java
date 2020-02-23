@@ -19,9 +19,6 @@ public class NasaJson implements DistanceCalculator{
 
 
     private static String calcId = null;
-
-
-
     private  double distance;
 
     public double getDistance() {
@@ -38,6 +35,7 @@ public class NasaJson implements DistanceCalculator{
         System.out.println("distance" + new NasaJson().calculateDistance("sun", "nix", date));
 
     }
+
     public  void myGETRequest() throws IOException {
         URL urlForGetRequest = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/"+calcId +"/results");
         String readLine = null;
@@ -63,7 +61,6 @@ public class NasaJson implements DistanceCalculator{
             System.out.println("GET NOT WORKED");
         }
     }
-
 
     public  void myPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
         final String POST_PARAMS = "{\n" +
@@ -133,7 +130,6 @@ public class NasaJson implements DistanceCalculator{
         }
     }
 
-
     //return distance between planet in km
     @Override
     public double calculateDistance(String originPlanet, String destinationPlanet, LocalDate date) {
@@ -157,7 +153,6 @@ public class NasaJson implements DistanceCalculator{
         return distance;
     }
 
-
     //return available list planetName for calculating the distance
     @Override
     public List<String> getAvailablePlanet() {
@@ -170,6 +165,5 @@ public class NasaJson implements DistanceCalculator{
     public boolean isPlanetToCalc(String planetName){
        return getAvailablePlanet().contains(planetName.toLowerCase());
     }
-
 
 }
