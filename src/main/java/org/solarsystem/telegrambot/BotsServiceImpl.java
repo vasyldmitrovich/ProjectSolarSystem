@@ -2,6 +2,7 @@ package org.solarsystem.telegrambot;
 
 
 import org.solarsystem.web.service.CalcDistance;
+import org.solarsystem.web.service.PlanetInfoImpl;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -59,7 +60,7 @@ public class BotsServiceImpl implements BotService {
 
 
     public BotsServiceImpl(String str) {
-        planetToDistance=new ArrayList<>();
+        planetToDistance = new ArrayList<>();
         Deque<String> list = new LinkedList<>();
         list = parseCommands(str);
         while (!list.isEmpty()) {
@@ -85,7 +86,7 @@ public class BotsServiceImpl implements BotService {
 
     // return all commands witch available in bot
     @Override
-    public  String getAvailableCommands() {
+    public String getAvailableCommands() {
 
         List<String> commands = new ArrayList<>();
         commands.add("\"/allplanets\"");
@@ -128,7 +129,6 @@ public class BotsServiceImpl implements BotService {
         KeyboardButton help = new KeyboardButton("Help");
 
 
-
         //add buttons to keyboardrow
         firstRow.add(help);
         //firstRow.add(availableCommand);
@@ -143,7 +143,7 @@ public class BotsServiceImpl implements BotService {
 
     public boolean isPlanet(String str) {
         List<String> list = new ArrayList<>();
-        String[]hj = {"mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"};
+        String[] hj = {"mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"};
         switch (str) {
             case "mercury":
                 return true;
@@ -229,9 +229,9 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
-        String dateStr = date.getYear()+"-"+((date.getMonthValue()<10)? "0"+date.getMonthValue():date.getMonthValue())+"-"
-                +((date.getDayOfMonth()<10)? "0"+date.getDayOfMonth():date.getDayOfMonth());
-       return CalcDistance.getDistance(originPlanet,destinationPlanetUuid,dateStr);
+        String dateStr = date.getYear() + "-" + ((date.getMonthValue() < 10) ? "0" + date.getMonthValue() : date.getMonthValue()) + "-"
+                + ((date.getDayOfMonth() < 10) ? "0" + date.getDayOfMonth() : date.getDayOfMonth());
+        return CalcDistance.getDistance(originPlanet, destinationPlanetUuid, dateStr);
 
     }
 
@@ -242,23 +242,23 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public String getInfo(String planetName) {
+        return new PlanetInfoImpl().getShortDescription(planetName);
 
-        return "Short description about planet "+planetFirst+"\n"+"Tra ta ta";
     }
 
 
     //validate date
-    public   boolean corectDate(String date){
+    public boolean corectDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try{
+        try {
             LocalDate parse = LocalDate.parse(date, formatter);
 
-            if (Integer.parseInt(date.substring(8))>parse.getDayOfMonth()){
+            if (Integer.parseInt(date.substring(8)) > parse.getDayOfMonth()) {
                 return false;
             }
 
             return true;
-        }catch(DateTimeParseException excep){
+        } catch (DateTimeParseException excep) {
             return false;
         }
 
