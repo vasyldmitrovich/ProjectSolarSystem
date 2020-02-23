@@ -1,22 +1,30 @@
 <div class="container-fluid bg-dark" id="calculator">
+
+
+    <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#CalculatorMenu">Calculator</a>
+    </li>
+
 </div>
 
+
+
 <div id="CalculatorMenu" class="container-fluid tab-pane fade text-white bg-dark"><br>
-    <form id="calc" method="post" action="/calculator">
+
     <div class="row">
+
         <div class="col-md-2 mb-3">
             <label for="planet1"><h3>From this planet</h3></label>
-            <select class="custom-select d-block w-100" id="planet1" name="FromPlanet" required>
+            <select class="custom-select d-block w-100" id="planet1" required>
                 <option value="">Choose...</option>
-                <option value="Mercury">Mercury</option>
-                <option value="Venus">Venus</option>
-                <option value="Earth">Earth</option>
-                <option value="Mars">Mars</option>
-                <option value="Jupiter">Jupiter</option>
-                <option value="Saturn">Saturn</option>
-                <option value="Uranus">Uranus</option>
-                <option value="Neptune">Neptune</option>
+                <option>Mercury</option>
+                <option>Venus</option>
+                <option>Earth</option>
+                <option>Mars</option>
+                <option>Jupiter</option>
+                <option>Saturn</option>
+                <option>Uranus</option>
+                <option>Neptune</option>
             </select>
             <div class="invalid-feedback">
                 Please select planet.
@@ -24,28 +32,75 @@
         </div>
         <div class="col-md-2 mb-3">
             <label for="planet2"><h3>To this planet</h3></label>
-            <select class="custom-select d-block w-100" id="planet2" name="ToPlanet" required>
+            <select class="custom-select d-block w-100" id="planet2" required>
                 <option value="">Choose...</option>
-                <option value="Mercury">Mercury</option>
-                <option value="Venus">Venus</option>
-                <option value="Earth">Earth</option>
-                <option value="Mars">Mars</option>
-                <option value="Jupiter">Jupiter</option>
-                <option value="Saturn">Saturn</option>
-                <option value="Uranus">Uranus</option>
-                <option value="Neptune">Neptune</option>
+                <option>Mercury</option>
+                <option>Venus</option>
+                <option>Earth</option>
+                <option>Mars</option>
+                <option>Jupiter</option>
+                <option>Saturn</option>
+                <option>Uranus</option>
+                <option>Neptune</option>
             </select>
             <div class="invalid-feedback">
                 Please select planet.
             </div></p>
             <p>
         </div>
-            <div class="input-group mb-3">
-                <input name="year" type="number" min="2000" max="9000" value="2020">
-                <input name="month" type="number" min="1" max="12" value="02">
-                <input name="day" type="number" min="1" max="31" value="27">
+        <div class="col-md-2 mb-3">
+            <label for="speed"><h3>speed</h3></label>
+            <input type="number" class="form-control" id="speed" placeholder="" required>
+            <div class="invalid-feedback">
+                Please select speed.
             </div>
-            <input type="submit" value="Start">
+        </div></p>
     </div>
-    </form>
+
+    <h3>Calculator</h3>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="calPlan1" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    from this planet
+                </a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Mercury</a>
+                    <a class="dropdown-item" href="#">Venus</a>
+                    <a class="dropdown-item" href="#">Earth</a>
+                    <a class="dropdown-item" href="#">Mars</a>
+                    <a class="dropdown-item" href="#">Jupiter</a>
+                    <a class="dropdown-item" href="#">Saturn</a>
+                    <a class="dropdown-item" href="#">Uranus</a>
+                    <a class="dropdown-item" href="#">Neptune</a>
+                </div>
+        </div>
+
+        <div class="col-sm-8" >
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="calPlan2" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    to this planet
+                </a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Mercury</a>
+                    <a class="dropdown-item" href="#">Venus</a>
+                    <a class="dropdown-item" href="#">Earth</a>
+                    <a class="dropdown-item" href="#">Mars</a>
+                    <a class="dropdown-item" href="#">Jupiter</a>
+                    <a class="dropdown-item" href="#">Saturn</a>
+                    <a class="dropdown-item" href="#">Uranus</a>
+                    <a class="dropdown-item" href="#">Neptune</a>
+                </div>
+
+                <button type="button" class="btn btn-link">Link</button>
+
+        </div>
+    </div>
 </div>
+
+
