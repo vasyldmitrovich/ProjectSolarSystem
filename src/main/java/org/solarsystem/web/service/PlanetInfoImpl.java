@@ -12,7 +12,7 @@ public class PlanetInfoImpl implements PlanetInfo {
         String shortDescription;
         List<Planet> allPlanets = new PlanetDaoImp().getAllPlanets();
         List<String> collect = allPlanets.stream().map(Planet::getName).map(String::toLowerCase).collect(Collectors.toList());
-        collect.forEach(System.out::println);
+
         if (collect.contains(planetName)){
             shortDescription = allPlanets.stream().filter(e -> e.getName().equalsIgnoreCase(planetName))
                     .collect(Collectors.toList()).get(0).getShortDescription();

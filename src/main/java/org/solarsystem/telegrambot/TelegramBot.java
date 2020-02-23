@@ -1,6 +1,7 @@
 package org.solarsystem.telegrambot;
 
 import org.solarsystem.web.service.CalcDistance;
+import org.solarsystem.web.service.NasaJson;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -14,9 +15,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TelegramBot extends TelegramLongPollingBot {
@@ -82,22 +81,23 @@ public class TelegramBot extends TelegramLongPollingBot {
                         break;
                     case "distance":
                         //listPlanet.clear();
+
+
                         if (botsServiceImpl.getPlanetFirst() != null
-                                && botsServiceImpl.getPlanetFirst() != null
+                                && botsServiceImpl.getPlanetSecond() != null
                                 && botsServiceImpl.getDate() != null
                                 && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetFirst())
                                 && botsServiceImpl.isPlanet(botsServiceImpl.getPlanetSecond())
-                                && botsServiceImpl.corectDate(botsServiceImpl.getDate())) {
-                            double distance = CalcDistance.getDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), botsServiceImpl.getDate());
-
-                            sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " AU");
+                                && botsServiceImpl.isCorectDate(botsServiceImpl.getDate())) {
+                           LocalDate localDate =LocalDate.parse(botsServiceImpl.getDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                           double distance = new NasaJson().
+                                   calculateDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), localDate);
+                            sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " km");
 
                         } else if (botsServiceImpl.getPlanetFirst() != null) {
 
                             sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. \n");
-
-
-                            // sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. ");
+;
                         } else {
                             try {
 
