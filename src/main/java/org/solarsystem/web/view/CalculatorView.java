@@ -23,7 +23,7 @@ public class CalculatorView {
         if (from != null && to != null){
 
             message = "                <p>In this date: "+date+" Distance from this planet: "+from+
-                    " To this planet: "+to+" Will be: "+distance+" Astronomical unit"+"\n</p>" +
+                    " To this planet: "+to+" Will be: "+distance+" Kilometers"+"\n</p>" +
                     "\n" ;
 
             page = "<div class=\"container-fluid bg-dark\" id=\"calculator\">\n" +
