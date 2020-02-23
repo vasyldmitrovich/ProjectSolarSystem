@@ -1,6 +1,8 @@
 package org.solarsystem.telegrambot;
 
 
+import org.solarsystem.web.dao.entity.Planet;
+import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.service.CalcDistance;
 import org.solarsystem.web.service.NasaJson;
 import org.solarsystem.web.service.PlanetInfoImpl;
@@ -168,7 +170,7 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public List<String> getAllPlanetName() {
-        return null;
+        return new PlanetDaoImp().getAllPlanets().stream().map(Planet::getName).collect(Collectors.toList());
     }
 
     @Override
