@@ -36,8 +36,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 
     public void onUpdateReceived(Update update) {
+        listPlanet.forEach(System.out::println);
 
-        String availableCommands = new BotsServiceImpl().getAvailableCommands();
         if (update.hasMessage()) {
 
             if (update.getMessage().hasText()) {
@@ -162,31 +162,23 @@ public class TelegramBot extends TelegramLongPollingBot {
             } else if (call_data.startsWith("*button_number_calendar*")) {
                 LocalDate localDate = LocalDate.parse(call_data.substring("*button_number_calendar*".length()), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
-                        .getFrom().getId())).collect(Collectors.toList()).size() > 2) {
+                        .getFrom().getId())).collect(Collectors.toList()).size() > 3) {
                     List<String> collectToDalete = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
                     collectToDalete.size();
-                    listPlanet.removeAll(collectToDalete.subList(0, collectToDalete.size() - 2));
-
-                    if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
-                            .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
-
-
-                    }
-
+                   listPlanet.removeAll(collectToDalete.subList(0, collectToDalete.size() - 2));
+                }
+                if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
+                        .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
                     List<String> collect = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
-
 
                     String planetDestination = collect.get(collect.size() - 1)
                             .substring(0, collect.get(collect.size() - 1).length() - "userId".length() - String.valueOf(update.getCallbackQuery().getFrom().getId()).length());
 
                     String planetStart = collect.get(collect.size() - 2)
                             .substring(0, collect.get(collect.size() - 2).length() - "userId".length() - String.valueOf(update.getCallbackQuery().getFrom().getId()).length());
-                    if (collect.size() > 5) {
-                        collect.clear();
 
-                    }
 
                     double distance = new BotsServiceImpl().getDistance(planetStart, planetDestination, localDate);
 
