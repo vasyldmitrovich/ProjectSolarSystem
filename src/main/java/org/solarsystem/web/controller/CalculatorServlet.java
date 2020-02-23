@@ -30,7 +30,7 @@ public class CalculatorServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String fromPlanet = request.getParameter("FromPlanet");
         String toPlanet = request.getParameter("ToPlanet");
-        String dateFromPage = request.getParameter("year")+"-"+request.getParameter("month")+"-"+request.getParameter("day");
+        String dateFromPage = request.getParameter("date");
         LocalDate date = LocalDate.parse(dateFromPage, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         NasaJson nasaJson = new NasaJson();

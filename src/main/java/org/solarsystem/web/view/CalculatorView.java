@@ -52,11 +52,11 @@ public class CalculatorView {
                     "            </div></p>\n" +
                     "            <p>\n" +
                     "        </div>\n" +
-                    "            <div class=\"input-group mb-3\">\n" +
-                    "                <input name=\"year\" type=\"number\" min=\"2000\" max=\"9000\" value=\"2020\">\n" +
-                    "                <input name=\"month\" type=\"number\" min=\"1\" max=\"12\" value=\"02\">\n" +
-                    "                <input name=\"day\" type=\"number\" min=\"1\" max=\"31\" value=\"27\">\n" +
-                    "            </div>\n" +
+                    "<label for=\"start\">Date:</label>\n" +
+                    "\n" +
+                    "<input type=\"date\" id=\"start\" name=\"date\"\n" +
+                    "       value=\"2020-02-27\"\n" +
+                    "       min=\"2000-02-27\" max=\"5020-02-27\">"+
                     "            <input type=\"submit\" value=\"Start\">\n" +message+
                     "    </div>\n" +
                     "    </form>\n" +
@@ -91,11 +91,11 @@ public class CalculatorView {
                     "            </div></p>\n" +
                     "            <p>\n" +
                     "        </div>\n" +
-                    "            <div class=\"input-group mb-3\">\n" +
-                    "                <input name=\"year\" type=\"number\" min=\"2000\" max=\"9000\" value=\"2020\">\n" +
-                    "                <input name=\"month\" type=\"number\" min=\"1\" max=\"12\" value=\"02\">\n" +
-                    "                <input name=\"day\" type=\"number\" min=\"1\" max=\"31\" value=\"27\">\n" +
-                    "            </div>\n" +
+                    "<label for=\"start\">Date:</label>\n" +
+                    "\n" +
+                    "<input type=\"date\" id=\"start\" name=\"date\"\n" +
+                    "       value=\"2020-02-27\"\n" +
+                    "       min=\"2000-02-27\" max=\"5020-02-27\">"+
                     "            <input type=\"submit\" value=\"Start\">\n" +message+
                     "    </div>\n" +
                     "    </form>\n" +
