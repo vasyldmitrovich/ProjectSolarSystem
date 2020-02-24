@@ -3,7 +3,7 @@ package org.solarsystem.web.controller;
 import org.solarsystem.web.view.AuthorizationView;
 import org.solarsystem.web.view.IndexSingleton;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class AuthorizationServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    doGet(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,4 +33,5 @@ public class AuthorizationServlet extends HttpServlet {
         AuthorizationView authorizationView = new AuthorizationView();
         out.println(authorizationView.getAuthorizationPage());
     }
+
 }
