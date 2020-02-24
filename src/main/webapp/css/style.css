@@ -196,3 +196,9 @@ a:hover,a:focus{
 @media only screen and (max-width: 479px){
     .tab{ padding: 40px 20px; }
 }
+
+#footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
