@@ -39,24 +39,24 @@ public class FeedbackFormServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        //request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-        String First_Name = request.getParameter("First_Name");
-        String Last_Name = request.getParameter("Last_Name");
-        String Email = request.getParameter("Email");
-        String Subject = request.getParameter("Subject");
-        String Comments = request.getParameter("Comments");
-        System.out.println(First_Name);
+        String First_Name = new String (request.getParameter("First_Name").getBytes("iso-8859-1"),
+                "UTF-8");
+        String Last_Name = new String (request.getParameter("Last_Name").getBytes("iso-8859-1"),
+                "UTF-8");
+        String Email = new String (request.getParameter("Email").getBytes("iso-8859-1"),
+                "UTF-8");
+        String Subject = new String (request.getParameter("Subject").getBytes("iso-8859-1"),
+                "UTF-8");
+        String Comments = new String (request.getParameter("Comments").getBytes("iso-8859-1"),
+                "UTF-8");
+
         FeedbackRepository.addFeedback(First_Name, Last_Name, Email, Subject, Comments);
         doGet(request,response);
 
-        /*PrintWriter printWriter;
-        try {
-            printWriter = response.getWriter();
-            printWriter.println("Feedback send");
-        } catch (IOException exc) {
-            exc.printStackTrace();
-        }*/
+        /* String memo = new String(request.getParameter("textInputMemo").getBytes("iso-8859-1"),
+                        "UTF-8");*/
     }
 
 
