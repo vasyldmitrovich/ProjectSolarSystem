@@ -11,27 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "/admin", urlPatterns = {"/admin"})
+@WebServlet(name = "AdminServlet", urlPatterns = {"/admin"})
 public class AdminServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String userLogin = request.getParameter("loginEmail");
-        String userPassword = request.getParameter("loginPassword");
+        out.println("<html>\n" +
+                "<body>\n" +
+                "<h2>This will be admin page</h2>\n" +
+                "</body>\n" +
+                "</html>");
 
-        if (userLogin != null && userPassword != null){
-            UserRepository userRepository = new UserRepository();
-            User user = userRepository.getUserByEmailByPassword(userLogin,userPassword);
-            System.out.println("This user return null: "+user);
-            if (user !=null){
-                out.print("<h3>welcome ADMIN</h3>");
-            } else {
-                out.println("<h4>Invalid Login</h4>");
-            }
-        }
+
     }
 }
