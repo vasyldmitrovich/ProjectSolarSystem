@@ -1,5 +1,6 @@
 package org.solarsystem.web.dao.repository;
 
+import org.solarsystem.web.dao.DBConnection;
 import  org.solarsystem.web.dao.entity.User;
 
 import javax.sql.DataSource;
@@ -10,59 +11,11 @@ import java.util.logging.Logger;
 public class UserRepository {
 
     public User getUserByEmailByPassword(String email, String password) {
-        DataSource dataSource = new DataSource() {
-            @Override
-            public <T> T unwrap(Class<T> iface) throws SQLException {
-                return null;
-            }
-
-            @Override
-            public boolean isWrapperFor(Class<?> iface) throws SQLException {
-                return false;
-            }
-
-            @Override
-            public Connection getConnection() throws SQLException {
-                return null;
-            }
-
-            @Override
-            public Connection getConnection(String username, String password) throws SQLException {
-                return null;
-            }
-
-            @Override
-            public PrintWriter getLogWriter() throws SQLException {
-                return null;
-            }
-
-            @Override
-            public void setLogWriter(PrintWriter out) throws SQLException {
-
-            }
-
-            @Override
-            public void setLoginTimeout(int seconds) throws SQLException {
-
-            }
-
-            @Override
-            public int getLoginTimeout() throws SQLException {
-                return 0;
-            }
-
-            @Override
-            public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-                return null;
-            }
-        };
-
-        String sql = "SELECT id, name, email, password, " +
-                "FROM user " +
-                "WHERE user.email='" + email + "' AND user.password='" + password + "'";
-
+        DBConnection dbConnection = new DBConnection();
+        String sql = "SELECT id, name, email, password FROM solar_system.user_admin "+
+                "WHERE user_admin.email='" + email + "' AND user_admin.password='" + password + "'";
         try (
-                Connection connection = dataSource.getConnection();
+                Connection connection = dbConnection.getConnection();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql);
                 ) {
@@ -73,14 +26,11 @@ public class UserRepository {
                         resultSet.getString("password"),
                         resultSet.getString("name")
                 );
-
                 return user;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }
