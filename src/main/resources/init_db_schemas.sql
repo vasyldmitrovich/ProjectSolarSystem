@@ -79,14 +79,14 @@ create table  if not exists solar_system.user_admin
     comment 'tableAdmins';
 
 #USERADMIN
-INSERT INTO solar_system.user_admin(email, password, name)
- SELECT * FROM  (SELECT 'AdminFirst@admin.com','admin1234','AdminFirst')AS tmp
+INSERT INTO solar_system.user_admin(email, password, name, id)
+ SELECT * FROM  (SELECT 'AdminFirst@admin.com','admin1234','AdminFirst', '1')AS tmp
 WHERE NOT EXISTS(
     SELECT name FROM solar_system.user_admin WHERE email='AdminFirst@admin.com')LIMIT 1
     ;
 
-INSERT INTO solar_system.user_admin(email, password, name)
- SELECT * FROM (SELECT 'AdminSecond@admin.com','admin1234','AdminSecond')AS tmp
+INSERT INTO solar_system.user_admin(email, password, name, id)
+ SELECT * FROM (SELECT 'AdminSecond@admin.com','admin1234','AdminSecond', '2')AS tmp
 WHERE NOT EXISTS(
     SELECT name FROM solar_system.user_admin WHERE email='AdminSecond@admin.com')LIMIT 1
     ;
