@@ -21,12 +21,9 @@ public class AdminServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<html>\n" +
-                "<body>\n" +
-                "<h2>This will be admin page</h2>\n" +
-                "</body>\n" +
-                "</html>");
-
+        PlanetController planetController = new PlanetController();
+        String fullPage = planetController.adminView();
+        out.println(fullPage);
 
     }
 }
