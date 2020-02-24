@@ -5,11 +5,12 @@ import java.util.List;
 
 public class DateMinIntervalView {
 
-    public String getDateMinInterval(List<String> planetNames, String theBestDay){
+    public String getDateMinInterval(List<String> planetNames, String theBestDay, String distance){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
         if (theBestDay !=null){
-            message = "This the best date: "+theBestDay;
+            message = "<p><font color=\"white\">This the best date: "+theBestDay+"</p>"+
+            "<p>This is distance: "+distance+" Astronomical unit</font></p>";
         }
 
         StringBuilder listPlanet = new StringBuilder();
@@ -40,7 +41,7 @@ public class DateMinIntervalView {
                 "      <input type=\"date\" id=\"finishDate\" name=\"dateFinish\" value=\"2020-02-27\" min=\"2000-02-27\" max=\"5020-02-27\">\n" +
                 "      <br>\n" +
                 "      <div class=\"col-auto my-1\">\n" +
-                "        <button type=\"submit\" class=\"btn btn-primary\">I want to know the best day</button>\n" +
+                "        <button type=\"submit\" class=\"btn btn-primary\">I want to know the best day and distance</button>\n" +
                 "      </div>\n" +
                 "      <br>\n" +
                 "      <div class=\"\">\n" +

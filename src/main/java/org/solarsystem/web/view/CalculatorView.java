@@ -16,7 +16,7 @@ public class CalculatorView {
         String message = "";
         if (from != null && to != null){
             message = "On this date: "+date+" distance from Solar system body: "+from+
-                    "   to solar system body: "+to+"  will be: "+distance+" kilometers or ten to the eighth degree"+"\n" +
+                    "   to solar system body: "+to+"  will be: "+distance+" Astronomical unit"+"\n" +
                     "\n" ;
         }
 

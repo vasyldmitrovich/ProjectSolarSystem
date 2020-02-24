@@ -39,24 +39,26 @@ public class DateMinIntervalServlet extends HttpServlet {
 
         IntervalNasaJson intervalNasaJson = new IntervalNasaJson();
         double distance = intervalNasaJson.calculateIntervalDistance(fromPlanet,toPlanet,dateStart,dateFinish);
+        String dist = String.valueOf((distance));
         String dateMinInterval = intervalNasaJson.calculateDateMinInterval(fromPlanet,toPlanet,dateStart,dateFinish);
 
         DateMinIntervalView dateMinIntervalView = new DateMinIntervalView();
         PrintWriter printWriter = response.getWriter();
-        printWriter.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,dateMinInterval));
+        printWriter.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,dateMinInterval,dist));
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String date = null;
+        String distance = null;
 
         NasaJson nasaJson = new NasaJson();
         List<String> PlanetNameList = nasaJson.getAvailablePlanet();
 
         DateMinIntervalView dateMinIntervalView = new DateMinIntervalView();
         PrintWriter out = response.getWriter();
-        out.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,date));
+        out.println(dateMinIntervalView.getDateMinInterval(PlanetNameList,date,distance));
 
     }
 }
