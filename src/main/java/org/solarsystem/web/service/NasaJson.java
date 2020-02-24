@@ -150,7 +150,7 @@ public class NasaJson implements DistanceCalculator{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        distance = distance/149598000;
         return distance;
     }
 
