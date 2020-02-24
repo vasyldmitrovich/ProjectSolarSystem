@@ -9,8 +9,8 @@ public class DateMinIntervalView {
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
         if (theBestDay !=null){
-            message = "<p><font color=\"white\">This the best date: "+theBestDay+"</p>"+
-            "<p>This is distance: "+distance+" Astronomical unit</font></p>";
+            message = "<p><font color=\"white\">Date of closest approach "+theBestDay+"</p>"+
+            "<p>Shortest distance will be: "+distance+" Astronomical unit</font></p>";
         }
 
         StringBuilder listPlanet = new StringBuilder();
@@ -41,7 +41,7 @@ public class DateMinIntervalView {
                 "      <input type=\"date\" id=\"finishDate\" name=\"dateFinish\" value=\"2020-02-27\" min=\"2000-02-27\" max=\"5020-02-27\">\n" +
                 "      <br>\n" +
                 "      <div class=\"col-auto my-1\">\n" +
-                "        <button type=\"submit\" class=\"btn btn-primary\">I want to know the best day and distance</button>\n" +
+                "        <button type=\"submit\" class=\"btn btn-primary\">Calculate the shortest distance and date</button>\n" +
                 "      </div>\n" +
                 "      <br>\n" +
                 "      <div class=\"\">\n" +
