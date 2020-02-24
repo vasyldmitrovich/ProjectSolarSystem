@@ -1,4 +1,5 @@
-create schema if not exists solar_system
+create database
+    if not exists solar_system
 DEFAULT CHARACTER SET utf8
         DEFAULT COLLATE utf8_general_ci;
 
