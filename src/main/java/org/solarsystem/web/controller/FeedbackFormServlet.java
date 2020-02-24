@@ -38,9 +38,16 @@ public class FeedbackFormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
 
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("iso-8859-1");
+        //request.setCharacterEncoding("CP1251");
+        //request.setCharacterEncoding("UTF-8");
+        System.out.println(request.getCharacterEncoding());
+
+        //String First_Name = request.getParameter("First_Name");
+        /* String First_Name = new String (request.getParameter("First_Name").getBytes("CP1251"),
+                  "UTF-8");*/
         String First_Name = new String (request.getParameter("First_Name").getBytes("iso-8859-1"),
                 "UTF-8");
         String Last_Name = new String (request.getParameter("Last_Name").getBytes("iso-8859-1"),
@@ -55,11 +62,7 @@ public class FeedbackFormServlet extends HttpServlet {
         FeedbackRepository.addFeedback(First_Name, Last_Name, Email, Subject, Comments);
         doGet(request,response);
 
-        /* String memo = new String(request.getParameter("textInputMemo").getBytes("iso-8859-1"),
-                        "UTF-8");*/
     }
-
-
 }
 
 
