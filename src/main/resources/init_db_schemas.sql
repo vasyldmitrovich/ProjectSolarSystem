@@ -68,6 +68,28 @@ create table if not exists solar_system.feedback
     Subject    varchar(30) null,
     Comments   tinytext    null
 );
+create table  if not exists solar_system.user_admin
+(
+    id          int auto_increment
+                 primary key,
+    email       varchar(30) not null,
+    password    varchar(30) not null,
+    name        varchar(30) null
+)
+    comment 'tableAdmins';
+
+#USERADMIN
+INSERT INTO solar_system.user_admin(email, password, name)
+ SELECT * FROM  (SELECT 'AdminFirst@admin.com','admin1234','AdminFirst')AS tmp
+WHERE NOT EXISTS(
+    SELECT name FROM solar_system.user_admin WHERE email='AdminFirst@admin.com')LIMIT 1
+    ;
+
+INSERT INTO solar_system.user_admin(email, password, name)
+ SELECT * FROM (SELECT 'AdminSecond@admin.com','admin1234','AdminSecond')AS tmp
+WHERE NOT EXISTS(
+    SELECT name FROM solar_system.user_admin WHERE email='AdminSecond@admin.com')LIMIT 1
+    ;
 
 
 #Planets
