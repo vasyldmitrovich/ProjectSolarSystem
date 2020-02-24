@@ -1,0 +1,60 @@
+<html>
+<meta charset="iso-8859-1">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<div class="container">
+    <h2 class="text-center">Contact Form</h2>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 pb-5">
+
+<body  class="p-3 mb-2 bg-grey text-white">
+
+
+<div>
+        <h4>Messages of inquiry will be answered as time permits. All fields are required.</h4>
+    </div>
+
+    <form  id="feedback_form" method="post" action="FeedbackFormServlet">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="First_Name">First name</label>
+                <input class="form-control" id="First_Name" name="First_Name" type="text" placeholder="First name" style="width: 255px;">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="Last_Name">Last name</label>
+                <input class="form-control" id="Last_Name"  name="Last_Name" type="text" placeholder="Last name" style="width: 255px;" >
+            </div>
+        </div>
+        <div>
+        <label for="Email">Email</label>
+            <input class="form-control"   id="Email" name="Email" type="email" placeholder="Enter email address" style="width: 300px;" >
+        </div>
+        <div>
+            <label for="Subject">Subject</label>
+                <select id="Subject" name="Subject" class="form-control" style="width: 350px;">
+                    <option selected>Choose...</option>
+                    <option value="" disabled selected>Choose your subject</option>
+                    <option value="suggestion">Suggestion</option>
+                    <option value="factual error">Factual Error</option>
+                    <option value="technical problem with website">Technical Problem</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span for="Comments" class="input-group-text">Comments</span>
+            </div>
+        <textarea class="form-control" id="Comments" name="Comments" placeholder="Comments" cols="120" rows="5" type="text"></textarea>
+        </div>
+        <input class="button"   type="submit" value="Submit feedback">
+<!--        onclick="checkFeedbackForm(); return false;"-->
+    </form>
+</body>
+        </div>
+    </div>
+</div>
+</html>

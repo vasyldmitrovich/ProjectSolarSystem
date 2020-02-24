@@ -1,5 +1,6 @@
 package org.solarsystem.telegrambot;
 
+import org.solarsystem.web.service.PlanetInfoImpl;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -112,7 +113,7 @@ public class CalendarAddButtons {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
         BotsServiceImpl botsService = new BotsServiceImpl();
-        List<String> allSpaceBodyNames = botsService.getAllSpaceBodyNames();
+        List<String> allSpaceBodyNames = new PlanetInfoImpl().getAvailablePlanetFromDatabase();
         int countRow = allSpaceBodyNames.size() / 6 + 1;
 
         int counter = 0;

@@ -1,4 +1,4 @@
-package org.solarsystem.web.service;
+package org.solarsystem.web.service.jsonparser;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

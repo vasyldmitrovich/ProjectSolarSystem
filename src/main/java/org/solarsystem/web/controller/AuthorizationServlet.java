@@ -1,6 +1,6 @@
 package org.solarsystem.web.controller;
 
-import org.solarsystem.web.view.CalculatorView;
+import org.solarsystem.web.view.AuthorizationView;
 import org.solarsystem.web.view.IndexSingleton;
 
 import javax.servlet.ServletException;
@@ -11,8 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "ServletCalculator", urlPatterns = {"/calculator"})
-public class ServletCalculator extends HttpServlet {
+@WebServlet(name = "ServletAuthorization", urlPatterns = {"/authorization"})
+public class AuthorizationServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        String path = getServletContext().getRealPath("/html/");
+        IndexSingleton indexSingleton = IndexSingleton.getInstance();
+        indexSingleton.setPath(path);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -21,16 +30,7 @@ public class ServletCalculator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        CalculatorView calculatorView =new CalculatorView();
-
-        out.println(calculatorView.getCalculatorPage());
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        String path = getServletContext().getRealPath("/html/");
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        indexSingleton.setPath(path);
+        AuthorizationView authorizationView = new AuthorizationView();
+        out.println(authorizationView.getAuthorizationPage());
     }
 }

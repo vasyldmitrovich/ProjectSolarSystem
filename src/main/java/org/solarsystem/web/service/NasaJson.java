@@ -1,6 +1,8 @@
 package org.solarsystem.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.solarsystem.web.service.jsonparser.JsonResponseResultID;
+import org.solarsystem.web.service.jsonparser.ResultResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,22 +12,32 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class NasaJson implements DistanceCalculator{
 
 
     private static String calcId = null;
-    private static double distance;
+    private  double distance;
 
+    public double getDistance() {
+        return distance;
+    }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public static void main(String[] args) throws IOException {
 
         LocalDate date = LocalDate.parse("2020-02-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("distance" + new NasaJson().calculateDistance("Earth", "Venus", date));
+        System.out.println("distance" + new NasaJson().calculateDistance("sun", "nix", date));
 
     }
-    public  void MyGETRequest() throws IOException {
+
+    public  void myGETRequest() throws IOException {
         URL urlForGetRequest = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/"+calcId +"/results");
         String readLine = null;
         HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
@@ -50,7 +62,8 @@ public class NasaJson implements DistanceCalculator{
             System.out.println("GET NOT WORKED");
         }
     }
-    public  void MyPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
+
+    public  void myPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
         final String POST_PARAMS = "{\n" +
                 "  \"kernels\": [\n" +
                 "    {\n" +
@@ -118,22 +131,40 @@ public class NasaJson implements DistanceCalculator{
         }
     }
 
+    //return distance between planet in km
     @Override
     public double calculateDistance(String originPlanet, String destinationPlanet, LocalDate date) {
+        if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))){
+            return -1.0;
+        }
         String strDate = date.getYear()+"-"+((date.getMonthValue()<10)? "0"+date.getMonthValue():date.getMonthValue())+"-"
                 +((date.getDayOfMonth()<10)? "0"+date.getDayOfMonth():date.getDayOfMonth());;
-        NasaJson nasaJson = new NasaJson();
-        try {
-           nasaJson.MyPOSTRequest(originPlanet,destinationPlanet, strDate);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            nasaJson.MyGETRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+        try {
+           myPOSTRequest(originPlanet.toUpperCase(),destinationPlanet.toUpperCase(), strDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            myGETRequest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        distance = distance/149598000;
         return distance;
     }
+
+    //return available list planetName for calculating the distance
+    @Override
+    public List<String> getAvailablePlanet() {
+        List<PlanetName> planetNames = Arrays.asList(PlanetName.values());
+        return planetNames.stream().map(Enum::toString).map(String::toLowerCase).collect(Collectors.toList());
+
+    }
+
+    //check planatname with list of available planetname
+    public boolean isPlanetToCalc(String planetName){
+       return getAvailablePlanet().contains(planetName.toLowerCase());
+    }
+
 }

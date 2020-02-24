@@ -5,13 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Solar System</title>
 </head>
-<body>
-
+<body style="background-color: #343a40">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><h2>Look to the future</h2></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" onclick="location.href='/'">Planet <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="location.href='/calculator'">Calculator</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="location.href='/AdditionalServlet'">Additional information</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="location.href='/FeedbackFormServlet'">Contact form</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="location.href='/DateMinInterval'">Date Minimal Interval</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="location.href='/authorization'" data-toggle="modal" data-target="#exampleModal">Log in</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Language
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#ua">UA</a>
+                    <a class="dropdown-item" href="#en">EN</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div style="height: 700px">
 <!--calculator-->
-<!--#######-->
+<!--This is nav bar and tab content from DB-->
+<!--FeedBack-->
+<!--authorization-->
+<!--Additional-->
+<!--DateMinInterval-->
+</div>
+<!-- Footer -->
+<footer id="footer" class="page-footer bottom font-small unique-color-dark text-white ">
+
+    <div style="background-color: #594bb1;">
+        <div class="container">
+
+            <!-- Grid row-->
+            <div class="row py-4 d-flex align-items-center">
+
+                <!-- Grid column -->
+                <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                    <h6 class="mb-0">Get connected with us on social networks!</h6>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+                    <!-- Facebook -->
+                    <a class="fb-ic text-white">
+                        <a class="fab fa-facebook-f white-text mr-4 "
+                           class="dark-grey-text"
+                           href="https://www.facebook.com/itclusteracademy/"> </a>
+                    </a>
+
+                    <!--Linkedin -->
+                    <a class="li-ic">
+                        <a class="fab fa-linkedin-in white-text mr-4"
+                           class="dark-grey-text"
+                           href="https://www.linkedin.com/in/it-cluster-academy-4714aa160/"> </a>
+                    </a>
+                    <!--Instagram-->
+                    <a class="ins-ic">
+                        <a class="fab fa-instagram white-text mr-4"
+                           class="dark-grey-text"
+                           href="https://www.instagram.com/itcluster_academy/"> </a>
+                    </a>
+
+                </div>
+                <!-- Grid column -->
+
+            </div>
+            <!-- Grid row-->
+
+        </div>
+    </div>
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left mt-5">
+
+        <!-- Grid row -->
+        <div class="row mt-3 dark-grey-text">
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+
+                <!-- Content -->
+                <h6 class="text-uppercase font-weight-bold">IT Cluster Academy</h6>
+                <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>Group "Java 8" work, worked on a space project, here you can find information about planets, satellites and more .</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Products</h6>
+                <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 1</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 2</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 3</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 4 </a>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 5</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 6</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 7</a>
+                </p>
+                <p>
+                    <a class="dark-grey-text" href="#!">Text 8</a>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold"> Contact </h6>
+                <hr class="teal accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <i class="fas fa-home mr-3"></i> Ivano-Frankivsk, IF 76014, UA</p>
+                <p>
+                    <i class="fas fa-envelope mr-3"></i> itca.if.ua</p>
+                <p>
+                    <i class="fas fa-phone mr-3"></i> 063 674 1219</p>
+                <p>
+                    <i class="fab fa-telegram mr-3"></i> PlanetaryFactBot</p>
+
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="container"
+         style="background-color: #594bb1;">
+    <div class="footer-copyright text-center text-black-50 py-3">© 2020 Сreated:
+        <a class="dark-grey-text" href="https://itca.if.ua"> itca.if.ua </a>
+        <a class="footer-copyright text-center text-black-50 py-3">Java 8 group.</a>
+    </div>
+    <!-- Copyright -->
+    </div>
+</footer>
+<!-- Footer -->
+
+
+
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,7 +1,11 @@
 package org.solarsystem.telegrambot;
 
 
+import org.solarsystem.web.dao.entity.Planet;
+import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.service.CalcDistance;
+import org.solarsystem.web.service.NasaJson;
+import org.solarsystem.web.service.PlanetInfoImpl;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
@@ -15,6 +19,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 
 public class BotsServiceImpl implements BotService {
@@ -55,11 +60,12 @@ public class BotsServiceImpl implements BotService {
 
     public void setDate(String date) {
         this.date = date;
+
     }
 
 
     public BotsServiceImpl(String str) {
-        planetToDistance=new ArrayList<>();
+        planetToDistance = new ArrayList<>();
         Deque<String> list = new LinkedList<>();
         list = parseCommands(str);
         while (!list.isEmpty()) {
@@ -67,7 +73,6 @@ public class BotsServiceImpl implements BotService {
             planetFirst = list.pollFirst();
             planetSecond = list.pollFirst();
             date = list.pollFirst();
-
             return;
         }
     }
@@ -85,15 +90,15 @@ public class BotsServiceImpl implements BotService {
 
     // return all commands witch available in bot
     @Override
-    public  String getAvailableCommands() {
+    public String getAvailableCommands() {
 
         List<String> commands = new ArrayList<>();
-        commands.add("\"/allplanets\"");
-        commands.add("\"/distance\"");
+        commands.add("\"/allplanets\""+" -return all available planets for getting description");
+        commands.add("\"/allbodies\""+" -return all available space body for calculate distance between them");
+        commands.add("\"/distance\""+" - calculate distance between planet");
         //commands.add("\"/time\" ");
-        commands.add("\"/info\" ");
-        //commands.add("\"/image\"");
-        return "Available commands are: \n" + commands.stream().collect(Collectors.joining("\n"));
+        commands.add("\"/info\" "+" -return description about chosen planet");
+        return String.join("\n", commands);
     }
 
     //split  string from chat to word
@@ -128,7 +133,6 @@ public class BotsServiceImpl implements BotService {
         KeyboardButton help = new KeyboardButton("Help");
 
 
-
         //add buttons to keyboardrow
         firstRow.add(help);
         //firstRow.add(availableCommand);
@@ -142,40 +146,8 @@ public class BotsServiceImpl implements BotService {
 
 
     public boolean isPlanet(String str) {
-        List<String> list = new ArrayList<>();
-        String[]hj = {"mercury","venus","earth","mars","jupiter","saturn","uranus","neptune","pluto"};
-        switch (str) {
-            case "mercury":
-                return true;
-
-            case "venus":
-                return true;
-
-            case "earth":
-                return true;
-
-            case "mars":
-                return true;
-
-            case "jupiter":
-                return true;
-
-            case "saturn":
-                return true;
-
-            case "uranus":
-                return true;
-
-            case "neptune":
-                return true;
-
-            case "pluto":
-                return true;
-
-            default:
-                return false;
-        }
-
+        List<String> list = new NasaJson().getAvailablePlanet();
+        return list.contains(str);
 
     }
 
@@ -192,46 +164,21 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public List<String> getAllSpaceBodyNames() {
-        List<String> planetsName = new ArrayList<>();
-        planetsName.add("Mercury");
-        planetsName.add("Venus");
-        planetsName.add("Earth");
-        planetsName.add("Mars");
-        planetsName.add("Jupiter");
-        planetsName.add("Saturn");
-        planetsName.add("Uranus");
-        planetsName.add("Neptune");
-        planetsName.add("Pluto");
-        planetsName.add("Pluto1");
-        planetsName.add("Pluto2");
-        planetsName.add("Pluto3");
-        planetsName.add("Pluto4");
-        planetsName.add("Pluto5");
-        planetsName.add("Pluto6");
-        planetsName.add("Pluto7");
-        planetsName.add("Pluto8");
-        planetsName.add("Pluto9");
-        planetsName.add("Pluto10");
-        planetsName.add("Pluto11");
-        planetsName.add("Pluto12");
-        planetsName.add("Pluto13");
-        planetsName.add("Pluto14");
-        planetsName.add("Pluto15");
-        planetsName.add("Pluto16");
-        planetsName.add("Pluto17");
-        planetsName.add("Pluto18");
-        planetsName.add("Pluto19");
-        planetsName.add("Pluto20");
-        planetsName.add("Pluto21");
-        planetsName.add("Pluto22");
-        return planetsName;
+        return new NasaJson().getAvailablePlanet();
+
+    }
+
+    @Override
+    public List<String> getAllPlanetName() {
+        return new PlanetDaoImp().getAllPlanets().stream().map(Planet::getName).collect(Collectors.toList());
     }
 
     @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
-        String dateStr = date.getYear()+"-"+((date.getMonthValue()<10)? "0"+date.getMonthValue():date.getMonthValue())+"-"
-                +((date.getDayOfMonth()<10)? "0"+date.getDayOfMonth():date.getDayOfMonth());
-       return CalcDistance.getDistance(originPlanet,destinationPlanetUuid,dateStr);
+//        String dateStr = date.getYear() + "-" + ((date.getMonthValue() < 10) ? "0" + date.getMonthValue() : date.getMonthValue()) + "-"
+//                + ((date.getDayOfMonth() < 10) ? "0" + date.getDayOfMonth() : date.getDayOfMonth());
+        return new NasaJson().calculateDistance(originPlanet, destinationPlanetUuid, date);
+
 
     }
 
@@ -242,25 +189,27 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public String getInfo(String planetName) {
+        return new PlanetInfoImpl().getShortDescription(planetName);
 
-        return "Short description about planet "+planetFirst+"\n"+"Tra ta ta";
     }
 
 
     //validate date
-    public   boolean corectDate(String date){
+    public boolean isCorectDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        try{
+        try {
             LocalDate parse = LocalDate.parse(date, formatter);
 
-            if (Integer.parseInt(date.substring(8))>parse.getDayOfMonth()){
+            if (Integer.parseInt(date.substring(8)) > parse.getDayOfMonth()) {
                 return false;
             }
 
             return true;
-        }catch(DateTimeParseException excep){
+        } catch (DateTimeParseException excep) {
             return false;
         }
 
     }
+
+
 }

@@ -79,7 +79,6 @@ public class PlanetDaoImp implements PlanetDao {
              ){
             if (resultSet.next()){
                 String string = resultSet.getString("array_images");
-                System.out.println(string);
                 ArrayList<String> listImages = new ArrayList<>();
                 String [] str_array = string.split(", ");
                 for (int i=0;i<str_array.length;i++){
@@ -123,7 +122,7 @@ public class PlanetDaoImp implements PlanetDao {
     public List<Planet> getAllPlanets() {
         List<Planet> planets = new ArrayList<>();
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ',') AS array_images\n" +
                 "    FROM `planets` a\n" +
                 "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
                 "    GROUP BY a.id;";
@@ -134,9 +133,8 @@ public class PlanetDaoImp implements PlanetDao {
         ){
              while (resultSet.next()){
                  String string = resultSet.getString("array_images");
-                 System.out.println(string);
                  ArrayList<String> listImages = new ArrayList<>();
-                 String [] str_array = string.split(", ");
+                 String [] str_array = string.split(",");
                  for (int i=0;i<str_array.length;i++){
                      listImages.add(str_array[i]);
                  }
@@ -169,7 +167,6 @@ public class PlanetDaoImp implements PlanetDao {
         ){
             if (resultSet.next()){
                 String string = resultSet.getString("array_images");
-                System.out.println(string);
                 ArrayList<String> listImages = new ArrayList<>();
                 String [] str_array = string.split(", ");
                 for (int i=0;i<str_array.length;i++){
