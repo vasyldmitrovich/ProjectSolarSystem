@@ -215,3 +215,7 @@ body {
     position: relative;
     min-height: 100%;
 }
+#imageAdditional{
+    height: 100%;
+    width: 100%;
+}
