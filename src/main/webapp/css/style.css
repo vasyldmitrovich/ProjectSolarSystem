@@ -1,4 +1,4 @@
-/*.start {
+.start {
     background-color: #894a7f;
 }
 .divBlock {
@@ -17,18 +17,18 @@
     border: 1px solid #5a86fb;
     padding: 8px;
 }
-*/
-/*#additional tr:nth-child(even){background-color: rgba(90, 135, 252, 0.56);}*/
 
-#additional tr:{background-color: rgba(90, 135, 252, 0.56);}
+#additional tr:nth-child(even){background-color: rgba(134, 181, 238, 0.94);color: rgba(59, 45, 35, 0.94);}
+#additional tr:nth-child(odd){background-color: rgba(50, 37, 197, 0.89);color: #fbfdff;}
 
-#additional tr:hover {background-color: rgba(183, 143, 230, 0.81);}
+
+#additional tr:hover {background-color: rgba(255, 168, 136, 0.81);}
 
 #additional th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4f54c5;
+    background-color: rgba(230, 95, 41, 0.85);
     color: #fbfdff;
 }
 
