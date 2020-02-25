@@ -41,11 +41,11 @@ public class PlanetController {
         return fullBody;
     }
 
-    public String adminView(){
+    public String adminView(String loginEmail, String loginPassword){
         PlanetDao planetDao = new PlanetDaoImp();
         List<Planet> planets = planetDao.getAllPlanets();
         AdminView adminView = new AdminView();
-        String fullPage = adminView.getFullPage(planets);
+        String fullPage = adminView.getFullPage(planets,loginEmail,loginPassword);
         return fullPage;
     }
 
