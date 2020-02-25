@@ -24,34 +24,7 @@ class IntervalNasaJsonTest {
         System.out.println("This executes before any test cases. Count = " + count++);
     }
 
-    @Test
-    void getDateMinInterval() {
-    }
-
-    @Test
-    void setDateMinInterval() {
-    }
-
-    @Test
-    void getDistance() {
-    }
-
-    @Test
-    void setDistance() {
-    }
-
-    @Test
-    void main() {
-    }
-
-    @Test
-    void myGETRequestInterval() {
-    }
-
-    @Test
-    void myPOSTRequestInterval() {
-    }
-
+  
     @Test
     void calculateIntervalDistance() {
 
