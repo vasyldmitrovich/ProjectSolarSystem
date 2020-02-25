@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "/DeletePlanetServlet", urlPatterns = {"/delete"})
+@WebServlet(name = "/DeletePlanetServlet", urlPatterns = {"/deletePlanetAdm"})
 public class DeletePlanetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
