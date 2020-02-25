@@ -200,5 +200,22 @@ a:hover,a:focus{
 #footer{
     position: absolute;
     bottom: 0;
+    right: 0;
     left: 0;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    height: 100%;
+}
+.wrapper {
+    position: relative;
+    min-height: 100%;
+}
+#imageAdditional{
+    height: 100%;
+    width: 100%;
 }
