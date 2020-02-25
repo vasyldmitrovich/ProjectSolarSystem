@@ -18,6 +18,16 @@
     <url-pattern>/js/*</url-pattern>
   </servlet-mapping>
 
+<!--  <servlet>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>org.solarsystem.web.controller.UploadServlet</servlet-class>
+
+    <init-param>
+      <param-name>UploadServlet</param-name>
+      <param-value>/images/resources/</param-value>
+    </init-param>
+  </servlet>-->
+
 <!--  <servlet>-->
 <!--    <servlet-name>AdminServlet</servlet-name>-->
 <!--    <servlet-class>org.solarsystem.web.controller.AdminServlet</servlet-class>-->
