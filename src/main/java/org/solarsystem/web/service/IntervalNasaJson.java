@@ -46,8 +46,8 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
 
         LocalDate dateStart = LocalDate.parse("1999-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate dateFinish = LocalDate.parse("2002-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("earth", "jupiter", dateStart, dateFinish));
-        System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("earth", "jupiter", dateStart, dateFinish));
+      //  System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("earth", "jupiter", dateStart, dateFinish));
+      //  System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("earth", "jupiter", dateStart, dateFinish));
 
     }
 
@@ -102,8 +102,8 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
                 "  \"timeFormat\": \"CALENDAR\",\n" +
                 "  \"intervals\": [\n" +
                 "    {\n" +
-                "      \"startTime\": \"" + dateStart + "T08:24:00.000\",\n" +
-                "      \"endTime\": \"" + dateFinish + "T08:24:00.000\"\n" +
+                "      \"startTime\": \"" + dateStart + "T00:00:00.000\",\n" +
+                "      \"endTime\": \"" + dateFinish + "T00:00:00.000\"\n" +
                 "    }\n" +
                 "  ],\n" +
                 // "  \"times\": [\n" +

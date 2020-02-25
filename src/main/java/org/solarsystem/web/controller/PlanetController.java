@@ -1,8 +1,10 @@
 package org.solarsystem.web.controller;
 
+import org.checkerframework.checker.units.qual.A;
 import org.solarsystem.web.dao.PlanetDao;
 import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.dao.entity.Planet;
+import org.solarsystem.web.view.AdminView;
 import org.solarsystem.web.view.InformationView;
 
 import java.util.List;
@@ -38,4 +40,13 @@ public class PlanetController {
         String fullBody = fullPage.returnFullPage(addToBodyPage);
         return fullBody;
     }
+
+    public String adminView(){
+        PlanetDao planetDao = new PlanetDaoImp();
+        List<Planet> planets = planetDao.getAllPlanets();
+        AdminView adminView = new AdminView();
+        String fullPage = adminView.getFullPage(planets);
+        return fullPage;
+    }
+
 }
