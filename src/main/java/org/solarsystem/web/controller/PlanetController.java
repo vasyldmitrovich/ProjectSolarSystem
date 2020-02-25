@@ -8,6 +8,7 @@ import org.solarsystem.web.view.AdminView;
 import org.solarsystem.web.view.InformationView;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PlanetController {
     /*Controller for planet*/
@@ -17,6 +18,7 @@ public class PlanetController {
         Planet planet = planetDao.getPlanetById(3);
         System.out.println(planet);
 
+        UUID.randomUUID().toString();
     }
 
     public String navBar(){
