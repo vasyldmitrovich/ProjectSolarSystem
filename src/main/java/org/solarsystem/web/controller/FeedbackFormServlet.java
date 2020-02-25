@@ -45,7 +45,7 @@ public class FeedbackFormServlet extends HttpServlet {
         //request.setCharacterEncoding("UTF-8");
         System.out.println(request.getCharacterEncoding());
 
-        //String First_Name = request.getParameter("First_Name");
+       //String First_Name = request.getParameter("First_Name");
         /* String First_Name = new String (request.getParameter("First_Name").getBytes("CP1251"),
                   "UTF-8");*/
         String First_Name = new String (request.getParameter("First_Name").getBytes("iso-8859-1"),

@@ -12,7 +12,7 @@ public class AdminView {
         stringBuilder.append("<a href='/admin?loginEmail="+loginEmail+"&loginPassword="+loginPassword+
                 "'>Add New Employee</a>");
         stringBuilder.append("<h1>Planets List</h1>");
-        stringBuilder.append("<table border='1' width='100%'");
+        stringBuilder.append("<table border='1' width='100%' class=\"tableAdminInfo\"");
         stringBuilder.append("<tr>\n" +
                 "    <th>Id</th><th>Name</th><th>OrbitalPeriod</th><th>Diameter</th><th>Gravity</th>" +
                 "<th>IsSatellites</th><th>ShortDescription</th><th>FullDescription</th><th>LanguageId</th><th>Images</th>\n" +
@@ -37,9 +37,12 @@ public class AdminView {
                     "<td>"+p.getFullDescription()+"</td>"+
                     "<td>"+p.getLanguageId()+"</td>"+
                     "<td>"+stringBuilderImages+"</td>"+
-                    "<td><a href='EditServlet?id="+p.getId()+"'>edit</a></td>"+
-                    "<td><a href='/delete?id="+p.getId()+"&loginEmail="+loginEmail+
-                    "&loginPassword="+loginPassword+"'>delete</a></td>"+
+                    "<td><a href='updatePlanetShortAdm?id="+p.getId()+"&loginEmail="+loginEmail+
+                    "&loginPassword="+loginPassword+"'>EDIT SHORT</a></td>"+
+                    "<td><a href='updatePlanetFullAdm?id="+p.getId()+"&loginEmail="+loginEmail+
+                    "&loginPassword="+loginPassword+"'>EDIT FULL</a></td>"+
+                    "<td><a href='/deletePlanetAdm?id="+p.getId()+"&loginEmail="+loginEmail+
+                    "&loginPassword="+loginPassword+"'>DELETE</a></td>"+
                     "</tr>");
 
         }
