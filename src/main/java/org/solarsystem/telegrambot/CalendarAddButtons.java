@@ -16,7 +16,6 @@ public class CalendarAddButtons {
     //add keyboard with calendar
     public static InlineKeyboardMarkup setInlineKeyboad(long chatId) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
         //adding buttons month and change month
         InlineKeyboardButton previousMonth = new InlineKeyboardButton();
         InlineKeyboardButton dateMonth = new InlineKeyboardButton();

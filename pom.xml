@@ -79,6 +79,12 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
+
+        <!--
+            TODO
+            https://logging.apache.org/log4j/2.x/
+            jar and config file in resources
+        -->
     </dependencies>
 
 
