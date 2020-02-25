@@ -22,7 +22,7 @@ import java.io.IOException;
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             // gets absolute path of the web application
-            String appPath = request.getServletContext().getRealPath("\\images\\resources");
+            String appPath = request.getServletContext().getRealPath("");
             // constructs path of the directory to save uploaded file
             String savePath = appPath + File.separator + SAVE_DIR;
 
