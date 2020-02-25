@@ -44,10 +44,10 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
 
     public static void main(String[] args) throws IOException {
 
-        LocalDate dateStart = LocalDate.parse("1999-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate dateFinish = LocalDate.parse("2002-12-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      //  System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("earth", "jupiter", dateStart, dateFinish));
-      //  System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("earth", "jupiter", dateStart, dateFinish));
+        LocalDate dateStart = LocalDate.parse("2034-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateFinish = LocalDate.parse("2037-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "pluto", dateStart, dateFinish));
+        System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "pluto", dateStart, dateFinish));
 
     }
 

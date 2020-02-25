@@ -13,7 +13,7 @@ public class DBConnection implements AutoCloseable {
     password for your DB.*/
     static final String nameDB = "solar_system";
     static final String user = "root";
-    static final String password = "admin1551";
+    static final String password = "1111";
     private Connection connection = null;
 
     public DBConnection(){
