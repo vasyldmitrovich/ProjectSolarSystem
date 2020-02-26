@@ -1,6 +1,10 @@
 package org.solarsystem.web.controller;
 
+import org.solarsystem.telegrambot.TelegramBot;
 import org.solarsystem.web.view.InfoSingleton;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +23,14 @@ public class IndexServlet extends HttpServlet {
         String patch = getServletContext().getRealPath("/html/");
         InfoSingleton infoSingleton = InfoSingleton.getInstance();
         infoSingleton.setPatch(patch);
+
+        ApiContextInitializer.init();
+        TelegramBotsApi botsApi = new TelegramBotsApi();
+        try {
+            botsApi.registerBot(new TelegramBot());
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
