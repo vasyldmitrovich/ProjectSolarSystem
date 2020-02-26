@@ -57,9 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             sendMsg(update.getMessage().getChatId().toString(), botsServiceImpl.getInfo(botsServiceImpl.getPlanetFirst()));
                         } else {
                             try {
-                                execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
-                                                .getMessage().getChatId()
-                                        , CalendarAddButtons.setInlineKeyboardPlanet(update.getMessage().getChatId()))); // Call method to send the message
+                            execute(new InlineKeyboardToInfo().sendMessage(update.getMessage().getChatId()));
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }
