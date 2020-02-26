@@ -132,7 +132,7 @@ public class CalendarAddButtons {
 
 
             }
-            if (i==countRow){
+            if (i == countRow) {
                 InlineKeyboardButton button = new InlineKeyboardButton("Choose the date");
                 button.setCallbackData("*Choose_date_is:*" + button.getText());
                 listA.get(i).add(button);
@@ -149,9 +149,6 @@ public class CalendarAddButtons {
 
 
 
+    }
 
 
-
-
-
-}

@@ -57,7 +57,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             sendMsg(update.getMessage().getChatId().toString(), botsServiceImpl.getInfo(botsServiceImpl.getPlanetFirst()));
                         } else {
                             try {
-                            execute(new InlineKeyboardToInfo().sendMessage(update.getMessage().getChatId()));
+                                execute(new InlineKeyboardToInfo().sendMessage(update.getMessage().getChatId()));
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }
@@ -65,7 +65,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                         break;
                     case "allplanets":
-                        sendMsg(update.getMessage().getChatId().toString(), String.join(", ",botsServiceImpl.getAllPlanetName()));
+                        sendMsg(update.getMessage().getChatId().toString(), String.join(", ", botsServiceImpl.getAllPlanetName()));
 
                         break;
                     case "allbodies":
@@ -100,13 +100,11 @@ public class TelegramBot extends TelegramLongPollingBot {
                         } else if (botsServiceImpl.getPlanetFirst() != null) {
 
                             sendMsg(update.getMessage().getChatId().toString(), "Incorrect planet or date format. Input \"/aboutdistance\" to show available planet and date format. \n");
-                            ;
+
                         } else {
                             try {
 
-                                execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
-                                                .getMessage().getChatId()
-                                        , CalendarAddButtons.setKeyboardPlanetDistanceFirst(update.getMessage().getChatId()))); // Call method to send the message
+                                execute(new InlineKeyboardToDistance().sendMessage(update.getMessage().getChatId()));
                             } catch (TelegramApiException e) {
                                 e.printStackTrace();
                             }
@@ -166,7 +164,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     List<String> collectToDalete = listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                             .getFrom().getId())).collect(Collectors.toList());
                     collectToDalete.size();
-                   listPlanet.removeAll(collectToDalete.subList(0, collectToDalete.size() - 2));
+                    listPlanet.removeAll(collectToDalete.subList(0, collectToDalete.size() - 2));
                 }
                 if (listPlanet.stream().filter(e -> e.endsWith("userId" + update.getCallbackQuery()
                         .getFrom().getId())).collect(Collectors.toList()).size() > 1) {
