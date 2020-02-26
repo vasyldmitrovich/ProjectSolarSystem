@@ -10,11 +10,24 @@ import java.util.List;
 public class InlineKeyboardBuilder {
     private Long chatId;
     private String text;
+    private InlineKeyboardMarkup inlineKeyboardMarkup;
+
+
+
 
     private List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
     private List<InlineKeyboardButton> row = null;
 
     private InlineKeyboardBuilder() {}
+
+
+    public InlineKeyboardMarkup getInlineKeyboardMarkup() {
+        return inlineKeyboardMarkup;
+    }
+
+    public void setInlineKeyboardMarkup(InlineKeyboardMarkup inlineKeyboardMarkup) {
+        this.inlineKeyboardMarkup = inlineKeyboardMarkup;
+    }
 
     public static InlineKeyboardBuilder create() {
         InlineKeyboardBuilder builder = new InlineKeyboardBuilder();
@@ -59,11 +72,22 @@ public class InlineKeyboardBuilder {
         message.setChatId(chatId);
         message.setText(text);
 
-        InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
+        inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        keyboardMarkup.setKeyboard(keyboard);
-        message.setReplyMarkup(keyboardMarkup);
+        inlineKeyboardMarkup.setKeyboard(keyboard);
+        message.setReplyMarkup(inlineKeyboardMarkup);
 
         return message;
     }
+    public SendMessage build(InlineKeyboardMarkup inlineKeyboardMarkup) {
+        SendMessage message = new SendMessage();
+
+        message.setChatId(chatId);
+        message.setText(text);
+
+        message.setReplyMarkup(inlineKeyboardMarkup);
+
+        return message;
+    }
+
 }

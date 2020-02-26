@@ -12,8 +12,6 @@ public interface BotService {
 
     double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date);
 
-    double getTime(String originPlanet, String destinationPlanetUuid, LocalDate date, double speed);
-
     String getInfo(String planetName);
 
     String getAvailableCommands();
