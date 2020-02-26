@@ -1,5 +1,6 @@
 package org.solarsystem.web.dao.repository;
 
+import org.apache.log4j.Logger;
 import org.solarsystem.web.dao.DBConnection;
 import org.solarsystem.web.dao.PlanetDao;
 import org.solarsystem.web.dao.entity.Planet;
@@ -7,9 +8,10 @@ import org.solarsystem.web.dao.entity.Planet;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/*This class implement interface. Get and set data from DB*/
 public class PlanetDaoImp implements PlanetDao {
-    /*This class implement interface. Get and set data from DB*/
+
+    public static final Logger log = Logger.getLogger(PlanetDaoImp.class);
 
     @Override
     public void addPlanet(Planet planet) {
@@ -99,6 +101,7 @@ public class PlanetDaoImp implements PlanetDao {
                 return planet;
             }
         } catch (SQLException e){
+            log.info("Can not get planet by id: "+e);
             e.printStackTrace();
         }
         return null;
