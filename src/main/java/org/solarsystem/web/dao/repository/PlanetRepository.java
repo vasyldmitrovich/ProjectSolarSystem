@@ -69,7 +69,7 @@ public class PlanetRepository implements PlanetDao {
     public Planet getPlanetById(int id) {
         log.info("Start get planet by id from DB");
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ',') AS array_images\n" +
                 "    FROM `planets` a \n" +
                 "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
                 "    WHERE a.id=" + id;
@@ -77,12 +77,18 @@ public class PlanetRepository implements PlanetDao {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             if (resultSet.next()) {
-                String string = resultSet.getString("array_images");
+                /*Pars images from string*/
                 ArrayList<String> listImages = new ArrayList<>();
-                String[] str_array = string.split(", ");
-                for (int i = 0; i < str_array.length; i++) {
-                    listImages.add(str_array[i]);
+                if (resultSet.getString("array_images") != null) {
+                    String string = resultSet.getString("array_images");
+                    String[] str_array = string.split(",");
+                    for (int i = 0; i < str_array.length; i++) {
+                        listImages.add(str_array[i]);
+                    }
+                } else {
+                    listImages.add("No images");
                 }
+                /*Create planet*/
                 Planet planet = new Planet(
                         resultSet.getLong("id"),
                         resultSet.getString("name"),
@@ -131,11 +137,15 @@ public class PlanetRepository implements PlanetDao {
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 /*Pars images from string*/
-                String string = resultSet.getString("array_images");
                 ArrayList<String> listImages = new ArrayList<>();
-                String[] str_array = string.split(",");
-                for (int i = 0; i < str_array.length; i++) {
-                    listImages.add(str_array[i]);
+                if (resultSet.getString("array_images") != null) {
+                    String string = resultSet.getString("array_images");
+                    String[] str_array = string.split(",");
+                    for (int i = 0; i < str_array.length; i++) {
+                        listImages.add(str_array[i]);
+                    }
+                } else {
+                    listImages.add("No images");
                 }
                 /*add planet to list*/
                 planets.add(new Planet(resultSet.getLong("id"), resultSet.getString("name"),
@@ -155,7 +165,7 @@ public class PlanetRepository implements PlanetDao {
     public Planet getPlanetByName(String name) {
         log.info("Start get planet by name from DB");
         DBConnection dbConnection = new DBConnection();
-        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ', ') AS array_images\n" +
+        String sql = "SELECT a.*, GROUP_CONCAT(DISTINCT b.path_to_the_file ORDER BY b.path_to_the_file ASC SEPARATOR ',') AS array_images\n" +
                 "    FROM `planets` a \n" +
                 "    LEFT JOIN `images` b ON a.id=b.id_planet\n" +
                 "    WHERE a.name=" + name;
@@ -164,12 +174,17 @@ public class PlanetRepository implements PlanetDao {
              ResultSet resultSet = statement.executeQuery(sql)) {
             if (resultSet.next()) {
                 /*Pars images from string*/
-                String string = resultSet.getString("array_images");
                 ArrayList<String> listImages = new ArrayList<>();
-                String[] str_array = string.split(", ");
-                for (int i = 0; i < str_array.length; i++) {
-                    listImages.add(str_array[i]);
+                if (resultSet.getString("array_images") != null) {
+                    String string = resultSet.getString("array_images");
+                    String[] str_array = string.split(",");
+                    for (int i = 0; i < str_array.length; i++) {
+                        listImages.add(str_array[i]);
+                    }
+                } else {
+                    listImages.add("No images");
                 }
+                /*Create planet*/
                 Planet planet = new Planet(
                         resultSet.getLong("id"),
                         resultSet.getString("name"),

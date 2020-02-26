@@ -16,7 +16,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ServletIndex", urlPatterns = {"/"}, loadOnStartup = 1)
 public class IndexServlet extends HttpServlet {
-    //public static final Logger log = Logger.getLogger(IndexServlet.class);
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -40,7 +40,7 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
         PlanetController planetController = new PlanetController();
-            String fullBody = planetController.fullPage(planetController.navBar()+planetController.tabContext());
+        String fullBody = planetController.fullPage(planetController.navBar()+planetController.tabContext());
         PrintWriter printWriter = response.getWriter();
         printWriter.println(fullBody);
     }

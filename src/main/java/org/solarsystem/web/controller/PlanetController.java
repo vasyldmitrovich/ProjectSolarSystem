@@ -10,6 +10,11 @@ import java.util.List;
 /*Controller planets for index and admin pages*/
 public class PlanetController {
 
+    public static void main(String[] args) {
+    String temp = "1";
+    int i = Integer.parseInt(temp);
+        System.out.println(i);
+    }
 
     public String navBar(){
         PlanetDao planetDao = new PlanetRepository();

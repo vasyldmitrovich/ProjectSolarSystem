@@ -18,7 +18,6 @@ public class AdminServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
 
         String userLogin = request.getParameter("loginEmail");
@@ -28,6 +27,5 @@ public class AdminServlet extends HttpServlet {
         PlanetController planetController = new PlanetController();
         String fullPage = planetController.adminView(userLogin,userPassword);
         out.println(fullPage);
-
     }
 }
