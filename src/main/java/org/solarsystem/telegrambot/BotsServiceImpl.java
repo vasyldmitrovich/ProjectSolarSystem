@@ -2,7 +2,8 @@ package org.solarsystem.telegrambot;
 
 
 import org.solarsystem.web.dao.entity.Planet;
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+
+import org.solarsystem.web.dao.repository.PlanetRepository;
 import org.solarsystem.web.service.NasaJson;
 import org.solarsystem.web.service.PlanetInfoImpl;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -169,22 +170,16 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public List<String> getAllPlanetName() {
-        return new PlanetDaoImp().getAllPlanets().stream().map(Planet::getName).collect(Collectors.toList());
+        return new PlanetRepository().getAllPlanets().stream().map(Planet::getName).collect(Collectors.toList());
     }
 
     @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
-//        String dateStr = date.getYear() + "-" + ((date.getMonthValue() < 10) ? "0" + date.getMonthValue() : date.getMonthValue()) + "-"
-//                + ((date.getDayOfMonth() < 10) ? "0" + date.getDayOfMonth() : date.getDayOfMonth());
         return new NasaJson().calculateDistance(originPlanet, destinationPlanetUuid, date);
 
 
     }
 
-    @Override
-    public double getTime(String originPlanet, String destinationPlanetUuid, LocalDate date, double speed) {
-        return 0;
-    }
 
     @Override
     public String getInfo(String planetName) {

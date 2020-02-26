@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class InlineKeyboardCalendar {
 
-   public static LocalDate localDate = LocalDate.now();
+    public static LocalDate localDate = LocalDate.now();
     private InlineKeyboardMarkup inlineKeyboardMarkup;
 
 
