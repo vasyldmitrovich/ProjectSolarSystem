@@ -1,50 +1,23 @@
 .start {
-    background-color: #894a7f;
+    background-color: #95999c;
 }
 .divBlock {
-    background-color: #45c6f8;
+    background-color: #4e555b;
     margin-right: 20%;
     margin-left: 20%;
     text-align: center;
 }
-#additional {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-    /*border-collapse: collapse;*/
-    /*width: 100%;*/
-    width: 70%;
-}
-
-#additional td, #additional th {
-    border: 1px solid #5a86fb;
-    padding: 8px;
-}
-
-#additional tr:nth-child(even){background-color: rgba(80, 70, 155, 0.95);color: #fbfdff; text-align: center;}
-#additional tr:nth-child(odd){background-color: rgba(80, 70, 155, 0.95);color: #fbfdff; text-align: center;}
 
 
-#additional tr:hover {background-color: #5a86fb;color: #030306
-}
-
-#additional th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: rgba(49, 43, 95, 0.95);
-    color: #fbfdff;
-}
-
-
+/* Початок форми autorithation*/
 a:hover,a:focus{
     outline: none;
     text-decoration: none;
-
+}
 .tab{
-    background: #5a42ee;
-    background: -webkit-linear-gradient(to bottom, #b24b3d, #8177bb);
-    background: linear-gradient(to bottom, #be0000, #800488);
+    background: #200122;
+    background: -webkit-linear-gradient(to bottom, #6f0000, #200122);
+    background: linear-gradient(to bottom, #6f0000, #200122);
     padding: 40px 50px;
     position: relative;
 }
@@ -56,7 +29,7 @@ a:hover,a:focus{
     position: absolute;
     top: 0;
     left: 0;
-    background: linear-gradient(#5c2daf, #ffdc58);
+    background: linear-gradient(#2e3a6a,#2f0b45);
     opacity: 0.85;
 }
 .tab .nav-tabs{
@@ -96,7 +69,7 @@ a:hover,a:focus{
     z-index: 1;
     position: relative;
 }
-.form-bg{ background: #dd9257; }
+.form-bg{ background: #ddd; }
 .form-horizontal .form-group{
     margin: 0 0 15px 0;
     position: relative;
@@ -119,7 +92,7 @@ a:hover,a:focus{
 }
 .form-horizontal .form-group label{
     padding: 0 20px;
-    color: #914e86;
+    color: #7f8291;
     text-transform: capitalize;
     margin-bottom: 10px;
 }
@@ -186,7 +159,7 @@ a:hover,a:focus{
     box-shadow: none;
 }
 .form-horizontal .forgot-pass{
-    border-top: 1px solid #5c2daf;
+    border-top: 1px solid #615f6c;
     margin: 0;
     text-align: center;
 }
@@ -194,14 +167,15 @@ a:hover,a:focus{
     width: auto;
     background: transparent;
     margin: 30px 0 0 0;
-    color: #306c51;
+    color: #615f6c;
     text-transform: capitalize;
     transition: all 0.3s ease 0s;
 }
 .form-horizontal .forgot-pass .btn:hover{ color: #eec111; }
 @media only screen and (max-width: 479px){
     .tab{ padding: 40px 20px; }
-}
+
+    /* Закінчення форми autorithation*/
 
 #footer{
     position: absolute;
@@ -221,7 +195,67 @@ body {
     position: relative;
     min-height: 100%;
 }
+
+}
+    /*Початок стилю таблиці additional*/
+
+    #additional {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        margin-left: auto;
+        margin-right: auto;
+        width: 70%;
+    }
+
+    #additional td, #additional th {
+        border: 1px solid #5a86fb;
+        padding: 8px;
+    }
+
+    #additional tr:nth-child(even){background-color: rgba(80, 70, 155, 0.95);color: #fbfdff; text-align: center;}
+    #additional tr:nth-child(odd){background-color: rgba(80, 70, 155, 0.95);color: #fbfdff; text-align: center;}
+
+
+    #additional tr:hover {background-color: #5a86fb;color: #030306
+    }
+
+    #additional th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: rgba(49, 43, 95, 0.95);
+        color: #fbfdff;
+    }
+
 #imageAdditional{
     height: 100%;
     width: 100%;
+    /*Закінчення стилю таблиці additional*/
+
+/* admin*/
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    /*margin: 5% 0;*/
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+}
+
+.custab th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: rgba(49, 43, 95, 0.95);
+    color: #fbfdff;
+}
+
+
+
+
+/* admin*/
