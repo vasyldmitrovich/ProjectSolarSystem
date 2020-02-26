@@ -24,13 +24,13 @@ public class IndexServlet extends HttpServlet {
         InfoSingleton infoSingleton = InfoSingleton.getInstance();
         infoSingleton.setPatch(patch);
 
-        ApiContextInitializer.init();
+        /*ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
             botsApi.registerBot(new TelegramBot());
         } catch (TelegramApiException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

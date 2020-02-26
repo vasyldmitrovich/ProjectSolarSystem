@@ -3,9 +3,9 @@ package org.solarsystem.web.dao.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+/*Describe planets */
 public class Planet {
-    /*Describe planets */
+
     private long id;
     private String name;
     private double orbitalPeriod;

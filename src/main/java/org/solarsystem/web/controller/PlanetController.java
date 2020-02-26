@@ -7,19 +7,9 @@ import org.solarsystem.web.view.AdminView;
 import org.solarsystem.web.view.InformationView;
 
 import java.util.List;
-import java.util.UUID;
-
+/*Controller planets for index and admin pages*/
 public class PlanetController {
-    /*Controller for planet*/
 
-    public static void main(String[] args) {
-        PlanetDao planetDao = new PlanetRepository();
-
-        Planet planet = planetDao.getPlanetById(5);
-        System.out.println(planet);
-
-        UUID.randomUUID().toString();
-    }
 
     public String navBar(){
         PlanetDao planetDao = new PlanetRepository();
