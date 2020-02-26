@@ -1,7 +1,9 @@
 package org.solarsystem.web.view;
 
 import org.solarsystem.web.dao.entity.Planet;
-
+/*This is body page
+updatePlanetFullAdm
+for admin */
 public class UpdatePlanetFullView {
     public String getPageUpdatePlanet(Planet planet, String loginEmail, String loginPassword){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
