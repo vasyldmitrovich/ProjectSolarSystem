@@ -1,5 +1,6 @@
 package org.solarsystem.web.controller;
 
+import org.apache.log4j.Logger;
 import org.checkerframework.checker.units.qual.A;
 import org.solarsystem.web.dao.PlanetDao;
 import org.solarsystem.web.dao.repository.PlanetDaoImp;
@@ -12,6 +13,7 @@ import java.util.UUID;
 
 public class PlanetController {
     /*Controller for planet*/
+
     public static void main(String[] args) {
         PlanetDao planetDao = new PlanetDaoImp();
 

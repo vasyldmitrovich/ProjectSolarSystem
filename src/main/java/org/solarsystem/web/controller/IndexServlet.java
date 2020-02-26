@@ -1,5 +1,6 @@
 package org.solarsystem.web.controller;
 
+import org.apache.log4j.Logger;
 import org.solarsystem.telegrambot.TelegramBot;
 import org.solarsystem.web.view.InfoSingleton;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -16,7 +17,7 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ServletIndex", urlPatterns = {"/"}, loadOnStartup = 1)
 public class IndexServlet extends HttpServlet {
-
+    public static final Logger log = Logger.getLogger(IndexServlet.class);
     @Override
     public void init() throws ServletException {
         super.init();
