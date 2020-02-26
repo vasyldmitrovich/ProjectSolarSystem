@@ -1,7 +1,9 @@
 package org.solarsystem.web.controller;
 
+import org.apache.log4j.Logger;
+import org.solarsystem.web.dao.DBConnection;
 import org.solarsystem.web.dao.entity.Planet;
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+import org.solarsystem.web.dao.repository.PlanetRepository;
 import org.solarsystem.web.view.UpdatePlanetShortView;
 
 import javax.servlet.ServletException;
@@ -14,6 +16,9 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "UpdatePlanetServlet", urlPatterns = {"/updatePlanetShortAdm"})
 public class UpdatePlanetShortServlet extends HttpServlet {
+
+    public static final Logger log = Logger.getLogger(UpdatePlanetShortServlet.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -21,16 +26,22 @@ public class UpdatePlanetShortServlet extends HttpServlet {
         String userPassword = request.getParameter("loginPassword");
         String shortDesc = request.getParameter("shortDescription");
         String sid = request.getParameter("idPlanet");
-        int id = Integer.parseInt(sid);
-
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        Planet planet = planetDaoImp.getPlanetById(id);
-        planet.setShortDescription(shortDesc);
-        planetDaoImp.updatePlanet(planet);
-
         PrintWriter out = response.getWriter();
-        out.println("Planet added to DB");
-        response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
+        if (sid != null) {
+            try {
+                int id = Integer.parseInt(sid);
+                PlanetRepository planetRepository = new PlanetRepository();
+                Planet planet = planetRepository.getPlanetById(id);
+                planet.setShortDescription(shortDesc);
+                planetRepository.updatePlanet(planet);
+                out.println("Updating short description planet in DB");
+                response.sendRedirect("/admin?loginEmail=" + userLogin + "&loginPassword=" + userPassword);
+            } catch (NumberFormatException e) {
+                log.info("Not correct id planet" + e);
+            }
+        } else {
+            response.sendRedirect("/admin?loginEmail=" + userLogin + "&loginPassword=" + userPassword);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,14 +50,20 @@ public class UpdatePlanetShortServlet extends HttpServlet {
         String userLogin = request.getParameter("loginEmail");
         String userPassword = request.getParameter("loginPassword");
         String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
-
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        Planet planet = planetDaoImp.getPlanetById(id);
-
         PrintWriter out = response.getWriter();
-        UpdatePlanetShortView updatePlanetShortView = new UpdatePlanetShortView();
-        String string =updatePlanetShortView.getPageUpdatePlanet(planet,userLogin,userPassword);
-        out.println(string);
+        if (sid != null){
+            try {
+                int id = Integer.parseInt(sid);
+                PlanetRepository planetRepository = new PlanetRepository();
+                Planet planet = planetRepository.getPlanetById(id);
+                UpdatePlanetShortView updatePlanetShortView = new UpdatePlanetShortView();
+                String string =updatePlanetShortView.getPageUpdatePlanet(planet,userLogin,userPassword);
+                out.println(string);
+            } catch (NumberFormatException e){
+                log.info("Not correct id planet"+e);
+            }
+        } else {
+            response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
+        }
     }
 }

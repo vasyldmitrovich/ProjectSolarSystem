@@ -1,6 +1,7 @@
 package org.solarsystem.web.controller;
 
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+import org.apache.log4j.Logger;
+import org.solarsystem.web.dao.repository.PlanetRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,9 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "/DeletePlanetServlet", urlPatterns = {"/deletePlanetAdm"})
 public class DeletePlanetServlet extends HttpServlet {
+
+    public static final Logger log = Logger.getLogger(UpdatePlanetShortServlet.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -22,12 +26,18 @@ public class DeletePlanetServlet extends HttpServlet {
         String userLogin = request.getParameter("loginEmail");
         String userPassword = request.getParameter("loginPassword");
         String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
-
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        planetDaoImp.removePlanet(id);
-
         PrintWriter out = response.getWriter();
-        response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
+        if (sid != null){
+            try {
+                int id = Integer.parseInt(sid);
+                PlanetRepository planetRepository = new PlanetRepository();
+                planetRepository.removePlanet(id);
+                response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
+            } catch (NumberFormatException e){
+                log.info("Not correct id planet" + e);
+            }
+        } else {
+            response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
+        }
     }
 }

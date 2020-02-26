@@ -6,12 +6,11 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+/*This is singleton for all pages html*/
 public class IndexSingleton {
 
     private String path;
     private String index;
-    private String calculator;
     private String additional;
     private String feedback;
     private String authorization;
@@ -26,10 +25,6 @@ public class IndexSingleton {
 
     public String getIndex() {
         return index;
-    }
-
-    public String getCalculator() {
-        return calculator;
     }
 
     public String getAdditional(){
@@ -47,7 +42,6 @@ public class IndexSingleton {
     public void setPath(String path) {
         this.path = path;
         this.index = getPartialHtml("index");
-        this.calculator = getPartialHtml("calculator");
         this.additional = getPartialHtml("additional");
         this.feedback = getPartialHtml("feedback");
         this.authorization = getPartialHtml("authorization");

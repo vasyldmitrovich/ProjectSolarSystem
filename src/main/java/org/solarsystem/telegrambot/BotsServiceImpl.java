@@ -174,11 +174,17 @@ public class BotsServiceImpl implements BotService {
 
     @Override
     public double getDistance(String originPlanet, String destinationPlanetUuid, LocalDate date) {
+//        String dateStr = date.getYear() + "-" + ((date.getMonthValue() < 10) ? "0" + date.getMonthValue() : date.getMonthValue()) + "-"
+//                + ((date.getDayOfMonth() < 10) ? "0" + date.getDayOfMonth() : date.getDayOfMonth());
         return new NasaJson().calculateDistance(originPlanet, destinationPlanetUuid, date);
 
 
     }
 
+    @Override
+    public double getTime(String originPlanet, String destinationPlanetUuid, LocalDate date, double speed) {
+        return 0;
+    }
 
     @Override
     public String getInfo(String planetName) {

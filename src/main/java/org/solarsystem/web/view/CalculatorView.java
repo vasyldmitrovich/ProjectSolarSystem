@@ -4,12 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class CalculatorView {
-    public String getCalculatorPage(String[] planetName) {
-        IndexSingleton indexSingleton = IndexSingleton.getInstance();
-        return indexSingleton.getIndex()
-                .replace("<!--calculator-->",
-                        indexSingleton.getCalculator());
-    }
 
     public String getCalcPageForDoPost(List<String> planetNames, String from, String to, LocalDate date, double distance){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();

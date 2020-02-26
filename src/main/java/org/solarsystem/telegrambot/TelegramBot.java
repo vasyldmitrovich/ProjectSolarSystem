@@ -1,6 +1,6 @@
 package org.solarsystem.telegrambot;
 
-import org.apache.log4j.Logger;
+import org.solarsystem.web.dao.repository.PlanetDaoImp;
 import org.solarsystem.web.service.NasaJson;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class TelegramBot extends TelegramLongPollingBot {
 
     public static List<String> listPlanet = new ArrayList<>();
-    public static final Logger log = Logger.getLogger(TelegramBot.class);
+
 
     public static void main(String args[]) {
         ApiContextInitializer.init();
@@ -30,18 +30,16 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         try {
             botsApi.registerBot(new TelegramBot());
-            log.info("Telegram bot register on server ");
         } catch (TelegramApiException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
         }
     }
 
 
     public void onUpdateReceived(Update update) {
+        listPlanet.forEach(System.out::println);
 
-        InlineKeyboardCalendar inlineKeyboardCalendar = new InlineKeyboardCalendar();
         if (update.hasMessage()) {
-
 
             if (update.getMessage().hasText()) {
                 String message = update.getMessage().getText();
@@ -60,9 +58,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                         } else {
                             try {
                                 execute(new InlineKeyboardToInfo().sendMessage(update.getMessage().getChatId()));
-
                             } catch (TelegramApiException e) {
-                                log.error("Show form with planet info " + e.getMessage());
+                                e.printStackTrace();
                             }
                         }
 
@@ -78,13 +75,16 @@ public class TelegramBot extends TelegramLongPollingBot {
                     case "calendar":
                         try {
 
-                            execute(new InlineKeyboardCalendar().sendMessage(update.getMessage().getChatId()));
-
+                            execute(CalendarAddButtons.sendInlineKeyBoardMessage(update
+                                            .getMessage().getChatId()
+                                    , CalendarAddButtons.setInlineKeyboad(update.getMessage().getChatId()))); // Call method to send the message
                         } catch (TelegramApiException e) {
-                            log.error("Show calendar" + e.getMessage());
+                            e.printStackTrace();
                         }
                         break;
                     case "distance":
+                        //listPlanet.clear();
+
 
                         if (botsServiceImpl.getPlanetFirst() != null
                                 && botsServiceImpl.getPlanetSecond() != null
@@ -95,7 +95,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                             LocalDate localDate = LocalDate.parse(botsServiceImpl.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                             double distance = new NasaJson().
                                     calculateDistance(botsServiceImpl.getPlanetFirst(), botsServiceImpl.getPlanetSecond(), localDate);
-                            sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " AU");
+                            sendMsg(update.getMessage().getChatId().toString(), "Distance between " + botsServiceImpl.getPlanetFirst() + " and " + botsServiceImpl.getPlanetSecond() + " is " + distance + " km");
 
                         } else if (botsServiceImpl.getPlanetFirst() != null) {
 
@@ -103,9 +103,9 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                         } else {
                             try {
+
                                 execute(new InlineKeyboardToDistance().sendMessage(update.getMessage().getChatId()));
                             } catch (TelegramApiException e) {
-                                log.error("Show form with planet distance " + e.getMessage());
                                 e.printStackTrace();
                             }
                         }
@@ -139,18 +139,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                 BotsServiceImpl botsService = new BotsServiceImpl("/info " + call_data.substring("*Planet_name_is:*".length()));
 
 
-                SendMessage message = new SendMessage()
+                SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chat_id)
                         .setText(botsService.getInfo(botsService.getPlanetFirst()));
 
                 try {
-                    execute(message);
+                    execute(message); // Sending our message object to user
                 } catch (TelegramApiException e) {
-                    log.error("Show info about planet " + e.getMessage());
+                    e.printStackTrace();
                 }
             } else if (call_data.startsWith("*Planet_firts_name_is:*")) {
 
                 BotsServiceImpl botsService = new BotsServiceImpl("/distance " + call_data.substring("*Planet_firts_name_is:*".length()));
+                //botsService.getPlanetToDistance().add(call_data.substring("*Planet_firts_name_is:*".length()));
                 User user = update.getCallbackQuery().getFrom();
 
                 Integer userId = user.getId();
@@ -181,11 +182,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
                     SendMessage message = new SendMessage() // Create a message object object
                             .setChatId(chat_id)
-                            .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " AU");
+                            .setText("Distance between " + planetStart + " and " + planetDestination + " in " + localDate.toString() + " is " + distance + " km.");
                     try {
                         execute(message); // Sending our message object to user
                     } catch (TelegramApiException e) {
-                        //log.error("Show distance between planets "+userTel +" " +e.getMessage());
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -193,7 +194,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                                 .setChatId(chat_id)
                                 .setText("Choose one more planet \"/distance\"")); // Sending our message object to user
                     } catch (TelegramApiException e) {
-                        log.error("Show form with planet distance. Choose one more planet " + e.getMessage());
+                        e.printStackTrace();
                     }
                 }
 
@@ -203,51 +204,42 @@ public class TelegramBot extends TelegramLongPollingBot {
                 try {
 
 
-                    inlineKeyboardCalendar.sendMessage(chat_id);
-
-                    new_message.setReplyMarkup(inlineKeyboardCalendar.getInlineKeyboardMarkup());
+                    new_message.setReplyMarkup(CalendarAddButtons.setInlineKeyboad(chat_id));
                     InlineKeyboardMarkup replyMarkup = new_message.getReplyMarkup();
+
                     execute(new_message);
 
                 } catch (TelegramApiException e) {
-                    log.error("Change form with planet to calendar " + e.getMessage());
+                    e.printStackTrace();
                 }
             } else {
-
                 switch (call_data) {
-
-
-
                     case "*monthreduce*":
-                        inlineKeyboardCalendar.setLocalDate(inlineKeyboardCalendar.getLocalDate().minusMonths(1));
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.minusMonths(1);
                         break;
                     case "*monthadd*":
-                        inlineKeyboardCalendar.setLocalDate(inlineKeyboardCalendar.getLocalDate().plusMonths(1));
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.plusMonths(1);
                         break;
                     case "*yearreduce*":
-                        inlineKeyboardCalendar.setLocalDate(inlineKeyboardCalendar.getLocalDate().minusYears(1));
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.minusYears(1);
                         break;
                     case "*yearadd*":
-                        inlineKeyboardCalendar.setLocalDate(inlineKeyboardCalendar.getLocalDate().plusYears(1));
+                        CalendarAddButtons.localDate = CalendarAddButtons.localDate.plusYears(1);
                         break;
                     case "*do not answer*":
                         break;
                 }
 
-
                 try {
 
 
-                    inlineKeyboardCalendar.sendMessage(chat_id);
-
-                    new_message.setReplyMarkup(inlineKeyboardCalendar.getInlineKeyboardMarkup());
-
+                    new_message.setReplyMarkup(CalendarAddButtons.setInlineKeyboad(chat_id));
                     InlineKeyboardMarkup replyMarkup = new_message.getReplyMarkup();
 
                     execute(new_message);
 
                 } catch (TelegramApiException e) {
-                    log.error("Change calendar " + e.getMessage());
+                    e.printStackTrace();
                 }
 
             }
@@ -267,7 +259,7 @@ public class TelegramBot extends TelegramLongPollingBot {
             execute(sendMessage);
             // Call method to send the message
         } catch (TelegramApiException e) {
-            log.error("Show message " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

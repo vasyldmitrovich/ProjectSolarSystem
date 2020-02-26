@@ -1,7 +1,7 @@
 package org.solarsystem.web.dao.entity;
 
 import java.util.Objects;
-
+/*Describe user*/
 public class User {
     private long id;
     private String email;
@@ -70,6 +70,7 @@ public class User {
                 Objects.equals(password, user.password) &&
                 Objects.equals(name, user.name);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name, email, password);
