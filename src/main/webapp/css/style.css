@@ -232,7 +232,7 @@ body {
     /*Закінчення стилю таблиці additional*/
 
 /*  початок admin*/
-.admin{
+.custab{
     border: 1px solid #ccc;
     padding: 5px;
     /*margin: 5% 0;*/
@@ -242,12 +242,12 @@ body {
     margin-right: auto;
     width: 70%;
 }
-.admin:hover{
+.custab:hover{
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
 }
 
-.admin th {
+.custab th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
