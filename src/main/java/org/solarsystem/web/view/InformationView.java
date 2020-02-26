@@ -33,16 +33,7 @@ public class InformationView {
         /*This is add only solar system menu*/
         stringBuilder.append("    <div id=\"solarSystemMenu\" class=\"container-fluid tab-pane active text-white " +
                 "bg-dark \"><br>\n" +
-                "        <h3>Solar system</h3>\n" +
-                "        <div class=\"row\">\n" +
-                "            <div class=\"col-sm-4\">\n" +
-                "                <img src=\"/images/resources/solarSystem.jpg\"  class=\"float-left\" width=\"500\" " +
-                "height=\"auto\"/>\n" +
-                "            </div>\n" +
-                "            <div class=\"col-sm-8\" >\n" +
-                "                <p>The solar system is you and me :-)</p>\n" +
-                "            </div>\n" +
-                "        </div>\n" +
+                "<img id=\"imageAdditional\" src=\"/images/resources/infographic01.jpg\">"+
                 "    </div>");
         /*Form list images from DB*/
         for (Planet p : planets

@@ -1,13 +1,15 @@
 package org.solarsystem.web.view;
 
-import java.time.LocalDate;
 import java.util.List;
-
+/*This is view /DateMinInterval */
 public class DateMinIntervalView {
 
     public String getDateMinInterval(List<String> planetNames, String theBestDay, String distance){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
+
+        /*If have data from method doPost theBestDay will be not null
+        * else message will be empty */
         if (theBestDay !=null){
             message = "<p><font color=\"white\">Date of closest approach "+theBestDay+"</p>"+
             "<p>Shortest distance will be: "+distance+" Astronomical unit</font></p>";

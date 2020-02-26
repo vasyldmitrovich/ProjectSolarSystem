@@ -3,7 +3,7 @@ package org.solarsystem.web.view;
 import org.solarsystem.web.dao.entity.Planet;
 
 import java.util.List;
-
+/*That class, building admin page*/
 public class AdminView {
     public String getFullPage(List<Planet> planetNames, String loginEmail, String loginPassword){
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
@@ -17,7 +17,7 @@ public class AdminView {
                 "    <th>Id</th><th>Name</th><th>OrbitalPeriod</th><th>Diameter</th><th>Gravity</th>" +
                 "<th>IsSatellites</th><th>ShortDescription</th><th>FullDescription</th><th>LanguageId</th><th>Images</th>\n" +
                 "</tr>");
-
+            /*Add in table each planet*/
         for (Planet p : planetNames
              ) {
             StringBuilder stringBuilderImages = new StringBuilder();
@@ -44,7 +44,6 @@ public class AdminView {
                     "<td><a href='/deletePlanetAdm?id="+p.getId()+"&loginEmail="+loginEmail+
                     "&loginPassword="+loginPassword+"'>DELETE</a></td>"+
                     "</tr>");
-
         }
         stringBuilder.append("</table>");
         String fullPage = stringBuilder.toString();
