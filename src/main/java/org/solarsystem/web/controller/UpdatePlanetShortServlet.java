@@ -1,7 +1,7 @@
 package org.solarsystem.web.controller;
 
 import org.solarsystem.web.dao.entity.Planet;
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+import org.solarsystem.web.dao.repository.PlanetRepository;
 import org.solarsystem.web.view.UpdatePlanetShortView;
 
 import javax.servlet.ServletException;
@@ -23,10 +23,10 @@ public class UpdatePlanetShortServlet extends HttpServlet {
         String sid = request.getParameter("idPlanet");
         int id = Integer.parseInt(sid);
 
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        Planet planet = planetDaoImp.getPlanetById(id);
+        PlanetRepository planetRepository = new PlanetRepository();
+        Planet planet = planetRepository.getPlanetById(id);
         planet.setShortDescription(shortDesc);
-        planetDaoImp.updatePlanet(planet);
+        planetRepository.updatePlanet(planet);
 
         PrintWriter out = response.getWriter();
         out.println("Planet added to DB");
@@ -41,8 +41,8 @@ public class UpdatePlanetShortServlet extends HttpServlet {
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
 
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        Planet planet = planetDaoImp.getPlanetById(id);
+        PlanetRepository planetRepository = new PlanetRepository();
+        Planet planet = planetRepository.getPlanetById(id);
 
         PrintWriter out = response.getWriter();
         UpdatePlanetShortView updatePlanetShortView = new UpdatePlanetShortView();

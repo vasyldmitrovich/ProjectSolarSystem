@@ -1,0 +1,2 @@
+2020-02-26 19:41:20 INFO  DBConnection:23 - Connection is successfully
+2020-02-26 20:26:41 INFO  PlanetDaoImp:70 - Start get planet by id from DB

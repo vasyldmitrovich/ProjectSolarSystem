@@ -1,6 +1,6 @@
 package org.solarsystem.telegrambot;
 
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+import org.solarsystem.web.dao.repository.PlanetRepository;
 import org.solarsystem.web.service.NasaJson;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

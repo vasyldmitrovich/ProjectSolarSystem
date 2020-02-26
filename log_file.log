@@ -1,5 +1,0 @@
-2020-02-26 14:53:57 INFO  DBConnection:21 - Connection is successfully
-2020-02-26 14:56:17 INFO  DBConnection:21 - Connection is successfully
-2020-02-26 14:58:47 INFO  DBConnection:21 - Connection is successfully
-2020-02-26 15:01:22 INFO  DBConnection:21 - Connection is successfully
-2020-02-26 15:01:23 INFO  PlanetDaoImp:104 - Can not get planet by id: java.sql.SQLSyntaxErrorException: Table 'solar_system.planets' doesn't exist

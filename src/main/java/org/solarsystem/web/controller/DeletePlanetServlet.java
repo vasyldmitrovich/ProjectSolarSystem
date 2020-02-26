@@ -1,6 +1,6 @@
 package org.solarsystem.web.controller;
 
-import org.solarsystem.web.dao.repository.PlanetDaoImp;
+import org.solarsystem.web.dao.repository.PlanetRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +24,8 @@ public class DeletePlanetServlet extends HttpServlet {
         String sid = request.getParameter("id");
         int id = Integer.parseInt(sid);
 
-        PlanetDaoImp planetDaoImp = new PlanetDaoImp();
-        planetDaoImp.removePlanet(id);
+        PlanetRepository planetRepository = new PlanetRepository();
+        planetRepository.removePlanet(id);
 
         PrintWriter out = response.getWriter();
         response.sendRedirect("/admin?loginEmail="+userLogin+"&loginPassword="+userPassword);
