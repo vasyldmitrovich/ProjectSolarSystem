@@ -233,6 +233,7 @@ body {
     /*Закінчення стилю таблиці additional*/
 
 /*  початок admin*/
+
 .custab{
     border: 1px solid #ccc;
     padding: 5px;
@@ -243,6 +244,7 @@ body {
     margin-right: auto;
     width: 70%;
 }
+
 .custab:hover{
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
@@ -255,4 +257,8 @@ body {
     background-color: rgba(49, 43, 95, 0.95);
     color: #fbfdff;
 }
+.text-white {
+     color: #ffffff;
+
+ }
 /* закінчення admin*/

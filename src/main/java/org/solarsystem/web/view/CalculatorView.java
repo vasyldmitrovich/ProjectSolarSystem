@@ -20,7 +20,7 @@ public class CalculatorView {
             listPlanet.append("<option value=\""+s+"\">"+s+"</option>\n");
         }
          String page = "<div class=\"container-fluid bg-dark\" id=\"calculator\">\n" +
-                    "        <a class=\"nav-link\" data-toggle=\"tab\" href=\"#CalculatorMenu\">Calculator</a>\n" +
+                    "        <a class=\"nav-link \" data-toggle=\"tab\" href=\"#CalculatorMenu\">Calculator</a>\n" +
                     "</div>\n" +
                     "\n" +
                     "<div id=\"CalculatorMenu\" class=\"container-fluid tab-pane fade text-white bg-dark\"><br>\n" +
