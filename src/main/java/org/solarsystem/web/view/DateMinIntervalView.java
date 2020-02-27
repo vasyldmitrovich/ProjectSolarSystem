@@ -21,7 +21,7 @@ public class DateMinIntervalView {
             listPlanet.append("<option value=\""+s+"\">"+s+"</option>\n");
         }
         String page = "  <form id=\"dmi\" method=\"post\" action=\"/DateMinInterval\">\n" +
-                "    <div class=\"form-row align-items-center\">\n" +
+                "    <div class=\"form-row align-items-center text-white\">\n" +
                 "      <div class=\"col-auto my-1\">\n" +
                 "        <label class=\"mr-sm-2 sr-only\" for=\"inlineFormCustomSelect\">From this planet</label>\n" +
                 "        <select class=\"custom-select mr-sm-2\" id=\"inlineFormCustomSelect\" name=\"FromPlanet\" required>\n" +
