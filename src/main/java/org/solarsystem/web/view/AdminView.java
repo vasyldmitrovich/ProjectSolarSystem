@@ -9,8 +9,7 @@ public class AdminView {
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<h2 class=\"text-white\">We have planets:</h2>");
-        stringBuilder.append("<a href='/admin?loginEmail="+loginEmail+"&loginPassword="+loginPassword+
-                "'>Add New Employee</a>");
+        stringBuilder.append("<a href='#'> Add New planet</a>");
         stringBuilder.append("<h1 class=\"text-white\" >Planets List</h1>");
         stringBuilder.append("<table border='1' width='100%' class=\"tableAdminInfo text-white\"");
         stringBuilder.append("<tr>\n" +
