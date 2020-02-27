@@ -11,4 +11,4 @@ Local - on the right-side Deployment - plus - Artifact - ProjectSolarSystem_war
 Application context set "/"
 - 8 Add folders css and js (with bootstrap and jquery) 
 click click - External Source and add folders css fonts and js
-- 9 Otherwise ...
+- 9 Find aliens
