@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +31,6 @@ public class NasaJson implements DistanceCalculator{
 
     public static void main(String[] args) throws IOException {
 
-        LocalDate date = LocalDate.parse("2020-02-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("distance" + new NasaJson().calculateDistance("sun", "nix", date));
-
     }
 
     public  void myGETRequest() throws IOException {
@@ -51,6 +47,8 @@ public class NasaJson implements DistanceCalculator{
             while ((readLine = in .readLine()) != null) {
                 response.append(readLine);
             } in .close();
+
+            //reading response in json format and deserializing using jackson
             String json = response.toString();
             ObjectMapper mapper = new ObjectMapper();
             ResultResponse resultResponse= mapper.readValue(json, ResultResponse.class);
@@ -64,6 +62,8 @@ public class NasaJson implements DistanceCalculator{
     }
 
     public  void myPOSTRequest(String originPlanet, String destinationPlanet, String date) throws IOException {
+
+        //sending form with data to NASA to get a response back
         final String POST_PARAMS = "{\n" +
                 "  \"kernels\": [\n" +
                 "    {\n" +
@@ -85,7 +85,7 @@ public class NasaJson implements DistanceCalculator{
                 "  \"aberrationCorrection\": \"NONE\",\n" +
                 "  \"stateRepresentation\": \"RECTANGULAR\"\n" +
                 "}";
-       // System.out.println(POST_PARAMS);
+
         URL obj = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/new");
         HttpURLConnection postConnection = (HttpURLConnection) obj.openConnection();
         postConnection.setRequestMethod("POST");
@@ -97,8 +97,7 @@ public class NasaJson implements DistanceCalculator{
         os.flush();
         os.close();
         int responseCode = postConnection.getResponseCode();
-        //System.out.println("POST Response Code :  " + responseCode);
-        //System.out.println("POST Response Message : " + postConnection.getResponseMessage());
+
         if (responseCode == HttpURLConnection.HTTP_CREATED) { //success
             BufferedReader in = new BufferedReader(new InputStreamReader(postConnection.getInputStream()));
             String inputLine;
@@ -110,13 +109,12 @@ public class NasaJson implements DistanceCalculator{
             // print result
 
         } else {
-
-           // System.out.println("POST NOT WORKED");
+            //reading json response to get response id for using in the GET method
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     postConnection.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
-            //System.out.println(response.toString());
+
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
@@ -124,14 +122,11 @@ public class NasaJson implements DistanceCalculator{
             // print result
             String jackson = response.toString();
             JsonResponseResultID jsonResponseResultID = new ObjectMapper().readerFor(JsonResponseResultID.class).readValue(jackson);
-            //System.out.println(jsonResponseResultID.getCalculationId());
             calcId = jsonResponseResultID.getCalculationId();
-
-
         }
     }
 
-    //return distance between planet in km
+    //return distance between planet in au
     @Override
     public double calculateDistance(String originPlanet, String destinationPlanet, LocalDate date) {
         if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))){
@@ -150,6 +145,7 @@ public class NasaJson implements DistanceCalculator{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //convert distance from km to au
         distance = distance/149598000;
         return distance;
     }

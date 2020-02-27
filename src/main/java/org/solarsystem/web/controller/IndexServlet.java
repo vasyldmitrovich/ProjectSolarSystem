@@ -32,7 +32,7 @@ public class IndexServlet extends HttpServlet {
         try {
             botsApi.registerBot(new TelegramBot());
         } catch (TelegramApiException e) {
-            log.info("Telegram bot do not running"+e);
+            log.info("Telegram bot is not running"+e);
         }
     }
 

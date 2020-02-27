@@ -9,6 +9,12 @@ public class Columns {
     public Columns() {
     }
 
+    //{
+    //      "name": "Distance (km)",
+    //      "type": "NUMBER",
+    //      "outputID": "DISTANCE",
+    //      "units": "km"
+    //    },
     public Columns(String name, String type, String outputID, String units) {
         this.name = name;
         this.type = type;

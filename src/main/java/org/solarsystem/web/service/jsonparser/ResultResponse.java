@@ -13,6 +13,74 @@ public class ResultResponse {
     public ResultResponse() {
     }
 
+    //{
+    //  "status": "OK",
+    //  "message": "The request was successful.",
+    //  "calculationId": "2312e51f-1593-4e72-834b-86e4fb3beca5",
+    //  "columns": [
+    //    {
+    //      "name": "UTC calendar date",
+    //      "type": "DATE",
+    //      "units": "",
+    //      "outputID": "DATE"
+    //    },
+    //    {
+    //      "name": "Longitude (deg)",
+    //      "type": "NUMBER",
+    //      "units": "deg",
+    //      "outputID": "LONGITUDE"
+    //    },
+    //    {
+    //      "name": "Latitude (deg)",
+    //      "type": "NUMBER",
+    //      "units": "deg",
+    //      "outputID": "LATITUDE"
+    //    },
+    //    {
+    //      "name": "Altitude (km)",
+    //      "type": "NUMBER",
+    //      "units": "km",
+    //      "outputID": "ALTITUDE"
+    //    },
+    //    {
+    //      "name": "d Longitude/dt (deg/s)",
+    //      "type": "NUMBER",
+    //      "units": "deg/s",
+    //      "outputID": "D_LONGITUDE_DT"
+    //    },
+    //    {
+    //      "name": "d Latitude/dt (deg/s)",
+    //      "type": "NUMBER",
+    //      "units": "deg/s",
+    //      "outputID": "D_LATITUDE_DT"
+    //    },
+    //    {
+    //      "name": "d Altitude/dt (km/s)",
+    //      "type": "NUMBER",
+    //      "units": "km/s",
+    //      "outputID": "D_ALTITUDE_DT"
+    //    },
+    //    {
+    //      "name": "Speed (km/s)",
+    //      "type": "NUMBER",
+    //      "units": "km/s",
+    //      "outputID": "SPEED"
+    //    },
+    //    {
+    //      "name": "Time at Target",
+    //      "type": "DATE",
+    //      "units": "",
+    //      "outputID": "TIME_AT_TARGET"
+    //    },
+    //    {
+    //      "name": "Light Time (s)",
+    //      "type": "NUMBER",
+    //      "units": "s",
+    //      "outputID": "LIGHT_TIME"
+    //    }
+    //  ],
+    //  "rows": [this is where received data goes
+
     public ResultResponse(String status, String message, String calculationId, List<Columns> columns, String[][] rows) {
         this.status = status;
         this.message = message;

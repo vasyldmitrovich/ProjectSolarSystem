@@ -4,6 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class JsonResponseResultID {
 
+    // example of returned json response
+    //{
+    //  "status": "OK",
+    //  "message": "The request was successful.",
+    //  "calculationId": "some returned calculationID",
+    //  "result": {
+    //    "phase": "LOADING_KERNELS"
+    //  }
+
     private String status = null;
     private String message= null;
     private String calculationId = null;

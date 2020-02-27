@@ -39,6 +39,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
 
 
     public void myGETRequestInterval() throws IOException {
+
         URL urlForGetRequest = new URL("https://wgc2.jpl.nasa.gov:8443/webgeocalc/api/calculation/" + calcId + "/results");
         String readLine = null;
         HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
@@ -143,7 +144,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
         }
     }
 
-    //return distance between planet in km
+    //return distance between planet in au
     @Override
     public double calculateIntervalDistance(String originPlanet, String destinationPlanet, LocalDate dateStart, LocalDate dateFinish) {
         if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))) {
@@ -191,8 +192,6 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return dateMinInterval;
     }
 
@@ -204,7 +203,6 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
         return planetNames.stream().map(Enum::toString).map(String::toLowerCase).collect(Collectors.toList());
 
     }
-
     //check planatname with list of available planetname
     public boolean isPlanetToCalc(String planetName) {
         return getAvailablePlanet().contains(planetName.toLowerCase());
