@@ -8,11 +8,11 @@ public class DateMinIntervalView {
         IndexSingleton indexSingleton = IndexSingleton.getInstance();
         String message = "";
 
-        /*If have data from method doPost theBestDay will be not null
+        /*If there's data from method doPost theBestDay will not be null
         * else message will be empty */
         if (theBestDay !=null){
-            message = "<p><font color=\"white\">Date of closest approach "+theBestDay+"</p>"+
-            "<p>Shortest distance will be: "+distance+" Astronomical unit</font></p>";
+            message = "<p><font color=\"white\">Date of closest approach: "+theBestDay+"</p>"+
+            "<p>Shortest distance will be: "+distance+" Astronomical units</font></p>";
         }
 
         StringBuilder listPlanet = new StringBuilder();

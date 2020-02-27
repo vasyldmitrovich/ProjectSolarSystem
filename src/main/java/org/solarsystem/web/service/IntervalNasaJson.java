@@ -21,16 +21,7 @@ import java.util.stream.Collectors;
 public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMinDateCalulator {
 
     private static String calcId = null;
-    private static Object GetAndPost;
     private String dateMinInterval;
-
-    public String getDateMinInterval() {
-        return dateMinInterval;
-    }
-
-    public void setDateMinInterval(String dateMinInterval) {
-        this.dateMinInterval = dateMinInterval;
-    }
 
     private double distance;
 
@@ -43,11 +34,6 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
     }
 
     public static void main(String[] args) throws IOException {
-
-        LocalDate dateStart = LocalDate.parse("2034-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDate dateFinish = LocalDate.parse("2037-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("distance: " + new IntervalNasaJson().calculateIntervalDistance("mars", "pluto", dateStart, dateFinish));
-        System.out.println("date: "+ new IntervalNasaJson().calculateDateMinInterval("mars", "pluto", dateStart, dateFinish));
 
     }
 
@@ -67,6 +53,8 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
                 response.append(readLine);
             }
             in.close();
+
+            //reading response in json format and deserializing using jackson
             String json = response.toString();
             ObjectMapper mapper = new ObjectMapper();
             ResultResponse resultResponse = mapper.readValue(json, ResultResponse.class);
@@ -76,11 +64,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
             for (int i = 0; i < rows2.length; i++) {
                 distanceInterval.add(i, Double.valueOf(rows2[i][1]));
             }
-            //System.out.println(rows2.length);
-          //  System.out.println("ArrayList Min Value: " + Collections.min(distanceInterval));
-          //  System.out.println("ArrayList Min Value is at index: "
-          //          + distanceInterval.indexOf(Collections.min(distanceInterval)));
-         //   System.out.println(rows2[distanceInterval.indexOf(Collections.min(distanceInterval))][0]);
+
             distance = Collections.min(distanceInterval);
             dateMinInterval = (rows2[distanceInterval.indexOf(Collections.min(distanceInterval))][0]);
 
@@ -91,6 +75,8 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
 
 
     public void myPOSTRequestInterval(String originPlanet, String destinationPlanet, String dateStart, String dateFinish) throws IOException {
+
+        //sending form with data to NASA to get a response back
         final String POST_PARAMS = "{\n" +
                 "  \"kernels\": [\n" +
                 "    {\n" +
@@ -106,9 +92,6 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
                 "      \"endTime\": \"" + dateFinish + "T00:00:00.000\"\n" +
                 "    }\n" +
                 "  ],\n" +
-                // "  \"times\": [\n" +
-                // "    \""+date+"T08:24:00.000\"\n" +
-                // "  ],\n" +
                 "  \"timeStep\": 1,\n" +
                 "  \"timeStepUnits\": \"DAYS\",\n" +
                 "  \"calculationType\": \"STATE_VECTOR\",\n" +
@@ -143,7 +126,7 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
 
         } else {
 
-            // System.out.println("POST NOT WORKED");
+            //reading json response to get response id for using in the GET method
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     postConnection.getInputStream()));
             String inputLine;
@@ -183,15 +166,14 @@ public class IntervalNasaJson implements IntervalDistanceCalculator, IntervalMin
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //converting distance to AU units
         distance = distance/149598000;
         return distance;
 
     }
     @Override
     public String calculateDateMinInterval(String originPlanet, String destinationPlanet, LocalDate dateStart, LocalDate dateFinish) {
-        //if (!isPlanetToCalc(originPlanet) || (!isPlanetToCalc(destinationPlanet))) {
-         //   return -1.0;
-      //  }
+
         String strDate = dateStart.getYear() + "-" + ((dateStart.getMonthValue() < 10) ? "0" + dateStart.getMonthValue() : dateStart.getMonthValue()) + "-"
                 + ((dateStart.getDayOfMonth() < 10) ? "0" + dateStart.getDayOfMonth() : dateStart.getDayOfMonth());
         ;

@@ -24,7 +24,7 @@ class IntervalNasaJsonTest {
         System.out.println("This executes before any test cases. Count = " + count++);
     }
 
-  
+
     @Test
     void calculateIntervalDistance() {
 
