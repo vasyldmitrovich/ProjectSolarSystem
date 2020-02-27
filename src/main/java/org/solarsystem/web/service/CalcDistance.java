@@ -23,11 +23,5 @@ public class CalcDistance {
         double z2 = finish.getZhelio();
         return Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2)+Math.pow(z1-z2,2));
     }
-
-    // for example
-    public static void main(String[] args) {
-        double distance = getDistance("Earth", "Jupiter", "2047-07-08");
-        System.out.println(distance);
-    }
 }
 

@@ -1,5 +1,6 @@
 package org.solarsystem.web.controller;
 
+import org.apache.log4j.Logger;
 import org.solarsystem.telegrambot.TelegramBot;
 import org.solarsystem.web.view.InfoSingleton;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -17,6 +18,8 @@ import java.io.PrintWriter;
 @WebServlet(name = "ServletIndex", urlPatterns = {"/"}, loadOnStartup = 1)
 public class IndexServlet extends HttpServlet {
 
+    public static final Logger log = Logger.getLogger(UpdatePlanetShortServlet.class);
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -24,13 +27,13 @@ public class IndexServlet extends HttpServlet {
         InfoSingleton infoSingleton = InfoSingleton.getInstance();
         infoSingleton.setPatch(patch);
 
-        /*ApiContextInitializer.init();
+        ApiContextInitializer.init();
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
             botsApi.registerBot(new TelegramBot());
         } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }*/
+            log.info("Telegram bot do not running"+e);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
