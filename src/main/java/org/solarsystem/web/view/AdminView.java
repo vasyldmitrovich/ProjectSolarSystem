@@ -43,6 +43,8 @@ public class AdminView {
                     "&loginPassword="+loginPassword+"'>EDIT FULL</a></td>"+
                     "<td><a href='/deletePlanetAdm?id="+p.getId()+"&loginEmail="+loginEmail+
                     "&loginPassword="+loginPassword+"'>DELETE</a></td>"+
+                    "<td><a href='/uploadImageServlet?id="+p.getId()+"&loginEmail="+loginEmail+
+                    "&loginPassword="+loginPassword+"'>ADD IMAGE</a></td>"+
                     "</tr>");
         }
         stringBuilder.append("</table>");
